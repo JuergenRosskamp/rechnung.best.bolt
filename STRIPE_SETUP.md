@@ -8,20 +8,20 @@ Diese Anleitung beschreibt, wie Sie Stripe in rechnung.best integrieren, um Abon
 
 rechnung.best bietet drei Preispläne:
 
-### 1. basic_kasse - 9,90 €/Monat
+### 1. basic_kasse - 4,90 €/Monat
 - GoBD-konformes Kassenbuch
 - Kassenzählungen
 - Bargeldbuchungen
 - E-Mail Support
 
-### 2. basic_invoice - 14,90 €/Monat
+### 2. basic_invoice - 9,90 €/Monat
 - Unbegrenzte Rechnungen
 - Kundenverwaltung
 - Artikelverwaltung
 - GoBD-konform
 - E-Mail Support
 
-### 3. rechnung.best - 24,90 €/Monat (Empfohlen)
+### 3. rechnung.best - 12,90 €/Monat (Empfohlen)
 - Alle Features inklusive
 - Rechnungen & Kassenbuch
 - Fuhrpark & Lieferungen
@@ -42,19 +42,19 @@ Erstellen Sie in Ihrem Stripe Dashboard unter "Produkte" drei wiederkehrende Pro
 
 **Produkt 1: basic_kasse**
 - Name: basic_kasse
-- Preis: 9,90 € / Monat
+- Preis: 4,90 € / Monat
 - Abrechnungsintervall: Monatlich
 - Notieren Sie die Price ID (z.B. `price_xxx`)
 
 **Produkt 2: basic_invoice**
 - Name: basic_invoice
-- Preis: 14,90 € / Monat
+- Preis: 9,90 € / Monat
 - Abrechnungsintervall: Monatlich
 - Notieren Sie die Price ID (z.B. `price_yyy`)
 
 **Produkt 3: rechnung.best**
 - Name: rechnung.best
-- Preis: 24,90 € / Monat
+- Preis: 12,90 € / Monat
 - Abrechnungsintervall: Monatlich
 - Notieren Sie die Price ID (z.B. `price_zzz`)
 

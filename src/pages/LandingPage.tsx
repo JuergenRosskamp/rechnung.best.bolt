@@ -316,7 +316,7 @@ export default function LandingPage() {
               <h3 className="text-2xl font-bold text-gray-900 mb-2">basic_kasse</h3>
               <p className="text-gray-600 mb-6">Für Kassenbuch</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-gray-900">9,90 €</span>
+                <span className="text-4xl font-bold text-gray-900">4,90 €</span>
                 <span className="text-gray-600">/Monat</span>
               </div>
               <ul className="space-y-3 mb-8">
@@ -350,7 +350,7 @@ export default function LandingPage() {
               <h3 className="text-2xl font-bold text-gray-900 mb-2">basic_invoice</h3>
               <p className="text-gray-600 mb-6">Für Rechnungen</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-gray-900">14,90 €</span>
+                <span className="text-4xl font-bold text-gray-900">9,90 €</span>
                 <span className="text-gray-600">/Monat</span>
               </div>
               <ul className="space-y-3 mb-8">
@@ -391,7 +391,7 @@ export default function LandingPage() {
               <h3 className="text-2xl font-bold text-white mb-2">rechnung.best</h3>
               <p className="text-blue-100 mb-6">Komplett-Lösung</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-white">24,90 €</span>
+                <span className="text-4xl font-bold text-white">12,90 €</span>
                 <span className="text-blue-100">/Monat</span>
               </div>
               <ul className="space-y-3 mb-8">

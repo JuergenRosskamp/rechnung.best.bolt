@@ -478,9 +478,9 @@ export function SettingsPage() {
                           {subscription?.plan_type === 'rechnung.best' ? 'rechnung.best' : subscription?.plan_type}
                         </h3>
                         <p className="text-sm text-blue-700 mb-3">
-                          {subscription?.plan_type === 'basic_kasse' && '9,90 € / Monat'}
-                          {subscription?.plan_type === 'basic_invoice' && '14,90 € / Monat'}
-                          {subscription?.plan_type === 'rechnung.best' && '24,90 € / Monat'}
+                          {subscription?.plan_type === 'basic_kasse' && '4,90 € / Monat'}
+                          {subscription?.plan_type === 'basic_invoice' && '9,90 € / Monat'}
+                          {subscription?.plan_type === 'rechnung.best' && '12,90 € / Monat'}
                         </p>
                         <div className="flex items-center gap-2 text-sm">
                           <span className={`px-2 py-1 rounded text-xs font-medium ${
@@ -589,7 +589,7 @@ export function SettingsPage() {
                     {/* Basic Kasse */}
                     <div className={`border-2 rounded-lg p-4 ${subscription?.plan_type === 'basic_kasse' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
                       <h4 className="font-semibold text-gray-900 mb-1">basic_kasse</h4>
-                      <p className="text-2xl font-bold text-gray-900 mb-2">9,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
+                      <p className="text-2xl font-bold text-gray-900 mb-2">4,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
                       <p className="text-xs text-gray-600 mb-3">Für Kassenbuch</p>
                       {subscription?.plan_type !== 'basic_kasse' && (
                         <button className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
@@ -604,7 +604,7 @@ export function SettingsPage() {
                     {/* Basic Invoice */}
                     <div className={`border-2 rounded-lg p-4 ${subscription?.plan_type === 'basic_invoice' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
                       <h4 className="font-semibold text-gray-900 mb-1">basic_invoice</h4>
-                      <p className="text-2xl font-bold text-gray-900 mb-2">14,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
+                      <p className="text-2xl font-bold text-gray-900 mb-2">9,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
                       <p className="text-xs text-gray-600 mb-3">Für Rechnungen</p>
                       {subscription?.plan_type !== 'basic_invoice' && (
                         <button className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
@@ -624,7 +624,7 @@ export function SettingsPage() {
                         </div>
                       )}
                       <h4 className="font-semibold text-gray-900 mb-1">rechnung.best</h4>
-                      <p className="text-2xl font-bold text-gray-900 mb-2">24,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
+                      <p className="text-2xl font-bold text-gray-900 mb-2">12,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
                       <p className="text-xs text-gray-600 mb-3">Komplett-Lösung</p>
                       {subscription?.plan_type !== 'rechnung.best' && (
                         <button className="w-full px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
