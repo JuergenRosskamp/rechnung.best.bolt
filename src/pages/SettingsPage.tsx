@@ -464,24 +464,38 @@ export function SettingsPage() {
               </form>
             )}
 
-            {activeTab === 'subscription' && (
-              <div className="bg-white rounded-lg shadow p-6 space-y-6">
-                <h2 className="text-lg font-medium text-gray-900">Abonnement</h2>
+{activeTab === 'subscription' && (
+              <div className="space-y-6">
+                {/* Current Plan Card */}
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h2 className="text-lg font-medium text-gray-900 mb-6">Aktuelles Abonnement</h2>
 
-                <div className="border-l-4 border-indigo-500 bg-indigo-50 p-4">
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <CreditCard className="h-5 w-5 text-indigo-400" />
-                    </div>
-                    <div className="ml-3">
-                      <h3 className="text-sm font-medium text-indigo-800">
-                        Aktueller Plan: {subscription?.plan_type === 'rechnung.best' ? 'rechnung.best' : subscription?.plan_type}
-                      </h3>
-                      <div className="mt-2 text-sm text-indigo-700">
-                        <p>Status: {subscription?.status === 'trialing' ? 'Testzeitraum' : subscription?.status}</p>
+                  <div className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
+                    <div className="flex items-start">
+                      <CreditCard className="h-6 w-6 text-blue-600 mt-0.5 mr-3" />
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-blue-900 mb-1">
+                          {subscription?.plan_type === 'rechnung.best' ? 'rechnung.best' : subscription?.plan_type}
+                        </h3>
+                        <p className="text-sm text-blue-700 mb-3">
+                          {subscription?.plan_type === 'basic_kasse' && '9,90 € / Monat'}
+                          {subscription?.plan_type === 'basic_invoice' && '14,90 € / Monat'}
+                          {subscription?.plan_type === 'rechnung.best' && '24,90 € / Monat'}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm">
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${
+                            subscription?.status === 'trialing' ? 'bg-green-100 text-green-800' :
+                            subscription?.status === 'active' ? 'bg-blue-100 text-blue-800' :
+                            'bg-gray-100 text-gray-800'
+                          }`}>
+                            {subscription?.status === 'trialing' ? 'Testzeitraum' :
+                             subscription?.status === 'active' ? 'Aktiv' :
+                             subscription?.status}
+                          </span>
+                        </div>
                         {subscription?.trial_ends_at && subscription.status === 'trialing' && (
-                          <p className="mt-1">
-                            Testzeitraum endet: {new Date(subscription.trial_ends_at).toLocaleDateString('de-DE')}
+                          <p className="mt-2 text-sm text-blue-700">
+                            Testzeitraum endet: {new Date(subscription.trial_ends_at).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' })}
                           </p>
                         )}
                       </div>
@@ -489,51 +503,169 @@ export function SettingsPage() {
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <h3 className="text-sm font-medium text-gray-900">Funktionen Ihres Plans:</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-center text-sm text-gray-600">
-                      <span className="text-green-500 mr-2">✓</span>
-                      Unbegrenzte Rechnungen
-                    </li>
-                    <li className="flex items-center text-sm text-gray-600">
-                      <span className="text-green-500 mr-2">✓</span>
-                      Unbegrenzte Kunden
-                    </li>
-                    <li className="flex items-center text-sm text-gray-600">
-                      <span className="text-green-500 mr-2">✓</span>
-                      Fuhrpark-Management
-                    </li>
-                    <li className="flex items-center text-sm text-gray-600">
-                      <span className="text-green-500 mr-2">✓</span>
-                      Lieferschein-Verwaltung
-                    </li>
-                    <li className="flex items-center text-sm text-gray-600">
-                      <span className="text-green-500 mr-2">✓</span>
-                      GoBD-konformes Kassenbuch
-                    </li>
-                    <li className="flex items-center text-sm text-gray-600">
-                      <span className="text-green-500 mr-2">✓</span>
-                      XRechnung & ZUGFeRD Export
-                    </li>
-                    <li className="flex items-center text-sm text-gray-600">
-                      <span className="text-green-500 mr-2">✓</span>
-                      DATEV Integration
-                    </li>
-                    <li className="flex items-center text-sm text-gray-600">
-                      <span className="text-green-500 mr-2">✓</span>
-                      Premium Support
-                    </li>
-                  </ul>
+                {/* Plan Features */}
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h3 className="text-base font-medium text-gray-900 mb-4">Funktionen Ihres Plans</h3>
+                  <div className="grid gap-3">
+                    {subscription?.plan_type === 'basic_kasse' && (
+                      <>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          GoBD-konformes Kassenbuch
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Kassenzählungen
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Bargeldbuchungen
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          E-Mail Support
+                        </div>
+                      </>
+                    )}
+                    {subscription?.plan_type === 'basic_invoice' && (
+                      <>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Unbegrenzte Rechnungen
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Kundenverwaltung
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Artikelverwaltung
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          GoBD-konform
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          E-Mail Support
+                        </div>
+                      </>
+                    )}
+                    {subscription?.plan_type === 'rechnung.best' && (
+                      <>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Alle Features inklusive
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Rechnungen & Kassenbuch
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Fuhrpark & Lieferungen
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Mehrstufige Preise
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          XRechnung & ZUGFeRD Export
+                        </div>
+                        <div className="flex items-center text-sm text-gray-700">
+                          <span className="text-green-500 mr-2 text-lg">✓</span>
+                          Prioritäts-Support
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
 
-                <div className="pt-4 border-t">
-                  <p className="text-sm text-gray-500 mb-4">
-                    Nach Ablauf des Testzeitraums wird Ihr Abonnement automatisch aktiviert.
-                  </p>
-                  <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                    Zahlungsdetails verwalten
-                  </button>
+                {/* Available Plans */}
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h3 className="text-base font-medium text-gray-900 mb-4">Verfügbare Pläne</h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {/* Basic Kasse */}
+                    <div className={`border-2 rounded-lg p-4 ${subscription?.plan_type === 'basic_kasse' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+                      <h4 className="font-semibold text-gray-900 mb-1">basic_kasse</h4>
+                      <p className="text-2xl font-bold text-gray-900 mb-2">9,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
+                      <p className="text-xs text-gray-600 mb-3">Für Kassenbuch</p>
+                      {subscription?.plan_type !== 'basic_kasse' && (
+                        <button className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                          Wechseln
+                        </button>
+                      )}
+                      {subscription?.plan_type === 'basic_kasse' && (
+                        <div className="text-center text-sm font-medium text-blue-600">Aktueller Plan</div>
+                      )}
+                    </div>
+
+                    {/* Basic Invoice */}
+                    <div className={`border-2 rounded-lg p-4 ${subscription?.plan_type === 'basic_invoice' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+                      <h4 className="font-semibold text-gray-900 mb-1">basic_invoice</h4>
+                      <p className="text-2xl font-bold text-gray-900 mb-2">14,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
+                      <p className="text-xs text-gray-600 mb-3">Für Rechnungen</p>
+                      {subscription?.plan_type !== 'basic_invoice' && (
+                        <button className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                          Wechseln
+                        </button>
+                      )}
+                      {subscription?.plan_type === 'basic_invoice' && (
+                        <div className="text-center text-sm font-medium text-blue-600">Aktueller Plan</div>
+                      )}
+                    </div>
+
+                    {/* rechnung.best */}
+                    <div className={`border-2 rounded-lg p-4 relative ${subscription?.plan_type === 'rechnung.best' ? 'border-blue-500 bg-blue-50' : 'border-blue-500'}`}>
+                      {subscription?.plan_type !== 'rechnung.best' && (
+                        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                          Empfohlen
+                        </div>
+                      )}
+                      <h4 className="font-semibold text-gray-900 mb-1">rechnung.best</h4>
+                      <p className="text-2xl font-bold text-gray-900 mb-2">24,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
+                      <p className="text-xs text-gray-600 mb-3">Komplett-Lösung</p>
+                      {subscription?.plan_type !== 'rechnung.best' && (
+                        <button className="w-full px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                          Upgraden
+                        </button>
+                      )}
+                      {subscription?.plan_type === 'rechnung.best' && (
+                        <div className="text-center text-sm font-medium text-blue-600">Aktueller Plan</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Info */}
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h3 className="text-base font-medium text-gray-900 mb-4">Zahlungsinformationen</h3>
+
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-yellow-800">
+                      <strong>Hinweis:</strong> Die Stripe-Integration ist noch nicht vollständig eingerichtet.
+                      Bitte lesen Sie die Datei <code className="bg-yellow-100 px-2 py-0.5 rounded">STRIPE_SETUP.md</code> für Details zur Einrichtung.
+                    </p>
+                  </div>
+
+                  {subscription?.status === 'trialing' && (
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-blue-800">
+                        Nach Ablauf des Testzeitraums wird Ihr Abonnement automatisch aktiviert.
+                        Sie werden rechtzeitig informiert, um Ihre Zahlungsmethode hinzuzufügen.
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="flex gap-3">
+                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                      Zahlungsdetails verwalten
+                    </button>
+                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm text-red-600 hover:bg-red-50">
+                      Abonnement kündigen
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
