@@ -311,10 +311,10 @@ export default function LandingPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Starter */}
+            {/* Basic Kasse */}
             <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
-              <p className="text-gray-600 mb-6">Für Einsteiger</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">basic_kasse</h3>
+              <p className="text-gray-600 mb-6">Für Kassenbuch</p>
               <div className="mb-6">
                 <span className="text-4xl font-bold text-gray-900">9,90 €</span>
                 <span className="text-gray-600">/Monat</span>
@@ -322,11 +322,49 @@ export default function LandingPage() {
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Bis zu 50 Rechnungen/Monat</span>
+                  <span className="text-gray-700">GoBD-konformes Kassenbuch</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-700">Kassenzählungen</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-700">Bargeldbuchungen</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-700">E-Mail Support</span>
+                </li>
+              </ul>
+              <button
+                onClick={handleGetStarted}
+                className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors"
+              >
+                Jetzt starten
+              </button>
+            </div>
+
+            {/* Basic Invoice */}
+            <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-200">
+              <h3 className="text-2xl font-bold text-gray-900 mb-2">basic_invoice</h3>
+              <p className="text-gray-600 mb-6">Für Rechnungen</p>
+              <div className="mb-6">
+                <span className="text-4xl font-bold text-gray-900">14,90 €</span>
+                <span className="text-gray-600">/Monat</span>
+              </div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-700">Unbegrenzte Rechnungen</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                   <span className="text-gray-700">Kundenverwaltung</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-gray-700">Artikelverwaltung</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
@@ -345,29 +383,33 @@ export default function LandingPage() {
               </button>
             </div>
 
-            {/* Professional - Highlighted */}
+            {/* rechnung.best - Highlighted */}
             <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-lg p-8 relative transform md:scale-105">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
                 Beliebteste Wahl
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Professional</h3>
-              <p className="text-blue-100 mb-6">Für Profis</p>
+              <h3 className="text-2xl font-bold text-white mb-2">rechnung.best</h3>
+              <p className="text-blue-100 mb-6">Komplett-Lösung</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-white">19,90 €</span>
+                <span className="text-4xl font-bold text-white">24,90 €</span>
                 <span className="text-blue-100">/Monat</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-white">Unbegrenzte Rechnungen</span>
+                  <span className="text-white">Alle Features inklusive</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-white">Alle Starter Features</span>
+                  <span className="text-white">Rechnungen & Kassenbuch</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-white">Lieferscheine & Kassenbuch</span>
+                  <span className="text-white">Fuhrpark & Lieferungen</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-white">Mehrstufige Preise</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-400 flex-shrink-0 mt-0.5" />
@@ -377,40 +419,6 @@ export default function LandingPage() {
               <button
                 onClick={handleGetStarted}
                 className="w-full bg-white text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition-colors font-semibold"
-              >
-                Jetzt starten
-              </button>
-            </div>
-
-            {/* Enterprise */}
-            <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
-              <p className="text-gray-600 mb-6">Für Teams</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-gray-900">49,90 €</span>
-                <span className="text-gray-600">/Monat</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Alle Professional Features</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Multi-User (bis 5 Nutzer)</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">API-Zugang</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Premium Support</span>
-                </li>
-              </ul>
-              <button
-                onClick={handleGetStarted}
-                className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors"
               >
                 Jetzt starten
               </button>
