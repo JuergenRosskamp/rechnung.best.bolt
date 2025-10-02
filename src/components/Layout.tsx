@@ -103,12 +103,12 @@ export function Layout({ children }: LayoutProps) {
         <div className="flex flex-col h-full">
           {/* Mobile Header */}
           <div className="flex items-center justify-between h-16 px-6 border-b border-secondary-200">
-            <div className="flex items-center gap-3">
+            <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <div className="w-8 h-8 rounded-xl bg-gradient-primary flex items-center justify-center">
                 <Building2 className="w-5 h-5 text-white" />
               </div>
               <span className="text-lg font-bold text-secondary-900">rechnung.best</span>
-            </div>
+            </a>
             <button
               onClick={() => setSidebarOpen(false)}
               className="p-2 rounded-xl hover:bg-secondary-100 transition-colors"
@@ -177,16 +177,18 @@ export function Layout({ children }: LayoutProps) {
         <div className="flex flex-col h-full bg-white border-r border-secondary-200">
           {/* Desktop Header */}
           <div className="flex items-center gap-3 h-16 px-6 border-b border-secondary-200">
-            {logoUrl ? (
-              <img src={logoUrl} alt="Logo" className="h-8 object-contain" />
-            ) : (
-              <>
-                <div className="w-8 h-8 rounded-xl bg-gradient-primary flex items-center justify-center">
-                  <Building2 className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-lg font-bold text-secondary-900">rechnung.best</span>
-              </>
-            )}
+            <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+              {logoUrl ? (
+                <img src={logoUrl} alt="Logo" className="h-8 object-contain" />
+              ) : (
+                <>
+                  <div className="w-8 h-8 rounded-xl bg-gradient-primary flex items-center justify-center">
+                    <Building2 className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-lg font-bold text-secondary-900">rechnung.best</span>
+                </>
+              )}
+            </a>
           </div>
 
           {/* Tenant Info */}
@@ -253,12 +255,12 @@ export function Layout({ children }: LayoutProps) {
           >
             <Menu className="w-6 h-6 text-secondary-700" />
           </button>
-          <div className="flex items-center gap-3">
+          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="w-8 h-8 rounded-xl bg-gradient-primary flex items-center justify-center">
               <Building2 className="w-5 h-5 text-white" />
             </div>
             <span className="text-lg font-bold text-secondary-900">rechnung.best</span>
-          </div>
+          </a>
         </header>
 
         {/* Page content */}
