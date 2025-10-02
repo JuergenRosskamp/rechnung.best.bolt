@@ -25,8 +25,10 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   const [error, setError] = useState<string>('');
   const [uploadedFileName, setUploadedFileName] = useState<string>('');
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
+  const dropZoneRef = useRef<HTMLDivElement>(null);
   const { user } = useAuthStore();
 
   const processFile = async (file: File) => {
@@ -116,6 +118,35 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
     }
   };
 
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      const file = files[0];
+      if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+        processFile(file);
+      } else {
+        setError('Nur Bilder (JPG, PNG) und PDF-Dateien werden unterstützt');
+        setUploadStatus('error');
+      }
+    }
+  };
+
   const handleClear = () => {
     setUploadStatus('idle');
     setError('');
@@ -147,25 +178,33 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
 
       {uploadStatus === 'idle' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <button
-            type="button"
+          <div
+            ref={dropZoneRef}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
-            className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+            className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-lg transition-colors cursor-pointer ${
+              isDragging
+                ? 'border-blue-500 bg-blue-100'
+                : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'
+            }`}
           >
             <Upload className="h-8 w-8 text-gray-400 mb-2" />
-            <span className="text-sm font-medium text-gray-700">Datei hochladen</span>
+            <span className="text-sm font-medium text-gray-700">
+              {isDragging ? 'Datei hier ablegen' : 'Datei hochladen oder hierher ziehen'}
+            </span>
             <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG</span>
-          </button>
+          </div>
 
-          <button
-            type="button"
+          <div
             onClick={() => cameraInputRef.current?.click()}
-            className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors md:hidden"
+            className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors md:hidden cursor-pointer"
           >
             <Camera className="h-8 w-8 text-gray-400 mb-2" />
             <span className="text-sm font-medium text-gray-700">Mit Kamera scannen</span>
             <span className="text-xs text-gray-500 mt-1">Foto aufnehmen</span>
-          </button>
+          </div>
 
           <input
             ref={fileInputRef}
