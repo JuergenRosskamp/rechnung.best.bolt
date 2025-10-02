@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAuthStore } from './store/authStore';
 import { authService } from './lib/auth';
+import LandingPage from './pages/LandingPage';
+import ImpressumPage from './pages/ImpressumPage';
+import DatenschutzPage from './pages/DatenschutzPage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { DashboardPage } from './pages/DashboardPage';
@@ -21,11 +24,11 @@ import { InvoiceDetailPage } from './pages/InvoiceDetailPage';
 import DeliveryLocationsPage from './pages/DeliveryLocationsPage';
 import { InvoiceLayoutPage } from './pages/InvoiceLayoutPage';
 
-type Page = 'login' | 'register' | 'dashboard' | 'customers' | 'customer_form' | 'invoices' | 'invoice_detail' | 'invoice_form' | 'articles' | 'article_form' | 'vehicles' | 'vehicle_form' | 'deliveries' | 'delivery_locations' | 'cashbook' | 'cashbook_entry' | 'cash_count' | 'settings' | 'invoice_layout';
+type Page = 'landing' | 'impressum' | 'datenschutz' | 'login' | 'register' | 'dashboard' | 'customers' | 'customer_form' | 'invoices' | 'invoice_detail' | 'invoice_form' | 'articles' | 'article_form' | 'vehicles' | 'vehicle_form' | 'deliveries' | 'delivery_locations' | 'cashbook' | 'cashbook_entry' | 'cash_count' | 'settings' | 'invoice_layout';
 
 function App() {
   const { isAuthenticated, setUser, setTenant, setSubscription, setLoading, isLoading } = useAuthStore();
-  const [currentPage, setCurrentPage] = useState<Page>('login');
+  const [currentPage, setCurrentPage] = useState<Page>('landing');
 
   useEffect(() => {
     const initAuth = async () => {
@@ -80,8 +83,14 @@ function App() {
           const path = window.location.pathname;
           if (path.includes('/register')) {
             setCurrentPage('register');
-          } else {
+          } else if (path.includes('/login')) {
             setCurrentPage('login');
+          } else if (path.includes('/impressum')) {
+            setCurrentPage('impressum');
+          } else if (path.includes('/datenschutz')) {
+            setCurrentPage('datenschutz');
+          } else {
+            setCurrentPage('landing');
           }
         }
       } catch (error) {
@@ -111,7 +120,16 @@ function App() {
     if (currentPage === 'register') {
       return <RegisterPage />;
     }
-    return <LoginPage />;
+    if (currentPage === 'login') {
+      return <LoginPage />;
+    }
+    if (currentPage === 'impressum') {
+      return <ImpressumPage />;
+    }
+    if (currentPage === 'datenschutz') {
+      return <DatenschutzPage />;
+    }
+    return <LandingPage />;
   }
 
   // Protected routes
