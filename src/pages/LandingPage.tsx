@@ -125,7 +125,7 @@ export default function LandingPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <FileText className="h-8 w-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">InvoicePro</span>
+              <span className="ml-2 text-xl font-bold text-gray-900">rechnung.best</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -489,7 +489,7 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center mb-4">
                 <FileText className="h-6 w-6 text-blue-400" />
-                <span className="ml-2 text-lg font-bold text-white">InvoicePro</span>
+                <span className="ml-2 text-lg font-bold text-white">rechnung.best</span>
               </div>
               <p className="text-sm text-gray-400">
                 Professionelle Rechnungssoftware für Selbstständige und Unternehmen.
@@ -519,11 +519,11 @@ export default function LandingPage() {
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  <span>support@invoicepro.de</span>
+                  <span>info@rechnung.best</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4" />
-                  <span>+49 (0) 123 456789</span>
+                  <span>+49 (0) 30 1234567</span>
                 </li>
               </ul>
             </div>
@@ -532,7 +532,7 @@ export default function LandingPage() {
           <div className="border-t border-gray-800 pt-8">
             <div className="text-center text-sm text-gray-400">
               <p className="mb-2">
-                © 2025 InvoicePro. Alle Rechte vorbehalten.
+                © 2025 rechnung.best. Alle Rechte vorbehalten.
               </p>
               <p className="text-xs">
                 Made with ❤️ in Germany • DSGVO-konform • Daten in Deutschland gespeichert
