@@ -8,6 +8,7 @@ import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { getErrorMessage } from '../lib/errors';
 import crypto from 'crypto-js';
+import { ReceiptUpload, ReceiptData } from '../components/ReceiptUpload';
 
 const entrySchema = z.object({
   entry_date: z.string().min(1, 'Datum erforderlich'),
@@ -33,6 +34,7 @@ export function CashbookEntryPage() {
   const [error, setError] = useState<string>('');
   const [categories, setCategories] = useState<Category[]>([]);
   const [currentBalance, setCurrentBalance] = useState(0);
+  const [receiptId, setReceiptId] = useState<string | null>(null);
   const { user } = useAuthStore();
 
   const {
@@ -40,6 +42,7 @@ export function CashbookEntryPage() {
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
   } = useForm<EntryForm>({
     resolver: zodResolver(entrySchema),
     defaultValues: {
@@ -90,6 +93,24 @@ export function CashbookEntryPage() {
     loadCategories();
     loadCurrentBalance();
   }, [loadCategories, loadCurrentBalance]);
+
+  const handleReceiptProcessed = (data: ReceiptData) => {
+    if (data.date) {
+      setValue('entry_date', data.date);
+    }
+    if (data.amount) {
+      setValue('amount', data.amount);
+    }
+    if (data.vatRate !== undefined) {
+      setValue('vat_rate', data.vatRate);
+    }
+    if (data.description) {
+      setValue('description', data.description);
+    }
+    if (data.documentType) {
+      setValue('document_type', data.documentType);
+    }
+  };
 
   const calculateHash = (entryData: any, previousHash: string): string => {
     const dataString = JSON.stringify({
@@ -169,6 +190,7 @@ export function CashbookEntryPage() {
           ...entryData,
           hash,
           hash_timestamp: new Date().toISOString(),
+          receipt_id: receiptId,
         }]);
 
       if (insertError) throw insertError;
@@ -241,6 +263,14 @@ export function CashbookEntryPage() {
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Receipt Upload */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <ReceiptUpload
+              onReceiptProcessed={handleReceiptProcessed}
+              onReceiptIdChange={setReceiptId}
+            />
+          </div>
+
           {/* Entry Type */}
           <div className="bg-white rounded-lg shadow p-6 space-y-6">
             <h2 className="text-lg font-medium text-gray-900">Buchungsdetails</h2>

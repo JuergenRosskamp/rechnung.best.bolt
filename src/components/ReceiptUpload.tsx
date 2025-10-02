@@ -1,0 +1,262 @@
+import { useState, useRef } from 'react';
+import { Upload, Camera, Loader2, CheckCircle, AlertCircle, X } from 'lucide-react';
+import { supabase } from '../lib/supabase';
+import { useAuthStore } from '../store/authStore';
+import { getErrorMessage } from '../lib/errors';
+
+interface ReceiptUploadProps {
+  onReceiptProcessed: (data: ReceiptData) => void;
+  onReceiptIdChange?: (receiptId: string | null) => void;
+}
+
+export interface ReceiptData {
+  date?: string;
+  amount?: number;
+  vatRate?: number;
+  description?: string;
+  category?: string;
+  merchantName?: string;
+  documentType?: 'income' | 'expense';
+}
+
+export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: ReceiptUploadProps) {
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState<'idle' | 'uploading' | 'processing' | 'completed' | 'error'>('idle');
+  const [error, setError] = useState<string>('');
+  const [uploadedFileName, setUploadedFileName] = useState<string>('');
+  const [previewUrl, setPreviewUrl] = useState<string>('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuthStore();
+
+  const processFile = async (file: File) => {
+    if (!user) {
+      setError('Nicht angemeldet');
+      setUploadStatus('error');
+      return;
+    }
+
+    try {
+      setIsProcessing(true);
+      setUploadStatus('uploading');
+      setError('');
+      setUploadedFileName(file.name);
+
+      const preview = URL.createObjectURL(file);
+      setPreviewUrl(preview);
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${user.tenant_id}/${new Date().getFullYear()}/${new Date().getMonth() + 1}/${Date.now()}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('receipts')
+        .upload(fileName, file, { upsert: false });
+
+      if (uploadError) throw uploadError;
+
+      const { data: receiptRecord, error: insertError } = await supabase
+        .from('receipt_uploads')
+        .insert({
+          tenant_id: user.tenant_id,
+          file_name: file.name,
+          file_path: fileName,
+          file_size: file.size,
+          mime_type: file.type,
+          ocr_status: 'processing',
+          created_by: user.id,
+        })
+        .select()
+        .single();
+
+      if (insertError) throw insertError;
+
+      if (onReceiptIdChange) {
+        onReceiptIdChange(receiptRecord.id);
+      }
+
+      setUploadStatus('processing');
+
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/process-receipt-ocr`;
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          receiptId: receiptRecord.id,
+          filePath: fileName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Fehler bei der Beleganerkennung');
+      }
+
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        setUploadStatus('completed');
+        onReceiptProcessed(result.data);
+      } else {
+        throw new Error(result.error || 'Unbekannter Fehler bei der Verarbeitung');
+      }
+    } catch (err: unknown) {
+      setError(getErrorMessage(err) || 'Fehler beim Hochladen des Belegs');
+      setUploadStatus('error');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      processFile(file);
+    }
+  };
+
+  const handleClear = () => {
+    setUploadStatus('idle');
+    setError('');
+    setUploadedFileName('');
+    setPreviewUrl('');
+    if (onReceiptIdChange) {
+      onReceiptIdChange(null);
+    }
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    if (cameraInputRef.current) cameraInputRef.current.value = '';
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <label className="block text-sm font-medium text-gray-700">
+          Beleg hochladen oder scannen
+        </label>
+        {uploadStatus !== 'idle' && uploadStatus !== 'error' && (
+          <button
+            onClick={handleClear}
+            className="text-sm text-gray-500 hover:text-gray-700"
+            disabled={isProcessing}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+
+      {uploadStatus === 'idle' && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors"
+          >
+            <Upload className="h-8 w-8 text-gray-400 mb-2" />
+            <span className="text-sm font-medium text-gray-700">Datei hochladen</span>
+            <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => cameraInputRef.current?.click()}
+            className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors md:hidden"
+          >
+            <Camera className="h-8 w-8 text-gray-400 mb-2" />
+            <span className="text-sm font-medium text-gray-700">Mit Kamera scannen</span>
+            <span className="text-xs text-gray-500 mt-1">Foto aufnehmen</span>
+          </button>
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*,application/pdf"
+            onChange={handleFileSelect}
+            className="hidden"
+          />
+
+          <input
+            ref={cameraInputRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={handleFileSelect}
+            className="hidden"
+          />
+        </div>
+      )}
+
+      {uploadStatus === 'uploading' && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-center">
+            <Loader2 className="h-5 w-5 text-blue-600 animate-spin mr-3" />
+            <div>
+              <p className="text-sm font-medium text-blue-900">Beleg wird hochgeladen...</p>
+              <p className="text-xs text-blue-700 mt-1">{uploadedFileName}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {uploadStatus === 'processing' && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+          <div className="flex items-center">
+            <Loader2 className="h-5 w-5 text-yellow-600 animate-spin mr-3" />
+            <div>
+              <p className="text-sm font-medium text-yellow-900">KI analysiert den Beleg...</p>
+              <p className="text-xs text-yellow-700 mt-1">Dies kann einen Moment dauern</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {uploadStatus === 'completed' && (
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="flex items-start">
+            <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 mr-3 flex-shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-green-900">Beleg erfolgreich erkannt!</p>
+              <p className="text-xs text-green-700 mt-1">
+                Die Daten wurden automatisch in das Formular übernommen. Bitte überprüfen Sie die Angaben.
+              </p>
+              {previewUrl && (
+                <div className="mt-3">
+                  <img
+                    src={previewUrl}
+                    alt="Beleg Vorschau"
+                    className="max-h-32 rounded border border-green-300"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {uploadStatus === 'error' && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="flex items-start">
+            <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 mr-3 flex-shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-red-900">Fehler beim Verarbeiten</p>
+              <p className="text-xs text-red-700 mt-1">{error}</p>
+              <button
+                onClick={handleClear}
+                className="mt-2 text-xs text-red-700 hover:text-red-900 underline"
+              >
+                Neuer Versuch
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="bg-gray-50 rounded-lg p-3">
+        <p className="text-xs text-gray-600">
+          <strong>Hinweis:</strong> Die KI erkennt automatisch Datum, Betrag, MwSt., Beschreibung und weitere Details.
+          Unterstützte Formate: JPG, PNG, PDF
+        </p>
+      </div>
+    </div>
+  );
+}
