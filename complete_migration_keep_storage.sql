@@ -1,8 +1,8 @@
 -- ============================================================================
--- COMPLETE DATABASE MIGRATION - ALL IN ONE
+-- COMPLETE DATABASE MIGRATION - Storage Bucket wird NICHT gelöscht
 -- ============================================================================
--- WICHTIG: Löschen Sie zuerst den "receipts" Storage Bucket über die UI!
--- Siehe MANUAL_MIGRATION_INSTRUCTIONS.md für Details
+-- Diese Version löscht NICHT den Storage Bucket
+-- Verwenden Sie diese, wenn Sie Dateien im "receipts" Bucket behalten wollen
 -- ============================================================================
 
 -- Drop all tables (in correct dependency order, wrapped in DO blocks)
@@ -49,6 +49,9 @@ DO $$ BEGIN
   DROP FUNCTION IF EXISTS update_invoice_totals() CASCADE;
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
+
+-- WICHTIG: Storage Bucket "receipts" bleibt bestehen!
+-- Die Migration erstellt den Bucket nur, wenn er nicht existiert
 
 -- ============================================================================
 -- 20250930211137_create_initial_schema.sql
