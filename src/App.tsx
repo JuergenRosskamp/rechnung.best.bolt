@@ -27,8 +27,10 @@ import { QuotesPage } from './pages/QuotesPage';
 import { QuoteFormPage } from './pages/QuoteFormPage';
 import { DunningPage } from './pages/DunningPage';
 import { RecurringInvoicesPage } from './pages/RecurringInvoicesPage';
+import { SupportPage } from './pages/SupportPage';
+import { AdminTicketsPage } from './pages/AdminTicketsPage';
 
-type Page = 'landing' | 'impressum' | 'datenschutz' | 'login' | 'register' | 'dashboard' | 'customers' | 'customer_form' | 'invoices' | 'invoice_detail' | 'invoice_form' | 'articles' | 'article_form' | 'vehicles' | 'vehicle_form' | 'deliveries' | 'delivery_locations' | 'cashbook' | 'cashbook_entry' | 'cash_count' | 'settings' | 'invoice_layout' | 'quotes' | 'quote_form' | 'dunning' | 'recurring_invoices';
+type Page = 'landing' | 'impressum' | 'datenschutz' | 'login' | 'register' | 'dashboard' | 'customers' | 'customer_form' | 'invoices' | 'invoice_detail' | 'invoice_form' | 'articles' | 'article_form' | 'vehicles' | 'vehicle_form' | 'deliveries' | 'delivery_locations' | 'cashbook' | 'cashbook_entry' | 'cash_count' | 'settings' | 'invoice_layout' | 'quotes' | 'quote_form' | 'dunning' | 'recurring_invoices' | 'support' | 'admin_tickets';
 
 function App() {
   const { isAuthenticated, setUser, setTenant, setSubscription, setLoading, isLoading } = useAuthStore();
@@ -83,6 +85,10 @@ function App() {
             setCurrentPage('dunning');
           } else if (path.includes('/recurring-invoices')) {
             setCurrentPage('recurring_invoices');
+          } else if (path.includes('/admin/tickets')) {
+            setCurrentPage('admin_tickets');
+          } else if (path.includes('/support')) {
+            setCurrentPage('support');
           } else if (path.includes('/settings')) {
             setCurrentPage('settings');
           } else {
@@ -186,6 +192,10 @@ function App() {
       return <DunningPage />;
     case 'recurring_invoices':
       return <RecurringInvoicesPage />;
+    case 'support':
+      return <SupportPage />;
+    case 'admin_tickets':
+      return <AdminTicketsPage />;
     case 'dashboard':
     default:
       return <DashboardPage />;

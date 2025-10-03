@@ -18,7 +18,8 @@ import {
   ChevronDown,
   FileCheck,
   AlertTriangle,
-  Repeat
+  Repeat,
+  HeadphonesIcon
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../lib/auth';
@@ -40,6 +41,7 @@ const navigation = [
   { name: 'Lieferungen', href: '/deliveries', icon: ClipboardList },
   { name: 'Lieferorte', href: '/delivery-locations', icon: MapPin },
   { name: 'Kassenbuch', href: '/cashbook', icon: CreditCard },
+  { name: 'Support', href: '/support', icon: HeadphonesIcon },
   { name: 'Firmendaten', href: '/settings', icon: Settings },
   { name: 'Rechnungslayout', href: '/invoice-layout', icon: Palette },
 ];
