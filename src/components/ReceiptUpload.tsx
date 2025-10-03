@@ -3,6 +3,7 @@ import { Upload, Camera, Loader2, CheckCircle, AlertCircle, X } from 'lucide-rea
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { getErrorMessage } from '../lib/errors';
+import * as pdfjsLib from 'pdfjs-dist';
 
 interface ReceiptUploadProps {
   onReceiptProcessed: (data: ReceiptData) => void;
@@ -34,12 +35,38 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   const { user } = useAuthStore();
 
   useEffect(() => {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+  }, []);
+
+  useEffect(() => {
     return () => {
-      if (previewUrl) {
+      if (previewUrl && previewUrl.startsWith('blob:')) {
         URL.revokeObjectURL(previewUrl);
       }
     };
   }, [previewUrl]);
+
+  const generatePdfThumbnail = async (file: File): Promise<string> => {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const page = await pdf.getPage(1);
+
+    const viewport = page.getViewport({ scale: 0.5 });
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    if (!context) throw new Error('Canvas context not available');
+
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    await page.render({
+      canvasContext: context,
+      viewport: viewport,
+    }).promise;
+
+    return canvas.toDataURL('image/png');
+  };
 
   const processFile = async (file: File) => {
     if (!user) {
@@ -56,7 +83,12 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
       const isPdf = file.type === 'application/pdf';
       setFileType(isPdf ? 'pdf' : 'image');
 
-      const preview = URL.createObjectURL(file);
+      let preview: string;
+      if (isPdf) {
+        preview = await generatePdfThumbnail(file);
+      } else {
+        preview = URL.createObjectURL(file);
+      }
       setPreviewUrl(preview);
 
       setUploadStatus('uploading');
@@ -162,7 +194,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   };
 
   const handleClear = () => {
-    if (previewUrl) {
+    if (previewUrl && previewUrl.startsWith('blob:')) {
       URL.revokeObjectURL(previewUrl);
     }
     setUploadStatus('idle');
@@ -251,7 +283,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
             <div className="flex-1">
               <p className="text-sm font-medium text-blue-900">Beleg wird hochgeladen...</p>
               <p className="text-xs text-blue-700 mt-1">{uploadedFileName}</p>
-              {previewUrl && fileType === 'image' && (
+              {previewUrl && (
                 <div className="mt-3">
                   <img
                     src={previewUrl}
@@ -274,7 +306,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
             <div className="flex-1">
               <p className="text-sm font-medium text-yellow-900">KI analysiert den Beleg...</p>
               <p className="text-xs text-yellow-700 mt-1">Dies kann einen Moment dauern</p>
-              {previewUrl && fileType === 'image' && (
+              {previewUrl && (
                 <div className="mt-3">
                   <img
                     src={previewUrl}
@@ -301,24 +333,13 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
               </p>
               {previewUrl && (
                 <div className="mt-3">
-                  {fileType === 'image' ? (
-                    <>
-                      <img
-                        src={previewUrl}
-                        alt="Beleg Vorschau"
-                        className="max-h-32 rounded border border-green-300 cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => setShowFullImage(true)}
-                      />
-                      <p className="text-xs text-green-600 mt-1">Klicken zum Vergrößern</p>
-                    </>
-                  ) : (
-                    <div className="flex items-center space-x-2 text-sm text-green-700">
-                      <svg className="h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
-                      </svg>
-                      <span className="font-medium">{uploadedFileName}</span>
-                    </div>
-                  )}
+                  <img
+                    src={previewUrl}
+                    alt="Beleg Vorschau"
+                    className="max-h-32 rounded border border-green-300 cursor-pointer hover:opacity-80 transition-opacity"
+                    onClick={() => setShowFullImage(true)}
+                  />
+                  <p className="text-xs text-green-600 mt-1">Klicken zum Vergrößern</p>
                 </div>
               )}
             </div>
