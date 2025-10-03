@@ -5,7 +5,7 @@
     - `tenants` - Multi-tenant isolation root table
       - `id` (uuid, primary key)
       - `company_name` (text, required)
-      - `address_line1`, `address_line2`, `zip_code`, `city`, `country` (text, optional)
+      - `address_aline1`, `address_line2`, `zip_code`, `city`, `country` (text, optional)
       - `tax_id`, `vat_id` (text, optional)
       - `logo_url` (text, optional)
       - `created_at`, `updated_at` (timestamptz)
