@@ -5,7 +5,7 @@
 -- Copy and paste this entire file into your Supabase SQL Editor and run it.
 -- ============================================================================
 
--- Drop all tables that we will create (in reverse dependency order)
+-- Drop all tables that might exist (in reverse dependency order)
 DROP TABLE IF EXISTS support_tickets CASCADE;
 DROP TABLE IF EXISTS dunning_log CASCADE;
 DROP TABLE IF EXISTS quotes CASCADE;
@@ -31,16 +31,19 @@ DROP TABLE IF EXISTS subscriptions CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tenants CASCADE;
 
--- Drop functions
+-- Drop functions if they exist
 DROP FUNCTION IF EXISTS generate_invoice_number CASCADE;
 DROP FUNCTION IF EXISTS validate_cashbook_entry CASCADE;
 DROP FUNCTION IF EXISTS close_cashbook_month CASCADE;
 DROP FUNCTION IF EXISTS get_tenant_id CASCADE;
 
--- Drop triggers
-DROP TRIGGER IF EXISTS update_tenants_updated_at ON tenants;
-DROP TRIGGER IF EXISTS update_users_updated_at ON users;
-DROP TRIGGER IF EXISTS update_subscriptions_updated_at ON subscriptions;
+-- Drop storage buckets if they exist
+DO $$ 
+BEGIN
+  DELETE FROM storage.buckets WHERE id = 'receipts';
+EXCEPTION 
+  WHEN OTHERS THEN NULL;
+END $$;
 
 -- ============================================================================
 -- 20250930211137_create_initial_schema.sql
