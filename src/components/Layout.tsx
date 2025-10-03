@@ -1,26 +1,5 @@
 import { useState, useEffect } from 'react';
-import {
-  LayoutDashboard,
-  Users,
-  FileText,
-  Package,
-  CreditCard,
-  Settings,
-  LogOut,
-  Menu,
-  X,
-  Truck,
-  ClipboardList,
-  MapPin,
-  Building2,
-  ChevronRight,
-  Palette,
-  ChevronDown,
-  FileCheck,
-  AlertTriangle,
-  Repeat,
-  HeadphonesIcon
-} from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Package, CreditCard, Settings, LogOut, Menu, X, Truck, ClipboardList, MapPin, Building2, ChevronRight, Palette, ChevronDown, FileCheck, AlertTriangle, Repeat, Headphones as HeadphonesIcon } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../lib/auth';
 import { supabase } from '../lib/supabase';
