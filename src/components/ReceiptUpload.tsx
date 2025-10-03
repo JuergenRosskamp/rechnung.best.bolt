@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Upload, Camera, Loader2, CheckCircle, AlertCircle, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
@@ -33,6 +33,14 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   const dropZoneRef = useRef<HTMLDivElement>(null);
   const { user } = useAuthStore();
 
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
   const processFile = async (file: File) => {
     if (!user) {
       setError('Nicht angemeldet');
@@ -42,7 +50,6 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
 
     try {
       setIsProcessing(true);
-      setUploadStatus('uploading');
       setError('');
       setUploadedFileName(file.name);
 
@@ -51,6 +58,8 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
 
       const preview = URL.createObjectURL(file);
       setPreviewUrl(preview);
+
+      setUploadStatus('uploading');
 
       const fileExt = file.name.split('.').pop();
       const fileName = `${user.tenant_id}/${new Date().getFullYear()}/${new Date().getMonth() + 1}/${Date.now()}.${fileExt}`;
@@ -153,6 +162,9 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   };
 
   const handleClear = () => {
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
     setUploadStatus('idle');
     setError('');
     setUploadedFileName('');
