@@ -17,7 +17,8 @@ import {
   Palette,
   ChevronDown,
   FileCheck,
-  AlertTriangle
+  AlertTriangle,
+  Repeat
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../lib/auth';
@@ -32,6 +33,7 @@ const navigation = [
   { name: 'Kunden', href: '/customers', icon: Users },
   { name: 'Angebote', href: '/quotes', icon: FileCheck },
   { name: 'Rechnungen', href: '/invoices', icon: FileText },
+  { name: 'Abo-Rechnungen', href: '/recurring-invoices', icon: Repeat },
   { name: 'Mahnungen', href: '/dunning', icon: AlertTriangle },
   { name: 'Artikel', href: '/articles', icon: Package },
   { name: 'Fuhrpark', href: '/vehicles', icon: Truck },
