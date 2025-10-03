@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Plus, Search, TrendingUp, TrendingDown, DollarSign, Calculator, Upload, FileText, Download, Shield, XCircle, Calendar } from 'lucide-react';
+import { Plus, Search, TrendingUp, TrendingDown, DollarSign, Calculator, Upload, FileText, Download, Shield, XCircle, Calendar, BarChart3 } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
@@ -7,6 +7,7 @@ import { ReceiptUpload, ReceiptData } from '../components/ReceiptUpload';
 import { verifyHashChain } from '../lib/cashbookValidation';
 import { CashbookCancellation } from '../components/CashbookCancellation';
 import { MonthlyClosing } from '../components/MonthlyClosing';
+import { CashbookReports } from '../components/CashbookReports';
 
 interface CashbookEntry {
   id: string;
@@ -34,6 +35,7 @@ export function CashbookPage() {
   const [showVerification, setShowVerification] = useState(false);
   const [showCancellation, setShowCancellation] = useState(false);
   const [showMonthlyClosing, setShowMonthlyClosing] = useState(false);
+  const [showReports, setShowReports] = useState(false);
   const [monthlyClosings, setMonthlyClosings] = useState<any[]>([]);
   const { user } = useAuthStore();
 
@@ -189,6 +191,13 @@ export function CashbookPage() {
           </div>
           <div className="flex flex-wrap gap-2">
             <button
+              onClick={() => setShowReports(true)}
+              className="inline-flex items-center px-4 py-2 border border-blue-300 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100"
+            >
+              <BarChart3 className="h-5 w-5 mr-2" />
+              Auswertungen
+            </button>
+            <button
               onClick={() => setShowMonthlyClosing(true)}
               className="inline-flex items-center px-4 py-2 border border-green-300 bg-green-50 text-green-700 rounded-lg hover:bg-green-100"
             >
@@ -207,7 +216,7 @@ export function CashbookPage() {
               className="inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-50"
             >
               <Download className="h-5 w-5 mr-2" />
-              Export
+              CSV
             </button>
             <button
               onClick={() => window.location.href = '/cashbook/count'}
@@ -586,6 +595,13 @@ export function CashbookPage() {
               loadMonthlyClosings();
               loadCashbook();
             }}
+          />
+        )}
+
+        {/* Reports Modal */}
+        {showReports && (
+          <CashbookReports
+            onClose={() => setShowReports(false)}
           />
         )}
       </div>
