@@ -109,14 +109,14 @@ export function Layout({ children }: LayoutProps) {
 
           {/* Tenant Info */}
           {tenant && (
-            <div className="px-6 py-4 border-b border-secondary-200">
-              <div className="flex items-center gap-3 p-3 bg-primary-50 rounded-xl">
-                <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
-                  <Building2 className="w-5 h-5 text-primary-600" />
+            <div className="px-6 py-4 border-b border-secondary-200 dark:border-secondary-700">
+              <div className="flex items-center gap-3 p-3 bg-primary-50 dark:bg-primary-500/5 rounded-xl">
+                <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-500/10 flex items-center justify-center flex-shrink-0">
+                  <Building2 className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-secondary-900 truncate">{tenant.name}</p>
-                  <p className="text-xs text-secondary-600 truncate">{user?.email}</p>
+                  <p className="text-sm font-semibold text-secondary-900 dark:text-secondary-50 truncate">{tenant.name}</p>
+                  <p className="text-xs text-secondary-600 dark:text-secondary-400 truncate">{user?.email}</p>
                 </div>
               </div>
             </div>
@@ -190,14 +190,14 @@ export function Layout({ children }: LayoutProps) {
 
           {/* Tenant Info */}
           {tenant && (
-            <div className="px-6 py-4 border-b border-secondary-200">
-              <div className="flex items-center gap-3 p-3 bg-primary-50 rounded-xl">
-                <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
-                  <Building2 className="w-5 h-5 text-primary-600" />
+            <div className="px-6 py-4 border-b border-secondary-200 dark:border-secondary-700">
+              <div className="flex items-center gap-3 p-3 bg-primary-50 dark:bg-primary-500/5 rounded-xl">
+                <div className="w-10 h-10 rounded-lg bg-primary-100 dark:bg-primary-500/10 flex items-center justify-center flex-shrink-0">
+                  <Building2 className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-secondary-900 truncate">{tenant.name}</p>
-                  <p className="text-xs text-secondary-600 truncate">{user?.email}</p>
+                  <p className="text-sm font-semibold text-secondary-900 dark:text-secondary-50 truncate">{tenant.name}</p>
+                  <p className="text-xs text-secondary-600 dark:text-secondary-400 truncate">{user?.email}</p>
                 </div>
               </div>
             </div>
