@@ -292,8 +292,8 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
 
       <div className="bg-gray-50 rounded-lg p-3">
         <p className="text-xs text-gray-600">
-          <strong>Hinweis:</strong> Die KI erkennt automatisch Datum, Betrag, MwSt., Beschreibung und weitere Details.
-          Unterstützte Formate: JPG, PNG, PDF
+          <strong>KI-Beleganerkennung:</strong> Claude analysiert automatisch Datum, Betrag, MwSt., Händler und Kategorie.
+          Der Beleg wird GoBD-konform archiviert. Formate: JPG, PNG, PDF (max. 10 MB)
         </p>
       </div>
     </div>

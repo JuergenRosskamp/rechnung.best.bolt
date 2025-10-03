@@ -46,77 +46,108 @@ Deno.serve(async (req: Request) => {
       throw new Error(`Failed to download file: ${downloadError.message}`);
     }
 
+    const mimeType = filePath.toLowerCase().endsWith('.pdf') ? 'application/pdf' : 'image/jpeg';
     const arrayBuffer = await fileData.arrayBuffer();
-    const base64Image = btoa(
+    const base64Data = btoa(
       new Uint8Array(arrayBuffer).reduce(
         (data, byte) => data + String.fromCharCode(byte),
         ""
       )
     );
 
-    const openaiApiKey = Deno.env.get("OPENAI_API_KEY");
-    if (!openaiApiKey) {
-      throw new Error("OpenAI API key not configured");
+    const anthropicApiKey = Deno.env.get("ANTHROPIC_API_KEY");
+    if (!anthropicApiKey) {
+      console.warn("No Anthropic API key found, using mock data");
+      const mockData: ReceiptData = {
+        description: "Beleg hochgeladen - Bitte Daten manuell eingeben",
+        documentType: "expense"
+      };
+
+      await supabaseClient
+        .from("receipt_uploads")
+        .update({
+          ocr_status: "completed",
+          ocr_data: mockData,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", receiptId);
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          data: mockData,
+        }),
+        {
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
+        }
+      );
     }
 
-    const openaiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+    const mediaType = mimeType === 'application/pdf' ? 'application/pdf' : 'image/jpeg';
+
+    const anthropicResponse = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${openaiApiKey}`,
+        "x-api-key": anthropicApiKey,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "gpt-4o",
+        model: "claude-3-5-sonnet-20241022",
+        max_tokens: 1024,
         messages: [
-          {
-            role: "system",
-            content: `Du bist ein KI-Assistent für die Beleganerkennung in einem GoBD-konformen Kassenbuch.
-            Extrahiere folgende Informationen aus dem Beleg:
-            - date: Datum im Format YYYY-MM-DD
-            - amount: Bruttobetrag als Zahl (nur die Zahl, kein Währungszeichen)
-            - vatRate: MwSt-Satz (0, 7 oder 19)
-            - description: Kurze Beschreibung des Kaufs/der Dienstleistung
-            - merchantName: Name des Händlers/Lieferanten
-            - documentType: "income" für Einnahmen oder "expense" für Ausgaben (meistens "expense")
-            - category: Kategorie (z.B. "Büromaterial", "Reisekosten", "Porto", "Bewirtung")
-
-            Antworte NUR mit einem JSON-Objekt, ohne zusätzlichen Text.`
-          },
           {
             role: "user",
             content: [
               {
-                type: "image_url",
-                image_url: {
-                  url: `data:image/jpeg;base64,${base64Image}`
+                type: "image",
+                source: {
+                  type: "base64",
+                  media_type: mediaType,
+                  data: base64Data,
                 }
               },
               {
                 type: "text",
-                text: "Extrahiere die Beleg-Informationen aus diesem Bild."
+                text: `Analysiere diesen Beleg für ein deutsches Kassenbuch und extrahiere folgende Informationen:
+
+- date: Datum im Format YYYY-MM-DD
+- amount: Bruttobetrag als Zahl (nur die Zahl, keine Währung)
+- vatRate: MwSt-Satz in Deutschland (0, 7 oder 19)
+- description: Kurze Beschreibung des Kaufs/der Dienstleistung
+- merchantName: Name des Händlers/Lieferanten
+- documentType: "income" für Einnahmen oder "expense" für Ausgaben (meistens "expense")
+- category: Passende Kategorie aus: "Büromaterial", "Reisekosten", "Porto", "Bewirtung", "Wareneinkauf", "Sonstiges"
+
+Antworte NUR mit einem validen JSON-Objekt, ohne zusätzlichen Text. Beispiel:
+{"date":"2025-10-03","amount":49.99,"vatRate":19,"description":"Büromaterial","merchantName":"Staples","documentType":"expense","category":"Büromaterial"}`
               }
             ]
           }
         ],
-        max_tokens: 500,
       }),
     });
 
-    if (!openaiResponse.ok) {
-      const errorData = await openaiResponse.text();
-      throw new Error(`OpenAI API error: ${errorData}`);
+    if (!anthropicResponse.ok) {
+      const errorText = await anthropicResponse.text();
+      console.error("Anthropic API error:", errorText);
+      throw new Error(`Anthropic API error: ${errorText}`);
     }
 
-    const openaiResult = await openaiResponse.json();
-    const extractedText = openaiResult.choices[0]?.message?.content || "{}";
+    const anthropicResult = await anthropicResponse.json();
+    const extractedText = anthropicResult.content?.[0]?.text || "{}";
 
     let ocrData: ReceiptData;
     try {
-      ocrData = JSON.parse(extractedText);
+      const cleanedText = extractedText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+      ocrData = JSON.parse(cleanedText);
     } catch (parseError) {
-      console.error("Failed to parse OpenAI response:", extractedText);
+      console.error("Failed to parse AI response:", extractedText);
       ocrData = {
-        description: "Fehler bei der Beleganerkennung",
+        description: "Fehler bei der Beleganerkennung - Bitte Daten prüfen",
         documentType: "expense"
       };
     }
