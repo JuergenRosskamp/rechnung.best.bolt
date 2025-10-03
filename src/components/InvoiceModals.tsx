@@ -26,14 +26,14 @@ export function SendEmailModal({ isOpen, onClose, onSend, customerEmail, invoice
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-secondary-900/50 backdrop-blur-sm animate-fade-in">
       <div className="card w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-scale-in">
-        <div className="sticky top-0 flex items-center justify-between p-6 bg-white border-b border-secondary-200">
+        <div className="sticky top-0 flex items-center justify-between p-6 bg-white dark:bg-secondary-800 border-b border-secondary-200 dark:border-secondary-700">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
-              <Mail className="w-5 h-5 text-primary-600" />
+            <div className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-500/10 flex items-center justify-center">
+              <Mail className="w-5 h-5 text-primary-600 dark:text-primary-400" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-secondary-900">Rechnung per E-Mail senden</h2>
-              <p className="text-sm text-secondary-600">Rechnung {invoiceNumber}</p>
+              <h2 className="text-xl font-bold text-secondary-900 dark:text-secondary-50">Rechnung per E-Mail senden</h2>
+              <p className="text-sm text-secondary-600 dark:text-secondary-400">Rechnung {invoiceNumber}</p>
             </div>
           </div>
           <button onClick={onClose} className="btn-ghost p-2">
@@ -255,13 +255,13 @@ export function ViewInvoiceModal({ isOpen, onClose, invoice }: ViewInvoiceModalP
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-secondary-900/50 backdrop-blur-sm animate-fade-in">
       <div className="card w-full max-w-4xl max-h-[90vh] overflow-y-auto animate-scale-in">
-        <div className="sticky top-0 flex items-center justify-between p-6 bg-white border-b border-secondary-200">
+        <div className="sticky top-0 flex items-center justify-between p-6 bg-white dark:bg-secondary-800 border-b border-secondary-200 dark:border-secondary-700">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center">
-              <FileText className="w-5 h-5 text-primary-600" />
+            <div className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-500/10 flex items-center justify-center">
+              <FileText className="w-5 h-5 text-primary-600 dark:text-primary-400" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-secondary-900">Rechnung {invoice.invoice_number}</h2>
+              <h2 className="text-xl font-bold text-secondary-900 dark:text-secondary-50">Rechnung {invoice.invoice_number}</h2>
               <span className={`badge ${getStatusBadge(invoice.status)} mt-1`}>
                 {getStatusLabel(invoice.status)}
               </span>
@@ -381,7 +381,7 @@ export function ViewInvoiceModal({ isOpen, onClose, invoice }: ViewInvoiceModalP
           )}
         </div>
 
-        <div className="sticky bottom-0 flex justify-end gap-3 p-6 bg-white border-t border-secondary-200">
+        <div className="sticky bottom-0 flex justify-end gap-3 p-6 bg-white dark:bg-secondary-800 border-t border-secondary-200 dark:border-secondary-700">
           <button onClick={onClose} className="btn-secondary">
             Schließen
           </button>

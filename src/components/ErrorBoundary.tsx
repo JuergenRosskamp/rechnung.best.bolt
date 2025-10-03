@@ -49,13 +49,13 @@ export class ErrorBoundary extends Component<Props, State> {
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-          <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-6">
-            <div className="flex items-center justify-center w-12 h-12 bg-red-100 rounded-full mx-auto mb-4">
-              <AlertTriangle className="h-6 w-6 text-red-600" />
+        <div className="min-h-screen bg-gray-50 dark:bg-secondary-900 flex items-center justify-center p-4">
+          <div className="max-w-md w-full bg-white dark:bg-secondary-800 rounded-lg shadow-lg p-6">
+            <div className="flex items-center justify-center w-12 h-12 bg-red-100 dark:bg-red-500/10 rounded-full mx-auto mb-4">
+              <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" />
             </div>
 
-            <h1 className="text-2xl font-bold text-gray-900 text-center mb-2">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50 text-center mb-2">
               Etwas ist schiefgelaufen
             </h1>
 

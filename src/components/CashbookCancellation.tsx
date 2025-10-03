@@ -111,11 +111,11 @@ export function CashbookCancellation({ entryId, entry, onClose, onSuccess }: Cas
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg max-w-2xl w-full p-6">
+      <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-2xl w-full p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center">
-            <AlertTriangle className="h-6 w-6 text-red-600 mr-3" />
-            <h2 className="text-xl font-bold text-gray-900">Kassenbuchung stornieren</h2>
+            <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400 mr-3" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50">Kassenbuchung stornieren</h2>
           </div>
           <button
             onClick={onClose}

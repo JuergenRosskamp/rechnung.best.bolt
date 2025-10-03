@@ -171,7 +171,7 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Desktop sidebar */}
       <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 lg:flex lg:w-72 lg:flex-col">
-        <div className="flex flex-col h-full bg-white dark:bg-secondary-900 border-r border-secondary-200 dark:border-secondary-700">
+        <div className="flex flex-col h-full bg-white dark:bg-secondary-800 border-r border-secondary-200 dark:border-secondary-700">
           {/* Desktop Header */}
           <div className="flex items-center gap-3 h-16 px-6 border-b border-secondary-200">
             <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">

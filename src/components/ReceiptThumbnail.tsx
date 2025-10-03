@@ -182,11 +182,11 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
 
       {showPreview && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+            <div className="px-6 py-4 border-b border-gray-200 dark:border-secondary-700 flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-bold text-gray-900">{receipt.file_name}</h3>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-secondary-50">{receipt.file_name}</h3>
+                <p className="text-sm text-gray-500 dark:text-secondary-400">
                   {(receipt.file_size / 1024).toFixed(1)} KB • {new Date(receipt.created_at).toLocaleString('de-DE')}
                 </p>
               </div>
@@ -219,7 +219,7 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
 
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-md w-full p-6">
             <div className="flex items-start mb-4">
               <AlertTriangle className="h-6 w-6 text-red-600 mr-3 flex-shrink-0 mt-0.5" />
               <div>

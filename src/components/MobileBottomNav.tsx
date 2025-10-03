@@ -27,7 +27,7 @@ export function MobileBottomNav() {
         <div class="bg-white dark:bg-secondary-800 rounded-2xl shadow-soft-lg border border-secondary-200 dark:border-secondary-700 overflow-hidden">
           <div class="p-2 space-y-1">
             <a href="/invoices/new" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-secondary-50 dark:hover:bg-secondary-700 transition-colors touch-target">
-              <div class="p-2 bg-primary-100 dark:bg-primary-900 rounded-lg">
+              <div class="p-2 bg-primary-100 dark:bg-primary-500/10 rounded-lg">
                 <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
               </div>
               <div class="flex-1">
@@ -36,7 +36,7 @@ export function MobileBottomNav() {
               </div>
             </a>
             <a href="/customers/new" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-secondary-50 dark:hover:bg-secondary-700 transition-colors touch-target">
-              <div class="p-2 bg-success-100 dark:bg-success-900 rounded-lg">
+              <div class="p-2 bg-success-100 dark:bg-success-500/10 rounded-lg">
                 <svg class="w-5 h-5 text-success-600 dark:text-success-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
               </div>
               <div class="flex-1">
@@ -45,7 +45,7 @@ export function MobileBottomNav() {
               </div>
             </a>
             <a href="/articles/new" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-secondary-50 dark:hover:bg-secondary-700 transition-colors touch-target">
-              <div class="p-2 bg-warning-100 dark:bg-warning-900 rounded-lg">
+              <div class="p-2 bg-warning-100 dark:bg-warning-500/10 rounded-lg">
                 <svg class="w-5 h-5 text-warning-600 dark:text-warning-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 4.27l9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
               </div>
               <div class="flex-1">
@@ -54,7 +54,7 @@ export function MobileBottomNav() {
               </div>
             </a>
             <a href="/deliveries/new" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-secondary-50 dark:hover:bg-secondary-700 transition-colors touch-target">
-              <div class="p-2 bg-accent-100 dark:bg-accent-900 rounded-lg">
+              <div class="p-2 bg-accent-100 dark:bg-accent-500/10 rounded-lg">
                 <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
               </div>
               <div class="flex-1">

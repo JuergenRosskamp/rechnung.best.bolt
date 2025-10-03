@@ -179,11 +179,11 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="bg-white rounded-lg max-w-6xl w-full max-h-[95vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+      <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-6xl w-full max-h-[95vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white dark:bg-secondary-800 border-b border-gray-200 dark:border-secondary-700 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center">
-            <BarChart3 className="h-6 w-6 text-blue-600 mr-3" />
-            <h2 className="text-xl font-bold text-gray-900">Kassenbuch-Auswertungen</h2>
+            <BarChart3 className="h-6 w-6 text-blue-600 dark:text-blue-400 mr-3" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50">Kassenbuch-Auswertungen</h2>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             <X className="h-5 w-5" />
@@ -333,7 +333,7 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
               {reportType === 'categories' && (
                 <div className="space-y-4">
                   <h3 className="text-lg font-bold text-gray-900">Auswertung nach Kategorien</h3>
-                  <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                  <div className="bg-white dark:bg-secondary-700/30 rounded-lg border border-gray-200 dark:border-secondary-700 overflow-hidden">
                     <table className="min-w-full divide-y divide-gray-200">
                       <thead className="bg-gray-50">
                         <tr>
@@ -354,7 +354,7 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
+                      <tbody className="bg-white dark:bg-secondary-700/30 divide-y divide-gray-200 dark:divide-secondary-700">
                         {categoryStats.map((cat, index) => (
                           <tr key={index} className="hover:bg-gray-50">
                             <td className="px-6 py-4">
@@ -393,7 +393,7 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
               {reportType === 'daily' && (
                 <div className="space-y-4">
                   <h3 className="text-lg font-bold text-gray-900">Tagesübersicht</h3>
-                  <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                  <div className="bg-white dark:bg-secondary-700/30 rounded-lg border border-gray-200 dark:border-secondary-700 overflow-hidden">
                     <table className="min-w-full divide-y divide-gray-200">
                       <thead className="bg-gray-50">
                         <tr>
@@ -414,7 +414,7 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
+                      <tbody className="bg-white dark:bg-secondary-700/30 divide-y divide-gray-200 dark:divide-secondary-700">
                         {dailyStats.map((day, index) => (
                           <tr key={index} className="hover:bg-gray-50">
                             <td className="px-6 py-4 text-sm font-medium text-gray-900">
@@ -500,7 +500,7 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
                     </div>
 
                     {stats && (
-                      <div className="bg-white rounded-lg p-4 mb-4">
+                      <div className="bg-white dark:bg-secondary-700/30 rounded-lg p-4 mb-4">
                         <p className="text-sm text-gray-600 mb-2">Export umfasst:</p>
                         <ul className="text-sm text-gray-900 space-y-1">
                           <li>• {stats.transactionCount} Buchungen</li>
