@@ -2,13 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft, Save, AlertTriangle } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { getErrorMessage } from '../lib/errors';
 import crypto from 'crypto-js';
 import { ReceiptUpload, ReceiptData } from '../components/ReceiptUpload';
+import { checkForDuplicates, DuplicateCheckResult } from '../lib/cashbookValidation';
 
 const entrySchema = z.object({
   entry_date: z.string().min(1, 'Datum erforderlich'),
@@ -35,6 +36,8 @@ export function CashbookEntryPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [currentBalance, setCurrentBalance] = useState(0);
   const [receiptId, setReceiptId] = useState<string | null>(null);
+  const [duplicateWarning, setDuplicateWarning] = useState<DuplicateCheckResult | null>(null);
+  const [forceSave, setForceSave] = useState(false);
   const { user } = useAuthStore();
 
   const {
@@ -129,9 +132,25 @@ export function CashbookEntryPage() {
   const onSubmit = async (data: EntryForm) => {
     if (!user) return;
 
+    if (!forceSave) {
+      const duplicateCheck = await checkForDuplicates(
+        user.tenant_id,
+        data.entry_date,
+        data.amount,
+        data.description,
+        data.document_type
+      );
+
+      if (duplicateCheck.isDuplicate) {
+        setDuplicateWarning(duplicateCheck);
+        return;
+      }
+    }
+
     try {
       setIsLoading(true);
       setError('');
+      setDuplicateWarning(null);
 
       // Get next document number
       const { data: docNumber, error: docError } = await supabase
@@ -236,6 +255,47 @@ export function CashbookEntryPage() {
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <p className="text-sm text-red-600">{error}</p>
+          </div>
+        )}
+
+        {duplicateWarning && duplicateWarning.isDuplicate && (
+          <div className="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6">
+            <div className="flex items-start">
+              <AlertTriangle className="h-6 w-6 text-yellow-600 mt-0.5 mr-3 flex-shrink-0" />
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-yellow-900 mb-2">Mögliche Doppelbuchung erkannt!</h3>
+                <p className="text-sm text-yellow-800 mb-3">{duplicateWarning.matchReason}</p>
+                {duplicateWarning.matchingEntry && (
+                  <div className="bg-white rounded border border-yellow-300 p-3 mb-4">
+                    <p className="text-xs font-medium text-gray-500 mb-2">Vorhandene Buchung:</p>
+                    <div className="space-y-1 text-sm">
+                      <p><span className="font-medium">Datum:</span> {new Date(duplicateWarning.matchingEntry.entry_date).toLocaleDateString('de-DE')}</p>
+                      <p><span className="font-medium">Betrag:</span> {Math.abs(duplicateWarning.matchingEntry.amount).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
+                      <p><span className="font-medium">Beschreibung:</span> {duplicateWarning.matchingEntry.description}</p>
+                      <p><span className="font-medium">Belegnr.:</span> {duplicateWarning.matchingEntry.document_number}</p>
+                    </div>
+                  </div>
+                )}
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setDuplicateWarning(null)}
+                    className="px-4 py-2 bg-white border-2 border-yellow-600 text-yellow-900 rounded-lg hover:bg-yellow-50 font-medium"
+                  >
+                    Abbrechen & Überprüfen
+                  </button>
+                  <button
+                    onClick={() => {
+                      setForceSave(true);
+                      setDuplicateWarning(null);
+                      handleSubmit(onSubmit)();
+                    }}
+                    className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 font-medium"
+                  >
+                    Trotzdem speichern
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

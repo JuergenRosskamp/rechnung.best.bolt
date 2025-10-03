@@ -1,8 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Plus, Search, TrendingUp, TrendingDown, DollarSign, Calculator } from 'lucide-react';
+import { Plus, Search, TrendingUp, TrendingDown, DollarSign, Calculator, Upload, FileText, Download, Shield, XCircle } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
+import { ReceiptUpload, ReceiptData } from '../components/ReceiptUpload';
+import { verifyHashChain } from '../lib/cashbookValidation';
+import { CashbookCancellation } from '../components/CashbookCancellation';
 
 interface CashbookEntry {
   id: string;
@@ -23,6 +26,12 @@ export function CashbookPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [currentBalance, setCurrentBalance] = useState(0);
+  const [showReceiptUpload, setShowReceiptUpload] = useState(false);
+  const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null);
+  const [selectedEntry, setSelectedEntry] = useState<any>(null);
+  const [hashVerification, setHashVerification] = useState<any>(null);
+  const [showVerification, setShowVerification] = useState(false);
+  const [showCancellation, setShowCancellation] = useState(false);
   const { user } = useAuthStore();
 
   const loadCashbook = useCallback(async () => {
@@ -81,6 +90,57 @@ export function CashbookPage() {
     return colors[type] || 'bg-gray-100 text-gray-800';
   };
 
+  const handleVerifyHashChain = async () => {
+    if (!user) return;
+    const result = await verifyHashChain(user.tenant_id);
+    setHashVerification(result);
+    setShowVerification(true);
+  };
+
+  const handleReceiptProcessed = (data: ReceiptData) => {
+    console.log('Receipt processed:', data);
+  };
+
+  const handleAttachReceipt = async (entryId: string, receiptId: string) => {
+    if (!user) return;
+
+    const { error } = await supabase
+      .from('cashbook_entries')
+      .update({ receipt_id: receiptId })
+      .eq('id', entryId)
+      .eq('tenant_id', user.tenant_id);
+
+    if (!error) {
+      loadCashbook();
+      setShowReceiptUpload(false);
+      setSelectedEntryId(null);
+    }
+  };
+
+  const exportToCsv = () => {
+    const headers = ['Datum', 'Belegnummer', 'Typ', 'Beschreibung', 'Betrag', 'MwSt.', 'Kassenbestand'];
+    const rows = filteredEntries.map(entry => [
+      new Date(entry.entry_date).toLocaleDateString('de-DE'),
+      entry.document_number,
+      getTypeLabel(entry.document_type),
+      entry.description,
+      entry.amount.toFixed(2),
+      entry.vat_rate.toFixed(2),
+      entry.cash_balance.toFixed(2),
+    ]);
+
+    const csvContent = [
+      headers.join(';'),
+      ...rows.map(row => row.join(';'))
+    ].join('\n');
+
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `kassenbuch_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  };
+
   const filteredEntries = entries.filter((entry) =>
     entry.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
     entry.document_number.toLowerCase().includes(searchTerm.toLowerCase())
@@ -106,6 +166,20 @@ export function CashbookPage() {
           </div>
           <div className="flex gap-2">
             <button
+              onClick={handleVerifyHashChain}
+              className="inline-flex items-center px-4 py-2 border border-green-300 bg-green-50 text-green-700 rounded-lg hover:bg-green-100"
+            >
+              <Shield className="h-5 w-5 mr-2" />
+              Prüfen
+            </button>
+            <button
+              onClick={exportToCsv}
+              className="inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-50"
+            >
+              <Download className="h-5 w-5 mr-2" />
+              Export
+            </button>
+            <button
               onClick={() => window.location.href = '/cashbook/count'}
               className="inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-50"
             >
@@ -114,7 +188,7 @@ export function CashbookPage() {
             </button>
             <button
               onClick={() => window.location.href = '/cashbook/new'}
-              className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               <Plus className="h-5 w-5 mr-2" />
               Neue Buchung
@@ -170,6 +244,42 @@ export function CashbookPage() {
             </div>
           </div>
         </div>
+
+        {/* Hash Verification Result */}
+        {showVerification && hashVerification && (
+          <div className={`border-2 rounded-lg p-4 ${
+            hashVerification.isValid ? 'bg-green-50 border-green-400' : 'bg-red-50 border-red-400'
+          }`}>
+            <div className="flex items-start justify-between">
+              <div className="flex items-start">
+                <Shield className={`h-6 w-6 mt-0.5 mr-3 ${
+                  hashVerification.isValid ? 'text-green-600' : 'text-red-600'
+                }`} />
+                <div>
+                  <h3 className={`text-lg font-bold ${
+                    hashVerification.isValid ? 'text-green-900' : 'text-red-900'
+                  }`}>
+                    {hashVerification.isValid ? 'Kassenbuch ist korrekt' : 'Integritätsverletzung erkannt!'}
+                  </h3>
+                  <p className={`mt-1 text-sm ${
+                    hashVerification.isValid ? 'text-green-700' : 'text-red-700'
+                  }`}>
+                    {hashVerification.isValid
+                      ? `Alle ${hashVerification.totalEntries} Einträge wurden erfolgreich verifiziert. Die Hash-Chain ist intakt.`
+                      : `Hash-Chain unterbrochen bei Beleg: ${hashVerification.brokenAt}. ${hashVerification.verifiedEntries} von ${hashVerification.totalEntries} Einträgen verifiziert.`
+                    }
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowVerification(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* GoBD Compliance Badge */}
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -262,6 +372,12 @@ export function CashbookPage() {
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Kassenbestand
                     </th>
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Beleg
+                    </th>
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Aktionen
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -296,6 +412,30 @@ export function CashbookPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900">
                         {entry.cash_balance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-center">
+                        <button
+                          onClick={() => {
+                            setSelectedEntryId(entry.id);
+                            setShowReceiptUpload(true);
+                          }}
+                          className="inline-flex items-center px-3 py-1 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200"
+                        >
+                          <Upload className="h-3 w-3 mr-1" />
+                          Anhängen
+                        </button>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-center">
+                        <button
+                          onClick={() => {
+                            setSelectedEntry(entry);
+                            setShowCancellation(true);
+                          }}
+                          className="inline-flex items-center px-3 py-1 text-xs font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded-md border border-red-200"
+                        >
+                          <XCircle className="h-3 w-3 mr-1" />
+                          Stornieren
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -303,6 +443,51 @@ export function CashbookPage() {
             </div>
           )}
         </div>
+
+        {/* Receipt Upload Modal */}
+        {showReceiptUpload && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Beleg anhängen</h2>
+                <button
+                  onClick={() => {
+                    setShowReceiptUpload(false);
+                    setSelectedEntryId(null);
+                  }}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              </div>
+              <ReceiptUpload
+                onReceiptProcessed={handleReceiptProcessed}
+                onReceiptIdChange={(receiptId) => {
+                  if (receiptId && selectedEntryId) {
+                    handleAttachReceipt(selectedEntryId, receiptId);
+                  }
+                }}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Cancellation Modal */}
+        {showCancellation && selectedEntry && (
+          <CashbookCancellation
+            entryId={selectedEntry.id}
+            entry={selectedEntry}
+            onClose={() => {
+              setShowCancellation(false);
+              setSelectedEntry(null);
+            }}
+            onSuccess={() => {
+              setShowCancellation(false);
+              setSelectedEntry(null);
+              loadCashbook();
+            }}
+          />
+        )}
       </div>
     </Layout>
   );
