@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Search, Filter, UserCheck, Clock, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Search, UserCheck, Clock, CheckCircle, AlertTriangle } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
@@ -60,7 +60,6 @@ export function AdminTicketsPage() {
       if (error) throw error;
       setTickets(data || []);
     } catch (error) {
-      console.error('Error loading tickets:', error);
     } finally {
       setIsLoading(false);
     }
@@ -91,7 +90,6 @@ export function AdminTicketsPage() {
 
       setStats({ total, open, in_progress, resolved, avg_response_time });
     } catch (error) {
-      console.error('Error calculating stats:', error);
     }
   };
 

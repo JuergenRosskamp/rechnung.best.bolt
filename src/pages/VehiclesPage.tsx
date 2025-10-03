@@ -46,7 +46,6 @@ export function VehiclesPage() {
       if (error) throw error;
       setVehicles(data || []);
     } catch (error) {
-      console.error('Error loading vehicles:', error);
     } finally {
       setIsLoading(false);
     }

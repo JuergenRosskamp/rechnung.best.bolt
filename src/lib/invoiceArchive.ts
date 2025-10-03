@@ -18,7 +18,7 @@ export async function archiveInvoicePdf(
 
     const fileName = `invoices/${invoiceId}/${format}-${Date.now()}.${format === 'xrechnung' ? 'xml' : 'pdf'}`;
 
-    const { error: uploadError, data } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
       .from('invoice-pdfs')
       .upload(fileName, pdfBlob, {
         cacheControl: '31536000',
@@ -26,7 +26,6 @@ export async function archiveInvoicePdf(
       });
 
     if (uploadError) {
-      console.error('Upload error:', uploadError);
       return { success: false, error: uploadError.message };
     }
 
@@ -34,7 +33,7 @@ export async function archiveInvoicePdf(
       .from('invoice-pdfs')
       .getPublicUrl(fileName);
 
-    const { data: archiveData, error: archiveError } = await supabase
+    const { error: archiveError } = await supabase
       .rpc('archive_invoice_pdf', {
         p_invoice_id: invoiceId,
         p_pdf_format: format,
@@ -44,13 +43,11 @@ export async function archiveInvoicePdf(
       });
 
     if (archiveError) {
-      console.error('Archive error:', archiveError);
       return { success: false, error: archiveError.message };
     }
 
     return { success: true };
   } catch (err) {
-    console.error('Archiving error:', err);
     return {
       success: false,
       error: err instanceof Error ? err.message : 'Unknown error',
@@ -70,7 +67,6 @@ export async function finalizeInvoice(invoiceId: string): Promise<{ success: boo
 
     return { success: true };
   } catch (err) {
-    console.error('Finalize error:', err);
     return {
       success: false,
       error: err instanceof Error ? err.message : 'Unknown error',
@@ -86,7 +82,6 @@ export async function getInvoiceArchives(invoiceId: string) {
     .order('generated_at', { ascending: false });
 
   if (error) {
-    console.error('Error fetching archives:', error);
     return [];
   }
 
@@ -100,7 +95,6 @@ export async function verifyPdfIntegrity(pdfUrl: string, expectedHash: string): 
     const actualHash = await calculatePdfHash(blob);
     return actualHash === expectedHash;
   } catch (err) {
-    console.error('Verification error:', err);
     return false;
   }
 }

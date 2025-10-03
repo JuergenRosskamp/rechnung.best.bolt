@@ -26,7 +26,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   const [error, setError] = useState<string>('');
   const [uploadedFileName, setUploadedFileName] = useState<string>('');
   const [previewUrl, setPreviewUrl] = useState<string>('');
-  const [fileType, setFileType] = useState<'image' | 'pdf' | ''>('');
+  const [, setFileType] = useState<'image' | 'pdf' | ''>('');
   const [isDragging, setIsDragging] = useState(false);
   const [showFullImage, setShowFullImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -67,6 +67,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
     await page.render({
       canvasContext: context,
       viewport: viewport,
+      canvas: canvas,
     }).promise;
 
     return canvas.toDataURL('image/png');
@@ -93,7 +94,6 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
         try {
           preview = await generatePdfThumbnail(file);
         } catch (pdfError) {
-          console.error('PDF thumbnail generation failed:', pdfError);
           // Fallback: use a generic placeholder or skip preview for PDFs
           preview = '';
         }

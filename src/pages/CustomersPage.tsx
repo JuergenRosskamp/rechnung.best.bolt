@@ -37,7 +37,6 @@ export function CustomersPage() {
       if (error) throw error;
       setCustomers(data || []);
     } catch (error) {
-      console.error('Error loading customers:', error);
     } finally {
       setIsLoading(false);
     }

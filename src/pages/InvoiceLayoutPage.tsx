@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Layout } from '../components/Layout';
-import { Save, Upload, Eye, RotateCcw } from 'lucide-react';
+import { Save, Eye, RotateCcw } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { useToast } from '../hooks/useToast';
@@ -129,7 +129,6 @@ export function InvoiceLayoutPage() {
         setLogoPreview(layoutData.logo_url);
       }
     } catch (err) {
-      console.error('Error loading layout:', err);
     } finally {
       setLoading(false);
     }
@@ -210,7 +209,6 @@ export function InvoiceLayoutPage() {
 
       return publicUrl;
     } catch (err) {
-      console.error('Error uploading logo:', err);
       showError('Fehler beim Hochladen des Logos');
       return null;
     }
@@ -290,7 +288,6 @@ export function InvoiceLayoutPage() {
       success('Layout erfolgreich gespeichert');
       setLogoFile(null);
     } catch (err) {
-      console.error('Error saving layout:', err);
       showError('Fehler beim Speichern des Layouts');
     } finally {
       setSaving(false);

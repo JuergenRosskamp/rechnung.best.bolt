@@ -47,7 +47,6 @@ export function QuotesPage() {
       if (error) throw error;
       setQuotes(data || []);
     } catch (error) {
-      console.error('Error loading quotes:', error);
     } finally {
       setIsLoading(false);
     }

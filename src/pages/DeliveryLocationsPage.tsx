@@ -70,7 +70,6 @@ export default function DeliveryLocationsPage() {
       if (fetchError) throw fetchError;
       setCustomers(data || []);
     } catch (err) {
-      console.error('Error fetching customers:', err);
     }
   }, []);
 

@@ -90,7 +90,6 @@ async function loadImageAsDataURL(url: string): Promise<string | null> {
       reader.readAsDataURL(blob);
     });
   } catch (error) {
-    console.error('Error loading image:', error);
     return null;
   }
 }
@@ -102,7 +101,6 @@ export async function generateInvoicePDF(invoice: InvoiceData, customLayout?: La
   const pageHeight = doc.internal.pageSize.getHeight();
 
   const primaryColor = hexToRgb(layout.primary_color || '#0ea5e9');
-  const textColor = hexToRgb(layout.text_color || '#1e293b');
   const fontFamily = layout.font_family || 'helvetica';
   const fontSizeBase = layout.font_size_base || 10;
   const fontSizeHeading = layout.font_size_heading || 20;
@@ -130,7 +128,6 @@ export async function generateInvoicePDF(invoice: InvoiceData, customLayout?: La
         yPos += logoHeight + 5;
       }
     } catch (error) {
-      console.error('Error adding logo to PDF:', error);
     }
   }
 

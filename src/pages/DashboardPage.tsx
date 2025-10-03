@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Layout } from '../components/Layout';
 import { useAuthStore } from '../store/authStore';
 import { supabase } from '../lib/supabase';
-import { FileText, Users, Package, TrendingUp, AlertCircle, Calendar, Eye, Plus, ArrowRight, CheckCircle2, Clock, DollarSign } from 'lucide-react';
+import { FileText, Users, Package, TrendingUp, AlertCircle, Calendar, Eye, ArrowRight, CheckCircle2, Clock, DollarSign } from 'lucide-react';
 
 interface RecentInvoice {
   id: string;
@@ -171,7 +171,6 @@ export function DashboardPage() {
         pendingInvoices,
       });
     } catch (error) {
-      console.error('Error loading dashboard data:', error);
     } finally {
       setIsLoading(false);
     }

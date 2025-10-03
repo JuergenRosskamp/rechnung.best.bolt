@@ -60,7 +60,6 @@ export function ArticleFormPage() {
       });
       setArticleUnit(data.unit || 'pcs');
     } catch (error) {
-      console.error('Error loading article:', error);
       setError('Fehler beim Laden des Artikels');
     }
   }, [setValue]);

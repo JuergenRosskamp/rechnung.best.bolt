@@ -62,7 +62,6 @@ export function InvoicesPage() {
       if (error) throw error;
       setInvoices(data || []);
     } catch (err) {
-      console.error('Error loading invoices:', err);
       showError('Fehler beim Laden der Rechnungen');
     } finally {
       setIsLoading(false);
@@ -156,7 +155,6 @@ export function InvoicesPage() {
       loadInvoices();
       window.location.href = `/invoices/${newInvoice.id}`;
     } catch (err) {
-      console.error('Duplicate error:', err);
       showError('Fehler beim Duplizieren der Rechnung');
     }
   };
@@ -179,7 +177,6 @@ export function InvoicesPage() {
         };
       }
     } catch (err) {
-      console.error('Print error:', err);
       showError('Fehler beim Drucken der Rechnung');
     }
   };
@@ -235,7 +232,6 @@ export function InvoicesPage() {
       };
       success(`${formatLabels[format]} erfolgreich heruntergeladen`);
     } catch (err) {
-      console.error('Download error:', err);
       showError(`Fehler beim Download: ${err instanceof Error ? err.message : 'Unbekannter Fehler'}`);
     }
   };
@@ -245,7 +241,7 @@ export function InvoicesPage() {
     setSendEmailModal({ isOpen: true, invoice });
   };
 
-  const handleSendEmail = async (email: string, pdfFormat: 'standard' | 'zugferd') => {
+  const handleSendEmail = async (email: string) => {
     try {
       // Hier würde die E-Mail-Versand-Logik kommen
       success(`Rechnung erfolgreich an ${email} gesendet`);
@@ -260,7 +256,7 @@ export function InvoicesPage() {
     setSendXRechnungModal({ isOpen: true, invoice });
   };
 
-  const handleSendXRechnung = async (email: string, leitwegId: string, processType: string) => {
+  const handleSendXRechnung = async (email: string) => {
     try {
       // Hier würde die XRechnung-Versand-Logik kommen
       success(`XRechnung erfolgreich an ${email} gesendet`);

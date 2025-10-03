@@ -37,7 +37,6 @@ export function ArticlesPage() {
       if (error) throw error;
       setArticles(data || []);
     } catch (error) {
-      console.error('Error loading articles:', error);
     } finally {
       setIsLoading(false);
     }

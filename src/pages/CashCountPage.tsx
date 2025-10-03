@@ -46,7 +46,6 @@ export function CashCountPage() {
       if (error) throw error;
       setCalculatedBalance(data || 0);
     } catch (error) {
-      console.error('Error loading balance:', error);
     }
   }, [user]);
 

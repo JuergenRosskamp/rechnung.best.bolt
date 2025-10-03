@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Search, MessageCircle, AlertCircle, CheckCircle, Clock, Send } from 'lucide-react';
+import { Plus, MessageCircle, AlertCircle, CheckCircle, Clock, Send } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
@@ -66,7 +66,6 @@ export function SupportPage() {
       if (error) throw error;
       setTickets(data || []);
     } catch (error) {
-      console.error('Error loading tickets:', error);
     } finally {
       setIsLoading(false);
     }
@@ -86,7 +85,6 @@ export function SupportPage() {
       if (error) throw error;
       setMessages(data || []);
     } catch (error) {
-      console.error('Error loading messages:', error);
     }
   };
 

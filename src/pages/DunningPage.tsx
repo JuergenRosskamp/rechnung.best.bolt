@@ -52,7 +52,6 @@ export function DunningPage() {
       if (error) throw error;
       setDunnings(data || []);
     } catch (error) {
-      console.error('Error loading dunnings:', error);
     } finally {
       setIsLoading(false);
     }

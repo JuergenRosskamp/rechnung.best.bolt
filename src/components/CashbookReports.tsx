@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Download, TrendingUp, TrendingDown, PieChart, BarChart3, Calendar } from 'lucide-react';
+import { X, Download, TrendingUp, TrendingDown, PieChart, BarChart3 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { exportToDatabank } from '../lib/datevExport';
@@ -143,7 +143,6 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
         setDailyStats(dailyArray);
       }
     } catch (error) {
-      console.error('Error loading report data:', error);
     } finally {
       setIsLoading(false);
     }
@@ -167,7 +166,6 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
       link.download = `DATEV_Export_${startDate}_${endDate}_${skr}.csv`;
       link.click();
     } catch (error) {
-      console.error('Error exporting to DATEV:', error);
     } finally {
       setIsLoading(false);
     }

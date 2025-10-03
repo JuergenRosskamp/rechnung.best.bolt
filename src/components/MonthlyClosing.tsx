@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Calendar, DollarSign, AlertTriangle, CheckCircle, FileText, Lock, X } from 'lucide-react';
+import { Calendar, AlertTriangle, CheckCircle, FileText, Lock, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { getErrorMessage } from '../lib/errors';

@@ -76,7 +76,6 @@ export function InvoiceDetailPage() {
         }));
       }
     } catch (error) {
-      console.error('Error loading invoice:', error);
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +95,6 @@ export function InvoiceDetailPage() {
       if (error) throw error;
       setPayments(data || []);
     } catch (error) {
-      console.error('Error loading payments:', error);
     }
   }, [user, invoiceId]);
 

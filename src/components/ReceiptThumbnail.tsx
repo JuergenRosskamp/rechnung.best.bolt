@@ -56,7 +56,6 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
         }
       }
     } catch (error) {
-      console.error('Error loading receipt:', error);
     }
   };
 
@@ -91,7 +90,6 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
 
       setCanDelete(!closing);
     } catch (error) {
-      console.error('Error checking deletability:', error);
       setCanDelete(false);
     }
   };
@@ -127,7 +125,6 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
       setShowDeleteConfirm(false);
       onDeleted();
     } catch (error: any) {
-      console.error('Error deleting receipt:', error);
       setDeleteError(error.message || 'Fehler beim Löschen des Belegs');
     } finally {
       setIsDeleting(false);

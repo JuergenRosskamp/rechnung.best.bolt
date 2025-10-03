@@ -73,7 +73,6 @@ export function CustomerFormPage() {
         setValue(key as any, data[key]);
       });
     } catch (error) {
-      console.error('Error loading customer:', error);
       setError('Fehler beim Laden des Kunden');
     }
   }, [setValue]);

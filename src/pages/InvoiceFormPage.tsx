@@ -92,7 +92,6 @@ export function InvoiceFormPage() {
       if (error) throw error;
       setCustomers(data || []);
     } catch (error) {
-      console.error('Error loading customers:', error);
     }
   }, [user]);
 

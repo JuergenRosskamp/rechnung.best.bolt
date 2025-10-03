@@ -136,7 +136,7 @@ interface SendXRechnungModalProps {
   invoiceNumber: string;
 }
 
-export function SendXRechnungModal({ isOpen, onClose, onSend, customerEmail, invoiceNumber }: SendXRechnungModalProps) {
+export function SendXRechnungModal({ isOpen, onClose, onSend, customerEmail }: SendXRechnungModalProps) {
   const [email, setEmail] = useState(customerEmail || '');
   const [leitwegId, setLeitwegId] = useState('');
   const [processType, setProcessType] = useState('B2B');

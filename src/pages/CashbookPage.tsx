@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Plus, Search, TrendingUp, TrendingDown, DollarSign, Calculator, Upload, FileText, Download, Shield, XCircle, Calendar, BarChart3 } from 'lucide-react';
+import { Plus, Search, TrendingUp, TrendingDown, DollarSign, Calculator, Upload, Download, Shield, XCircle, Calendar, BarChart3 } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
@@ -66,7 +66,6 @@ export function CashbookPage() {
         setCurrentBalance(data[0].cash_balance);
       }
     } catch (error) {
-      console.error('Error loading cashbook:', error);
     } finally {
       setIsLoading(false);
     }
@@ -87,7 +86,6 @@ export function CashbookPage() {
       if (error) throw error;
       setMonthlyClosings(data || []);
     } catch (error) {
-      console.error('Error loading monthly closings:', error);
     }
   }, [user]);
 

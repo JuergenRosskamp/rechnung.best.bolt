@@ -2,7 +2,7 @@ import { LayoutDashboard, Users, FileText, Package, Plus } from 'lucide-react';
 import { useState } from 'react';
 
 export function MobileBottomNav() {
-  const [activeRoute, setActiveRoute] = useState(window.location.pathname);
+  const [activeRoute] = useState(window.location.pathname);
 
   const navItems = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },

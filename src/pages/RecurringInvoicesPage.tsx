@@ -64,7 +64,6 @@ export function RecurringInvoicesPage() {
       if (error) throw error;
       setSubscriptions(data || []);
     } catch (error) {
-      console.error('Error loading subscriptions:', error);
     } finally {
       setIsLoading(false);
     }
@@ -115,7 +114,6 @@ export function RecurringInvoicesPage() {
         churn_rate: isNaN(churnRate) ? 0 : churnRate,
       });
     } catch (error) {
-      console.error('Error calculating stats:', error);
     }
   };
 

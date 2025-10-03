@@ -78,7 +78,6 @@ export function QuoteFormPage() {
       if (error) throw error;
       setCustomers(data || []);
     } catch (error) {
-      console.error('Error loading customers:', error);
     }
   }, [user]);
 

@@ -79,7 +79,6 @@ export function CashbookEntryPage() {
       if (error) throw error;
       setCategories(data || []);
     } catch (error) {
-      console.error('Error loading categories:', error);
     }
   }, [user]);
 
@@ -95,7 +94,6 @@ export function CashbookEntryPage() {
       if (error) throw error;
       setCurrentBalance(data || 0);
     } catch (error) {
-      console.error('Error loading balance:', error);
     }
   }, [user]);
 

@@ -28,7 +28,6 @@ export async function checkForDuplicates(
     .lte('entry_date', dayAfter.toISOString().split('T')[0]);
 
   if (error) {
-    console.error('Error checking duplicates:', error);
     return { isDuplicate: false };
   }
 
