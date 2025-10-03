@@ -12,7 +12,14 @@ import { ReceiptUpload, ReceiptData } from '../components/ReceiptUpload';
 import { checkForDuplicates, DuplicateCheckResult } from '../lib/cashbookValidation';
 
 const entrySchema = z.object({
-  entry_date: z.string().min(1, 'Datum erforderlich'),
+  entry_date: z.string()
+    .min(1, 'Datum erforderlich')
+    .refine((date) => {
+      const entryDate = new Date(date);
+      const today = new Date();
+      today.setHours(23, 59, 59, 999);
+      return entryDate <= today;
+    }, 'Datum darf nicht in der Zukunft liegen'),
   document_type: z.enum(['income', 'expense']),
   category_id: z.string().min(1, 'Kategorie erforderlich'),
   description: z.string().min(1, 'Beschreibung erforderlich'),
@@ -176,6 +183,13 @@ export function CashbookEntryPage() {
       const vatAmount = data.amount - netAmount;
       const signedAmount = data.document_type === 'expense' ? -data.amount : data.amount;
       const newBalance = currentBalance + signedAmount;
+
+      // Check for negative balance
+      if (newBalance < 0) {
+        setError(`Ausgabe würde zu negativem Kassenbestand führen (${newBalance.toFixed(2)} EUR). Aktueller Bestand: ${currentBalance.toFixed(2)} EUR`);
+        setIsLoading(false);
+        return;
+      }
 
       // Create entry object
       const entryData = {

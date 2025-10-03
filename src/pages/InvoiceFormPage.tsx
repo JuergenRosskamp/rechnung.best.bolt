@@ -19,11 +19,21 @@ const invoiceItemSchema = z.object({
 
 const invoiceSchema = z.object({
   customer_id: z.string().min(1, 'Kunde auswählen'),
-  invoice_date: z.string().min(1, 'Datum erforderlich'),
+  invoice_date: z.string()
+    .min(1, 'Datum erforderlich')
+    .refine((date) => {
+      const invoiceDate = new Date(date);
+      const today = new Date();
+      today.setHours(23, 59, 59, 999);
+      return invoiceDate <= today;
+    }, 'Rechnungsdatum darf nicht in der Zukunft liegen'),
   due_date: z.string().min(1, 'Fälligkeitsdatum erforderlich'),
   payment_terms: z.string().default('net_30'),
   reference_number: z.string().optional(),
-  items: z.array(invoiceItemSchema).min(1, 'Mindestens eine Position erforderlich'),
+  items: z.array(invoiceItemSchema).min(1, 'Mindestens eine Position erforderlich').refine(
+    (items) => items.some(item => item.description.trim() !== ''),
+    'Mindestens eine Position mit Beschreibung erforderlich'
+  ),
   internal_notes: z.string().optional(),
   customer_notes: z.string().optional(),
 });
