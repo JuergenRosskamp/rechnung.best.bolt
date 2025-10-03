@@ -35,7 +35,11 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   const { user } = useAuthStore();
 
   useEffect(() => {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/5.4.149/pdf.worker.min.mjs`;
+    // Set up PDF.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+      'pdfjs-dist/build/pdf.worker.min.mjs',
+      import.meta.url
+    ).toString();
   }, []);
 
   useEffect(() => {
@@ -75,23 +79,28 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
       return;
     }
 
-    try {
-      setIsProcessing(true);
-      setError('');
-      setUploadedFileName(file.name);
+    setIsProcessing(true);
+    setError('');
+    setUploadedFileName(file.name);
+    setUploadStatus('uploading');
 
+    try {
       const isPdf = file.type === 'application/pdf';
       setFileType(isPdf ? 'pdf' : 'image');
 
       let preview: string;
       if (isPdf) {
-        preview = await generatePdfThumbnail(file);
+        try {
+          preview = await generatePdfThumbnail(file);
+        } catch (pdfError) {
+          console.error('PDF thumbnail generation failed:', pdfError);
+          // Fallback: use a generic placeholder or skip preview for PDFs
+          preview = '';
+        }
       } else {
         preview = URL.createObjectURL(file);
       }
       setPreviewUrl(preview);
-
-      setUploadStatus('uploading');
 
       const fileExt = file.name.split('.').pop();
       const fileName = `${user.tenant_id}/${new Date().getFullYear()}/${new Date().getMonth() + 1}/${Date.now()}.${fileExt}`;
