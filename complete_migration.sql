@@ -5,6 +5,16 @@
 -- Copy and paste this entire file into your Supabase SQL Editor and run it.
 -- ============================================================================
 
+-- Drop all existing triggers first
+DO $$ 
+DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (SELECT tablename, schemaname FROM pg_tables WHERE schemaname = 'public') LOOP
+        EXECUTE 'DROP TRIGGER IF EXISTS update_' || r.tablename || '_updated_at ON ' || r.schemaname || '.' || r.tablename || ' CASCADE';
+    END LOOP;
+END $$;
+
 -- Drop all tables that might exist (in reverse dependency order)
 DROP TABLE IF EXISTS support_tickets CASCADE;
 DROP TABLE IF EXISTS dunning_log CASCADE;
@@ -24,6 +34,7 @@ DROP TABLE IF EXISTS delivery_locations CASCADE;
 DROP TABLE IF EXISTS customer_price_overrides CASCADE;
 DROP TABLE IF EXISTS article_time_based_prices CASCADE;
 DROP TABLE IF EXISTS article_volume_discounts CASCADE;
+DROP TABLE IF EXISTS customer_contacts CASCADE;
 DROP TABLE IF EXISTS articles CASCADE;
 DROP TABLE IF EXISTS customers CASCADE;
 DROP TABLE IF EXISTS vehicles CASCADE;
@@ -36,6 +47,7 @@ DROP FUNCTION IF EXISTS generate_invoice_number CASCADE;
 DROP FUNCTION IF EXISTS validate_cashbook_entry CASCADE;
 DROP FUNCTION IF EXISTS close_cashbook_month CASCADE;
 DROP FUNCTION IF EXISTS get_tenant_id CASCADE;
+DROP FUNCTION IF EXISTS update_updated_at_column CASCADE;
 
 -- Drop storage buckets if they exist
 DO $$ 
@@ -43,6 +55,16 @@ BEGIN
   DELETE FROM storage.buckets WHERE id = 'receipts';
 EXCEPTION 
   WHEN OTHERS THEN NULL;
+END $$;
+
+-- Drop all policies
+DO $$ 
+DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (SELECT schemaname, tablename, policyname FROM pg_policies WHERE schemaname = 'public') LOOP
+        EXECUTE 'DROP POLICY IF EXISTS "' || r.policyname || '" ON ' || r.schemaname || '.' || r.tablename || ' CASCADE';
+    END LOOP;
 END $$;
 
 -- ============================================================================
