@@ -5,11 +5,42 @@
 -- Copy and paste this entire file into your Supabase SQL Editor and run it.
 -- ============================================================================
 
--- First, drop all existing objects to start fresh
-DROP SCHEMA IF EXISTS public CASCADE;
-CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
+-- Drop all tables that we will create (in reverse dependency order)
+DROP TABLE IF EXISTS support_tickets CASCADE;
+DROP TABLE IF EXISTS dunning_log CASCADE;
+DROP TABLE IF EXISTS quotes CASCADE;
+DROP TABLE IF EXISTS quote_items CASCADE;
+DROP TABLE IF EXISTS monthly_closings CASCADE;
+DROP TABLE IF EXISTS receipts CASCADE;
+DROP TABLE IF EXISTS cashbook CASCADE;
+DROP TABLE IF EXISTS invoice_archive CASCADE;
+DROP TABLE IF EXISTS invoice_layouts CASCADE;
+DROP TABLE IF EXISTS delivery_items CASCADE;
+DROP TABLE IF EXISTS deliveries CASCADE;
+DROP TABLE IF EXISTS recurring_invoices CASCADE;
+DROP TABLE IF EXISTS invoice_items CASCADE;
+DROP TABLE IF EXISTS invoices CASCADE;
+DROP TABLE IF EXISTS delivery_locations CASCADE;
+DROP TABLE IF EXISTS customer_price_overrides CASCADE;
+DROP TABLE IF EXISTS article_time_based_prices CASCADE;
+DROP TABLE IF EXISTS article_volume_discounts CASCADE;
+DROP TABLE IF EXISTS articles CASCADE;
+DROP TABLE IF EXISTS customers CASCADE;
+DROP TABLE IF EXISTS vehicles CASCADE;
+DROP TABLE IF EXISTS subscriptions CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS tenants CASCADE;
+
+-- Drop functions
+DROP FUNCTION IF EXISTS generate_invoice_number CASCADE;
+DROP FUNCTION IF EXISTS validate_cashbook_entry CASCADE;
+DROP FUNCTION IF EXISTS close_cashbook_month CASCADE;
+DROP FUNCTION IF EXISTS get_tenant_id CASCADE;
+
+-- Drop triggers
+DROP TRIGGER IF EXISTS update_tenants_updated_at ON tenants;
+DROP TRIGGER IF EXISTS update_users_updated_at ON users;
+DROP TRIGGER IF EXISTS update_subscriptions_updated_at ON subscriptions;
 
 -- ============================================================================
 -- 20250930211137_create_initial_schema.sql
