@@ -27,6 +27,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const [fileType, setFileType] = useState<'image' | 'pdf' | ''>('');
   const [isDragging, setIsDragging] = useState(false);
+  const [showFullImage, setShowFullImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const dropZoneRef = useRef<HTMLDivElement>(null);
@@ -157,6 +158,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
     setUploadedFileName('');
     setPreviewUrl('');
     setFileType('');
+    setShowFullImage(false);
     if (onReceiptIdChange) {
       onReceiptIdChange(null);
     }
@@ -266,11 +268,15 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
               {previewUrl && (
                 <div className="mt-3">
                   {fileType === 'image' ? (
-                    <img
-                      src={previewUrl}
-                      alt="Beleg Vorschau"
-                      className="max-h-32 rounded border border-green-300"
-                    />
+                    <>
+                      <img
+                        src={previewUrl}
+                        alt="Beleg Vorschau"
+                        className="max-h-32 rounded border border-green-300 cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => setShowFullImage(true)}
+                      />
+                      <p className="text-xs text-green-600 mt-1">Klicken zum Vergrößern</p>
+                    </>
                   ) : (
                     <div className="flex items-center space-x-2 text-sm text-green-700">
                       <svg className="h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
@@ -310,6 +316,28 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
           Der Beleg wird GoBD-konform archiviert. Formate: JPG, PNG, PDF (max. 10 MB)
         </p>
       </div>
+
+      {showFullImage && previewUrl && (
+        <div
+          className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4"
+          onClick={() => setShowFullImage(false)}
+        >
+          <div className="relative max-w-7xl max-h-full">
+            <button
+              onClick={() => setShowFullImage(false)}
+              className="absolute top-4 right-4 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-70 transition-all"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            <img
+              src={previewUrl}
+              alt="Beleg in voller Größe"
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
