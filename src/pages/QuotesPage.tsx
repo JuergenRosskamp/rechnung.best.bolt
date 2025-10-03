@@ -117,7 +117,7 @@ export function QuotesPage() {
 
   const getStatusBadge = (status: string) => {
     const badges = {
-      draft: { color: 'bg-gray-100 text-gray-700', icon: FileText, label: 'Entwurf' },
+      draft: { color: 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-secondary-200', icon: FileText, label: 'Entwurf' },
       sent: { color: 'bg-blue-100 text-blue-700', icon: Clock, label: 'Versendet' },
       accepted: { color: 'bg-green-100 text-green-700', icon: CheckCircle, label: 'Angenommen' },
       declined: { color: 'bg-red-100 text-red-700', icon: XCircle, label: 'Abgelehnt' },
@@ -150,8 +150,8 @@ export function QuotesPage() {
       <div className="p-4 md:p-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Angebote</h1>
-            <p className="text-sm text-gray-600 mt-1">Angebotsverwaltung und Konvertierung</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-secondary-50">Angebote</h1>
+            <p className="text-sm text-gray-600 dark:text-secondary-400 mt-1">Angebotsverwaltung und Konvertierung</p>
           </div>
           <button
             onClick={() => window.location.href = '/quotes/new'}
@@ -167,13 +167,13 @@ export function QuotesPage() {
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-secondary-600" />
                   <input
                     type="text"
                     placeholder="Angebotsnummer oder Kunde suchen..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -181,7 +181,7 @@ export function QuotesPage() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="all">Alle Status</option>
                   <option value="draft">Entwurf</option>
@@ -198,64 +198,64 @@ export function QuotesPage() {
         {isLoading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="mt-4 text-gray-500">Lade Angebote...</p>
+            <p className="mt-4 text-gray-500 dark:text-secondary-500">Lade Angebote...</p>
           </div>
         ) : filteredQuotes.length === 0 ? (
           <div className="card p-12 text-center">
-            <FileText className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-4 text-lg font-medium text-gray-900">Keine Angebote gefunden</h3>
-            <p className="mt-2 text-gray-500">
+            <FileText className="mx-auto h-12 w-12 text-gray-400 dark:text-secondary-600" />
+            <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-secondary-50">Keine Angebote gefunden</h3>
+            <p className="mt-2 text-gray-500 dark:text-secondary-500">
               {searchTerm ? 'Versuchen Sie eine andere Suche.' : 'Erstellen Sie Ihr erstes Angebot.'}
             </p>
           </div>
         ) : (
           <div className="table-responsive">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-secondary-700">
+              <thead className="bg-gray-50 dark:bg-secondary-800">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                     Angebotsnr.
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                     Kunde
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                     Datum
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                     Gültig bis
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                     Betrag
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                     Aktionen
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-secondary-800 divide-y divide-gray-200 dark:divide-secondary-700">
                 {filteredQuotes.map((quote) => (
-                  <tr key={quote.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={quote.id} className="hover:bg-gray-50 dark:bg-secondary-800 transition-colors">
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <span className="text-sm font-medium text-gray-900">{quote.quote_number}</span>
+                      <span className="text-sm font-medium text-gray-900 dark:text-secondary-50">{quote.quote_number}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <div className="text-sm text-gray-900">{quote.customer.display_name}</div>
-                      <div className="text-xs text-gray-500">{quote.customer.customer_number}</div>
+                      <div className="text-sm text-gray-900 dark:text-secondary-50">{quote.customer.display_name}</div>
+                      <div className="text-xs text-gray-500 dark:text-secondary-500">{quote.customer.customer_number}</div>
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 dark:text-secondary-50">
                       {new Date(quote.quote_date).toLocaleDateString('de-DE')}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 dark:text-secondary-50">
                       {new Date(quote.valid_until).toLocaleDateString('de-DE')}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {getStatusBadge(quote.status)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium text-gray-900">
+                    <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium text-gray-900 dark:text-secondary-50">
                       {quote.total_amount.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-center">

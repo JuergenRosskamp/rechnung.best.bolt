@@ -166,7 +166,7 @@ export function SupportPage() {
       in_progress: { color: 'bg-yellow-100 text-yellow-700', icon: Clock, label: 'In Bearbeitung' },
       waiting: { color: 'bg-orange-100 text-orange-700', icon: Clock, label: 'Wartet' },
       resolved: { color: 'bg-green-100 text-green-700', icon: CheckCircle, label: 'Gelöst' },
-      closed: { color: 'bg-gray-100 text-gray-700', icon: CheckCircle, label: 'Geschlossen' },
+      closed: { color: 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-secondary-200', icon: CheckCircle, label: 'Geschlossen' },
     };
 
     const badge = badges[status as keyof typeof badges];
@@ -182,7 +182,7 @@ export function SupportPage() {
 
   const getPriorityBadge = (priority: string) => {
     const colors = {
-      low: 'bg-gray-100 text-gray-700',
+      low: 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-secondary-200',
       medium: 'bg-blue-100 text-blue-700',
       high: 'bg-orange-100 text-orange-700',
       urgent: 'bg-red-100 text-red-700',
@@ -207,8 +207,8 @@ export function SupportPage() {
       <div className="p-4 md:p-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Support</h1>
-            <p className="text-sm text-gray-600 mt-1">Hilfe & Support-Tickets</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-secondary-50">Support</h1>
+            <p className="text-sm text-gray-600 dark:text-secondary-400 mt-1">Hilfe & Support-Tickets</p>
           </div>
           <button
             onClick={() => setShowCreateForm(true)}
@@ -222,19 +222,19 @@ export function SupportPage() {
         {/* Create Ticket Modal */}
         {showCreateForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-secondary-800 rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Neues Support-Ticket</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-secondary-50 mb-6">Neues Support-Ticket</h2>
                 <form onSubmit={createTicket} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         Kategorie *
                       </label>
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                         required
                       >
                         <option value="bug">Bug / Fehler</option>
@@ -247,13 +247,13 @@ export function SupportPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         Priorität *
                       </label>
                       <select
                         value={formData.priority}
                         onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-                        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                         required
                       >
                         <option value="low">Niedrig</option>
@@ -265,28 +265,28 @@ export function SupportPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Betreff *
                     </label>
                     <input
                       type="text"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                       placeholder="Kurze Beschreibung des Problems"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Beschreibung *
                     </label>
                     <textarea
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       rows={6}
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                       placeholder="Detaillierte Beschreibung des Problems..."
                       required
                     />
@@ -296,7 +296,7 @@ export function SupportPage() {
                     <button
                       type="button"
                       onClick={() => setShowCreateForm(false)}
-                      className="flex-1 px-6 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      className="flex-1 px-6 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
                     >
                       Abbrechen
                     </button>
@@ -317,34 +317,34 @@ export function SupportPage() {
           {/* Tickets List */}
           <div className="lg:col-span-1">
             <div className="card">
-              <div className="p-4 border-b border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900">Meine Tickets</h3>
+              <div className="p-4 border-b border-gray-200 dark:border-secondary-700">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50">Meine Tickets</h3>
               </div>
-              <div className="divide-y divide-gray-200 max-h-[600px] overflow-y-auto">
+              <div className="divide-y divide-gray-200 dark:divide-secondary-700 max-h-[600px] overflow-y-auto">
                 {isLoading ? (
                   <div className="p-8 text-center">
                     <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                   </div>
                 ) : tickets.length === 0 ? (
                   <div className="p-8 text-center">
-                    <MessageCircle className="mx-auto h-12 w-12 text-gray-400" />
-                    <p className="mt-4 text-gray-500">Keine Tickets vorhanden</p>
+                    <MessageCircle className="mx-auto h-12 w-12 text-gray-400 dark:text-secondary-600" />
+                    <p className="mt-4 text-gray-500 dark:text-secondary-500">Keine Tickets vorhanden</p>
                   </div>
                 ) : (
                   tickets.map((ticket) => (
                     <div
                       key={ticket.id}
                       onClick={() => setSelectedTicket(ticket)}
-                      className={`p-4 cursor-pointer transition-colors hover:bg-gray-50 ${
+                      className={`p-4 cursor-pointer transition-colors hover:bg-gray-50 dark:bg-secondary-800 ${
                         selectedTicket?.id === ticket.id ? 'bg-blue-50' : ''
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2 mb-2">
-                        <span className="text-sm font-medium text-gray-900">{ticket.ticket_number}</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-secondary-50">{ticket.ticket_number}</span>
                         {getStatusBadge(ticket.status)}
                       </div>
-                      <h4 className="text-sm font-medium text-gray-900 mb-1">{ticket.subject}</h4>
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <h4 className="text-sm font-medium text-gray-900 dark:text-secondary-50 mb-1">{ticket.subject}</h4>
+                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-secondary-500">
                         {getPriorityBadge(ticket.priority)}
                         <span>•</span>
                         <span>{new Date(ticket.created_at).toLocaleDateString('de-DE')}</span>
@@ -360,18 +360,18 @@ export function SupportPage() {
           <div className="lg:col-span-2">
             {selectedTicket ? (
               <div className="card h-full flex flex-col">
-                <div className="p-6 border-b border-gray-200">
+                <div className="p-6 border-b border-gray-200 dark:border-secondary-700">
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-sm font-medium text-gray-500">{selectedTicket.ticket_number}</span>
+                        <span className="text-sm font-medium text-gray-500 dark:text-secondary-500">{selectedTicket.ticket_number}</span>
                         {getStatusBadge(selectedTicket.status)}
                         {getPriorityBadge(selectedTicket.priority)}
                       </div>
-                      <h2 className="text-xl font-bold text-gray-900">{selectedTicket.subject}</h2>
+                      <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50">{selectedTicket.subject}</h2>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600">{selectedTicket.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-secondary-400">{selectedTicket.description}</p>
                 </div>
 
                 {/* Messages */}
@@ -385,13 +385,13 @@ export function SupportPage() {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="text-sm font-medium text-gray-900">{msg.user?.email || 'User'}</span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-sm font-medium text-gray-900 dark:text-secondary-50">{msg.user?.email || 'User'}</span>
+                          <span className="text-xs text-gray-500 dark:text-secondary-500">
                             {new Date(msg.created_at).toLocaleString('de-DE')}
                           </span>
                         </div>
-                        <div className="bg-gray-50 rounded-lg p-3">
-                          <p className="text-sm text-gray-700">{msg.message}</p>
+                        <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-3">
+                          <p className="text-sm text-gray-700 dark:text-secondary-200">{msg.message}</p>
                         </div>
                       </div>
                     </div>
@@ -399,13 +399,13 @@ export function SupportPage() {
                 </div>
 
                 {/* Reply Box */}
-                <div className="p-6 border-t border-gray-200">
+                <div className="p-6 border-t border-gray-200 dark:border-secondary-700">
                   <div className="flex gap-3">
                     <textarea
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       rows={3}
-                      className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
+                      className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
                       placeholder="Nachricht schreiben..."
                     />
                     <button
@@ -420,9 +420,9 @@ export function SupportPage() {
               </div>
             ) : (
               <div className="card p-12 text-center">
-                <MessageCircle className="mx-auto h-12 w-12 text-gray-400" />
-                <h3 className="mt-4 text-lg font-medium text-gray-900">Kein Ticket ausgewählt</h3>
-                <p className="mt-2 text-gray-500">Wählen Sie ein Ticket aus oder erstellen Sie ein neues.</p>
+                <MessageCircle className="mx-auto h-12 w-12 text-gray-400 dark:text-secondary-600" />
+                <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-secondary-50">Kein Ticket ausgewählt</h3>
+                <p className="mt-2 text-gray-500 dark:text-secondary-500">Wählen Sie ein Ticket aus oder erstellen Sie ein neues.</p>
               </div>
             )}
           </div>

@@ -112,7 +112,7 @@ export function DunningPage() {
 
   const getStatusBadge = (status: string) => {
     const badges = {
-      draft: { color: 'bg-gray-100 text-gray-700', icon: FileText, label: 'Entwurf' },
+      draft: { color: 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-secondary-200', icon: FileText, label: 'Entwurf' },
       sent: { color: 'bg-blue-100 text-blue-700', icon: Send, label: 'Versendet' },
       paid: { color: 'bg-green-100 text-green-700', icon: CheckCircle, label: 'Bezahlt' },
       escalated: { color: 'bg-red-100 text-red-700', icon: AlertTriangle, label: 'Eskaliert' },
@@ -134,8 +134,8 @@ export function DunningPage() {
       <div className="p-4 md:p-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Mahnwesen</h1>
-            <p className="text-sm text-gray-600 mt-1">Zahlungserinnerungen und Mahnungen</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-secondary-50">Mahnwesen</h1>
+            <p className="text-sm text-gray-600 dark:text-secondary-400 mt-1">Zahlungserinnerungen und Mahnungen</p>
           </div>
           <button
             onClick={generateDunnings}
@@ -167,73 +167,73 @@ export function DunningPage() {
         {isLoading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
-            <p className="mt-4 text-gray-500">Lade Mahnungen...</p>
+            <p className="mt-4 text-gray-500 dark:text-secondary-500">Lade Mahnungen...</p>
           </div>
         ) : dunnings.length === 0 ? (
           <div className="card p-12 text-center">
             <CheckCircle className="mx-auto h-12 w-12 text-green-500" />
-            <h3 className="mt-4 text-lg font-medium text-gray-900">Keine offenen Mahnungen</h3>
-            <p className="mt-2 text-gray-500">
+            <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-secondary-50">Keine offenen Mahnungen</h3>
+            <p className="mt-2 text-gray-500 dark:text-secondary-500">
               Alle Rechnungen sind bezahlt oder noch nicht fällig.
             </p>
           </div>
         ) : (
           <div className="table-responsive">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-secondary-700">
+              <thead className="bg-gray-50 dark:bg-secondary-800">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Mahnnummer
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Rechnung
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Kunde
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Stufe
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Datum
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Status
                   </th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Betrag
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Aktionen
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-secondary-800 divide-y divide-gray-200 dark:divide-secondary-700">
                 {dunnings.map((dunning) => (
-                  <tr key={dunning.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={dunning.id} className="hover:bg-gray-50 dark:bg-secondary-800 transition-colors">
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <span className="text-sm font-medium text-gray-900">{dunning.dunning_number}</span>
+                      <span className="text-sm font-medium text-gray-900 dark:text-secondary-50">{dunning.dunning_number}</span>
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 dark:text-secondary-50">
                       {dunning.invoice.invoice_number}
                     </td>
                     <td className="px-4 py-3">
-                      <div className="text-sm text-gray-900">{dunning.customer.display_name}</div>
+                      <div className="text-sm text-gray-900 dark:text-secondary-50">{dunning.customer.display_name}</div>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {getLevelBadge(dunning.dunning_level)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 dark:text-secondary-50">
                       {new Date(dunning.dunning_date).toLocaleDateString('de-DE')}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {getStatusBadge(dunning.status)}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-right">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-900 dark:text-secondary-50">
                         {dunning.total_amount.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-gray-500 dark:text-secondary-500">
                         Gebühr: {dunning.dunning_fee.toFixed(2)} EUR
                       </div>
                     </td>

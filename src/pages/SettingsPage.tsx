@@ -133,8 +133,8 @@ export function SettingsPage() {
     <Layout>
       <div className="max-w-7xl mx-auto space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Einstellungen</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">Einstellungen</h1>
+          <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">
             Verwalten Sie Ihre Konto- und Firmeneinstellungen
           </p>
         </div>
@@ -163,8 +163,8 @@ export function SettingsPage() {
                     onClick={() => setActiveTab(tab.id as any)}
                     className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg ${
                       activeTab === tab.id
-                        ? 'bg-indigo-50 text-indigo-700'
-                        : 'text-gray-700 hover:bg-gray-50'
+                        ? 'bg-primary-50 text-primary-700'
+                        : 'text-gray-700 dark:text-secondary-200 hover:bg-gray-50 dark:bg-secondary-800'
                     }`}
                   >
                     <Icon className="h-5 w-5 mr-3" />
@@ -179,12 +179,12 @@ export function SettingsPage() {
           <div className="flex-1">
             {activeTab === 'company' && (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="bg-white rounded-lg shadow p-6 space-y-6">
-                  <h2 className="text-lg font-medium text-gray-900">Firmendaten</h2>
+                <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+                  <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Firmendaten</h2>
 
                   {/* Logo Upload */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Firmenlogo
                     </label>
                     {logoUrl && (
@@ -193,7 +193,7 @@ export function SettingsPage() {
                       </div>
                     )}
                     <div className="flex items-center gap-4">
-                      <label className="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                      <label className="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800">
                         <Upload className="h-5 w-5 mr-2" />
                         {uploadingLogo ? 'Lädt hoch...' : 'Logo hochladen'}
                         <input
@@ -204,19 +204,19 @@ export function SettingsPage() {
                           className="hidden"
                         />
                       </label>
-                      <span className="text-sm text-gray-500">PNG, JPG bis 2MB</span>
+                      <span className="text-sm text-gray-500 dark:text-secondary-500">PNG, JPG bis 2MB</span>
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Firmenname *
                     </label>
                     <input
                       {...register('company_name')}
                       type="text"
                       id="company_name"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                     {errors.company_name && (
                       <p className="mt-1 text-sm text-red-600">{errors.company_name.message}</p>
@@ -224,63 +224,63 @@ export function SettingsPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="address_line1" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="address_line1" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Straße und Hausnummer
                     </label>
                     <input
                       {...register('address_line1')}
                       type="text"
                       id="address_line1"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="address_line2" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="address_line2" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Adresszusatz
                     </label>
                     <input
                       {...register('address_line2')}
                       type="text"
                       id="address_line2"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label htmlFor="zip_code" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="zip_code" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         PLZ
                       </label>
                       <input
                         {...register('zip_code')}
                         type="text"
                         id="zip_code"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
 
                     <div className="md:col-span-2">
-                      <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         Stadt
                       </label>
                       <input
                         {...register('city')}
                         type="text"
                         id="city"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Land
                     </label>
                     <select
                       {...register('country')}
                       id="country"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     >
                       <option value="DE">Deutschland</option>
                       <option value="AT">Österreich</option>
@@ -290,26 +290,26 @@ export function SettingsPage() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         Telefon
                       </label>
                       <input
                         {...register('phone')}
                         type="tel"
                         id="phone"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         E-Mail
                       </label>
                       <input
                         {...register('email')}
                         type="email"
                         id="email"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                       {errors.email && (
                         <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
@@ -318,7 +318,7 @@ export function SettingsPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="website" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Website
                     </label>
                     <input
@@ -326,32 +326,32 @@ export function SettingsPage() {
                       type="url"
                       id="website"
                       placeholder="https://..."
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="tax_id" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="tax_id" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         Steuernummer
                       </label>
                       <input
                         {...register('tax_id')}
                         type="text"
                         id="tax_id"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="vat_id" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="vat_id" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         USt-IdNr.
                       </label>
                       <input
                         {...register('vat_id')}
                         type="text"
                         id="vat_id"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       />
                     </div>
                   </div>
@@ -360,7 +360,7 @@ export function SettingsPage() {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="inline-flex items-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                      className="inline-flex items-center px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
                     >
                       <Save className="h-5 w-5 mr-2" />
                       {isLoading ? 'Speichert...' : 'Änderungen speichern'}
@@ -372,10 +372,10 @@ export function SettingsPage() {
 
             {activeTab === 'bank' && (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="bg-white rounded-lg shadow p-6 space-y-6">
+                <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
                   <div className="flex items-center gap-2">
-                    <Landmark className="h-6 w-6 text-gray-400" />
-                    <h2 className="text-lg font-medium text-gray-900">Bankverbindung</h2>
+                    <Landmark className="h-6 w-6 text-gray-400 dark:text-secondary-600" />
+                    <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Bankverbindung</h2>
                   </div>
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -385,19 +385,19 @@ export function SettingsPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="bank_account_holder" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="bank_account_holder" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Kontoinhaber
                     </label>
                     <input
                       {...register('bank_account_holder')}
                       type="text"
                       id="bank_account_holder"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="bank_name" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="bank_name" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Bankname
                     </label>
                     <input
@@ -405,13 +405,13 @@ export function SettingsPage() {
                       type="text"
                       id="bank_name"
                       placeholder="z.B. Deutsche Bank"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="iban" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="iban" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         IBAN
                       </label>
                       <input
@@ -419,12 +419,12 @@ export function SettingsPage() {
                         type="text"
                         id="iban"
                         placeholder="DE89 3704 0044 0532 0130 00"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent font-mono"
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="bic" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="bic" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                         BIC/SWIFT
                       </label>
                       <input
@@ -432,13 +432,13 @@ export function SettingsPage() {
                         type="text"
                         id="bic"
                         placeholder="COBADEFFXXX"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent font-mono"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent font-mono"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="bank_notes" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="bank_notes" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                       Notizen
                     </label>
                     <textarea
@@ -446,7 +446,7 @@ export function SettingsPage() {
                       id="bank_notes"
                       rows={3}
                       placeholder="Optionale Hinweise zur Bankverbindung..."
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                   </div>
 
@@ -454,7 +454,7 @@ export function SettingsPage() {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="inline-flex items-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                      className="inline-flex items-center px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
                     >
                       <Save className="h-5 w-5 mr-2" />
                       {isLoading ? 'Speichert...' : 'Änderungen speichern'}
@@ -467,8 +467,8 @@ export function SettingsPage() {
 {activeTab === 'subscription' && (
               <div className="space-y-6">
                 {/* Current Plan Card */}
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h2 className="text-lg font-medium text-gray-900 mb-6">Aktuelles Abonnement</h2>
+                <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
+                  <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50 mb-6">Aktuelles Abonnement</h2>
 
                   <div className="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
                     <div className="flex items-start">
@@ -486,7 +486,7 @@ export function SettingsPage() {
                           <span className={`px-2 py-1 rounded text-xs font-medium ${
                             subscription?.status === 'trialing' ? 'bg-green-100 text-green-800' :
                             subscription?.status === 'active' ? 'bg-blue-100 text-blue-800' :
-                            'bg-gray-100 text-gray-800'
+                            'bg-gray-100 dark:bg-secondary-700 text-gray-800 dark:text-secondary-100'
                           }`}>
                             {subscription?.status === 'trialing' ? 'Testzeitraum' :
                              subscription?.status === 'active' ? 'Aktiv' :
@@ -504,24 +504,24 @@ export function SettingsPage() {
                 </div>
 
                 {/* Plan Features */}
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h3 className="text-base font-medium text-gray-900 mb-4">Funktionen Ihres Plans</h3>
+                <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
+                  <h3 className="text-base font-medium text-gray-900 dark:text-secondary-50 mb-4">Funktionen Ihres Plans</h3>
                   <div className="grid gap-3">
                     {subscription?.plan_type === 'basic_kasse' && (
                       <>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           GoBD-konformes Kassenbuch
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Kassenzählungen
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Bargeldbuchungen
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           E-Mail Support
                         </div>
@@ -529,23 +529,23 @@ export function SettingsPage() {
                     )}
                     {subscription?.plan_type === 'basic_invoice' && (
                       <>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Unbegrenzte Rechnungen
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Kundenverwaltung
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Artikelverwaltung
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           GoBD-konform
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           E-Mail Support
                         </div>
@@ -553,27 +553,27 @@ export function SettingsPage() {
                     )}
                     {subscription?.plan_type === 'rechnung.best' && (
                       <>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Alle Features inklusive
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Rechnungen & Kassenbuch
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Fuhrpark & Lieferungen
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Mehrstufige Preise
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           XRechnung & ZUGFeRD Export
                         </div>
-                        <div className="flex items-center text-sm text-gray-700">
+                        <div className="flex items-center text-sm text-gray-700 dark:text-secondary-200">
                           <span className="text-green-500 mr-2 text-lg">✓</span>
                           Prioritäts-Support
                         </div>
@@ -583,16 +583,16 @@ export function SettingsPage() {
                 </div>
 
                 {/* Available Plans */}
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h3 className="text-base font-medium text-gray-900 mb-4">Verfügbare Pläne</h3>
+                <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
+                  <h3 className="text-base font-medium text-gray-900 dark:text-secondary-50 mb-4">Verfügbare Pläne</h3>
                   <div className="grid md:grid-cols-3 gap-4">
                     {/* Basic Kasse */}
-                    <div className={`border-2 rounded-lg p-4 ${subscription?.plan_type === 'basic_kasse' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
-                      <h4 className="font-semibold text-gray-900 mb-1">basic_kasse</h4>
-                      <p className="text-2xl font-bold text-gray-900 mb-2">4,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
-                      <p className="text-xs text-gray-600 mb-3">Für Kassenbuch</p>
+                    <div className={`border-2 rounded-lg p-4 ${subscription?.plan_type === 'basic_kasse' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 dark:border-secondary-700'}`}>
+                      <h4 className="font-semibold text-gray-900 dark:text-secondary-50 mb-1">basic_kasse</h4>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-secondary-50 mb-2">4,90 €<span className="text-sm font-normal text-gray-600 dark:text-secondary-400">/Monat</span></p>
+                      <p className="text-xs text-gray-600 dark:text-secondary-400 mb-3">Für Kassenbuch</p>
                       {subscription?.plan_type !== 'basic_kasse' && (
-                        <button className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        <button className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800 transition-colors">
                           Wechseln
                         </button>
                       )}
@@ -602,12 +602,12 @@ export function SettingsPage() {
                     </div>
 
                     {/* Basic Invoice */}
-                    <div className={`border-2 rounded-lg p-4 ${subscription?.plan_type === 'basic_invoice' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
-                      <h4 className="font-semibold text-gray-900 mb-1">basic_invoice</h4>
-                      <p className="text-2xl font-bold text-gray-900 mb-2">9,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
-                      <p className="text-xs text-gray-600 mb-3">Für Rechnungen</p>
+                    <div className={`border-2 rounded-lg p-4 ${subscription?.plan_type === 'basic_invoice' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 dark:border-secondary-700'}`}>
+                      <h4 className="font-semibold text-gray-900 dark:text-secondary-50 mb-1">basic_invoice</h4>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-secondary-50 mb-2">9,90 €<span className="text-sm font-normal text-gray-600 dark:text-secondary-400">/Monat</span></p>
+                      <p className="text-xs text-gray-600 dark:text-secondary-400 mb-3">Für Rechnungen</p>
                       {subscription?.plan_type !== 'basic_invoice' && (
-                        <button className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                        <button className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800 transition-colors">
                           Wechseln
                         </button>
                       )}
@@ -623,9 +623,9 @@ export function SettingsPage() {
                           Empfohlen
                         </div>
                       )}
-                      <h4 className="font-semibold text-gray-900 mb-1">rechnung.best</h4>
-                      <p className="text-2xl font-bold text-gray-900 mb-2">12,90 €<span className="text-sm font-normal text-gray-600">/Monat</span></p>
-                      <p className="text-xs text-gray-600 mb-3">Komplett-Lösung</p>
+                      <h4 className="font-semibold text-gray-900 dark:text-secondary-50 mb-1">rechnung.best</h4>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-secondary-50 mb-2">12,90 €<span className="text-sm font-normal text-gray-600 dark:text-secondary-400">/Monat</span></p>
+                      <p className="text-xs text-gray-600 dark:text-secondary-400 mb-3">Komplett-Lösung</p>
                       {subscription?.plan_type !== 'rechnung.best' && (
                         <button className="w-full px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                           Upgraden
@@ -639,8 +639,8 @@ export function SettingsPage() {
                 </div>
 
                 {/* Payment Info */}
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h3 className="text-base font-medium text-gray-900 mb-4">Zahlungsinformationen</h3>
+                <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
+                  <h3 className="text-base font-medium text-gray-900 dark:text-secondary-50 mb-4">Zahlungsinformationen</h3>
 
                   <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
                     <p className="text-sm text-yellow-800">
@@ -659,10 +659,10 @@ export function SettingsPage() {
                   )}
 
                   <div className="flex gap-3">
-                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm">
+                    <button className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800 transition-colors text-sm">
                       Zahlungsdetails verwalten
                     </button>
-                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-sm text-red-600 hover:bg-red-50">
+                    <button className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800 transition-colors text-sm text-red-600 hover:bg-red-50">
                       Abonnement kündigen
                     </button>
                   </div>
@@ -671,27 +671,27 @@ export function SettingsPage() {
             )}
 
             {activeTab === 'users' && (
-              <div className="bg-white rounded-lg shadow p-6 space-y-6">
+              <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-medium text-gray-900">Benutzerverwaltung</h2>
-                  <button className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                  <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Benutzerverwaltung</h2>
+                  <button className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
                     Benutzer einladen
                   </button>
                 </div>
 
                 <div className="border rounded-lg">
-                  <div className="p-4 border-b bg-gray-50">
+                  <div className="p-4 border-b bg-gray-50 dark:bg-secondary-800">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium text-gray-900">{user?.email}</p>
-                        <p className="text-sm text-gray-500">Administrator (Sie)</p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">{user?.email}</p>
+                        <p className="text-sm text-gray-500 dark:text-secondary-500">Administrator (Sie)</p>
                       </div>
                       <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                         Aktiv
                       </span>
                     </div>
                   </div>
-                  <div className="p-4 text-center text-sm text-gray-500">
+                  <div className="p-4 text-center text-sm text-gray-500 dark:text-secondary-500">
                     Weitere Benutzer können hinzugefügt werden, sobald Ihr Testzeitraum abgelaufen ist.
                   </div>
                 </div>
@@ -699,66 +699,66 @@ export function SettingsPage() {
             )}
 
             {activeTab === 'notifications' && (
-              <div className="bg-white rounded-lg shadow p-6 space-y-6">
-                <h2 className="text-lg font-medium text-gray-900">Benachrichtigungen</h2>
+              <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+                <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Benachrichtigungen</h2>
 
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">E-Mail-Benachrichtigungen</p>
-                      <p className="text-sm text-gray-500">Erhalten Sie Updates per E-Mail</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">E-Mail-Benachrichtigungen</p>
+                      <p className="text-sm text-gray-500 dark:text-secondary-500">Erhalten Sie Updates per E-Mail</p>
                     </div>
-                    <input type="checkbox" defaultChecked className="w-4 h-4 text-indigo-600" />
+                    <input type="checkbox" defaultChecked className="w-4 h-4 text-primary-600" />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Rechnungserinnerungen</p>
-                      <p className="text-sm text-gray-500">Benachrichtigung bei fälligen Rechnungen</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">Rechnungserinnerungen</p>
+                      <p className="text-sm text-gray-500 dark:text-secondary-500">Benachrichtigung bei fälligen Rechnungen</p>
                     </div>
-                    <input type="checkbox" defaultChecked className="w-4 h-4 text-indigo-600" />
+                    <input type="checkbox" defaultChecked className="w-4 h-4 text-primary-600" />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Zahlungseingänge</p>
-                      <p className="text-sm text-gray-500">Benachrichtigung bei Zahlungseingang</p>
+                      <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">Zahlungseingänge</p>
+                      <p className="text-sm text-gray-500 dark:text-secondary-500">Benachrichtigung bei Zahlungseingang</p>
                     </div>
-                    <input type="checkbox" defaultChecked className="w-4 h-4 text-indigo-600" />
+                    <input type="checkbox" defaultChecked className="w-4 h-4 text-primary-600" />
                   </div>
                 </div>
               </div>
             )}
 
             {activeTab === 'security' && (
-              <div className="bg-white rounded-lg shadow p-6 space-y-6">
-                <h2 className="text-lg font-medium text-gray-900">Sicherheit</h2>
+              <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+                <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Sicherheit</h2>
 
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 mb-2">Passwort ändern</h3>
-                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    <h3 className="text-sm font-medium text-gray-900 dark:text-secondary-50 mb-2">Passwort ändern</h3>
+                    <button className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800">
                       Passwort ändern
                     </button>
                   </div>
 
                   <div className="pt-4 border-t">
-                    <h3 className="text-sm font-medium text-gray-900 mb-2">Zwei-Faktor-Authentifizierung</h3>
-                    <p className="text-sm text-gray-500 mb-4">
+                    <h3 className="text-sm font-medium text-gray-900 dark:text-secondary-50 mb-2">Zwei-Faktor-Authentifizierung</h3>
+                    <p className="text-sm text-gray-500 dark:text-secondary-500 mb-4">
                       Erhöhen Sie die Sicherheit Ihres Kontos mit 2FA
                     </p>
-                    <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                    <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
                       2FA aktivieren
                     </button>
                   </div>
 
                   <div className="pt-4 border-t">
-                    <h3 className="text-sm font-medium text-gray-900 mb-2">Aktive Sitzungen</h3>
+                    <h3 className="text-sm font-medium text-gray-900 dark:text-secondary-50 mb-2">Aktive Sitzungen</h3>
                     <div className="border rounded-lg p-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm font-medium text-gray-900">Aktuelle Sitzung</p>
-                          <p className="text-sm text-gray-500">Angemeldet am {new Date().toLocaleDateString('de-DE')}</p>
+                          <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">Aktuelle Sitzung</p>
+                          <p className="text-sm text-gray-500 dark:text-secondary-500">Angemeldet am {new Date().toLocaleDateString('de-DE')}</p>
                         </div>
                         <span className="text-green-600 text-sm">Aktiv</span>
                       </div>

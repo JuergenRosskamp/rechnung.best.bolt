@@ -118,30 +118,30 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-secondary-800">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white border-b border-gray-200 z-50">
+      <nav className="fixed top-0 w-full bg-white dark:bg-secondary-800 border-b border-gray-200 dark:border-secondary-700 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <FileText className="h-8 w-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">rechnung.best</span>
+              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-secondary-50">rechnung.best</span>
             </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <button onClick={() => scrollToSection('features')} className="text-gray-600 hover:text-gray-900">
+              <button onClick={() => scrollToSection('features')} className="text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50">
                 Features
               </button>
-              <button onClick={() => scrollToSection('pricing')} className="text-gray-600 hover:text-gray-900">
+              <button onClick={() => scrollToSection('pricing')} className="text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50">
                 Preise
               </button>
-              <button onClick={() => scrollToSection('faq')} className="text-gray-600 hover:text-gray-900">
+              <button onClick={() => scrollToSection('faq')} className="text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50">
                 FAQ
               </button>
               <button
                 onClick={handleLogin}
-                className="text-gray-600 hover:text-gray-900"
+                className="text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50"
               >
                 Login
               </button>
@@ -157,7 +157,7 @@ export default function LandingPage() {
             <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-gray-600 hover:text-gray-900"
+                className="text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50"
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -167,20 +167,20 @@ export default function LandingPage() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200">
+          <div className="md:hidden bg-white dark:bg-secondary-800 border-t border-gray-200 dark:border-secondary-700">
             <div className="px-4 py-3 space-y-3">
-              <button onClick={() => scrollToSection('features')} className="block w-full text-left text-gray-600 hover:text-gray-900">
+              <button onClick={() => scrollToSection('features')} className="block w-full text-left text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50">
                 Features
               </button>
-              <button onClick={() => scrollToSection('pricing')} className="block w-full text-left text-gray-600 hover:text-gray-900">
+              <button onClick={() => scrollToSection('pricing')} className="block w-full text-left text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50">
                 Preise
               </button>
-              <button onClick={() => scrollToSection('faq')} className="block w-full text-left text-gray-600 hover:text-gray-900">
+              <button onClick={() => scrollToSection('faq')} className="block w-full text-left text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50">
                 FAQ
               </button>
               <button
                 onClick={handleLogin}
-                className="block w-full text-left text-gray-600 hover:text-gray-900"
+                className="block w-full text-left text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50"
               >
                 Login
               </button>
@@ -216,7 +216,7 @@ export default function LandingPage() {
             </button>
             <button
               onClick={() => scrollToSection('features')}
-              className="bg-white text-blue-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-colors"
+              className="bg-white dark:bg-secondary-800 text-blue-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-50 transition-colors"
             >
               Mehr erfahren
             </button>
@@ -228,25 +228,25 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 bg-gray-50">
+      <section id="features" className="py-20 px-4 bg-gray-50 dark:bg-secondary-800">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Alles, was Sie für professionelle Rechnungen brauchen
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-secondary-400 max-w-2xl mx-auto">
               Rechtssicher, GoBD-konform und einfach zu bedienen
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div key={index} className="bg-white dark:bg-secondary-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                 <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <feature.icon className="h-6 w-6 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-secondary-50 mb-2">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-secondary-400">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -254,43 +254,43 @@ export default function LandingPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-white dark:bg-secondary-800">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-6">
                 Ihre Vorteile auf einen Blick
               </h2>
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <CheckCircle className="h-6 w-6 text-emerald-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700 text-lg">{benefit}</span>
+                    <span className="text-gray-700 dark:text-secondary-200 text-lg">{benefit}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl">
               <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="bg-white dark:bg-secondary-800 p-6 rounded-xl shadow-sm">
                   <Clock className="h-8 w-8 text-blue-600 mb-2" />
-                  <div className="text-3xl font-bold text-gray-900">5 Min</div>
-                  <div className="text-gray-600 text-sm">Bis zur ersten Rechnung</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-secondary-50">5 Min</div>
+                  <div className="text-gray-600 dark:text-secondary-400 text-sm">Bis zur ersten Rechnung</div>
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="bg-white dark:bg-secondary-800 p-6 rounded-xl shadow-sm">
                   <Users className="h-8 w-8 text-blue-600 mb-2" />
-                  <div className="text-3xl font-bold text-gray-900">1000+</div>
-                  <div className="text-gray-600 text-sm">Zufriedene Nutzer</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-secondary-50">1000+</div>
+                  <div className="text-gray-600 dark:text-secondary-400 text-sm">Zufriedene Nutzer</div>
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="bg-white dark:bg-secondary-800 p-6 rounded-xl shadow-sm">
                   <Shield className="h-8 w-8 text-blue-600 mb-2" />
-                  <div className="text-3xl font-bold text-gray-900">100%</div>
-                  <div className="text-gray-600 text-sm">GoBD-Konform</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-secondary-50">100%</div>
+                  <div className="text-gray-600 dark:text-secondary-400 text-sm">GoBD-Konform</div>
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="bg-white dark:bg-secondary-800 p-6 rounded-xl shadow-sm">
                   <TrendingUp className="h-8 w-8 text-blue-600 mb-2" />
-                  <div className="text-3xl font-bold text-gray-900">99.9%</div>
-                  <div className="text-gray-600 text-sm">Verfügbarkeit</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-secondary-50">99.9%</div>
+                  <div className="text-gray-600 dark:text-secondary-400 text-sm">Verfügbarkeit</div>
                 </div>
               </div>
             </div>
@@ -299,85 +299,85 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 px-4 bg-gray-50">
+      <section id="pricing" className="py-20 px-4 bg-gray-50 dark:bg-secondary-800">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Einfache, transparente Preise
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-secondary-400">
               Keine versteckten Kosten. Jederzeit kündbar.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Basic Kasse */}
-            <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">basic_kasse</h3>
-              <p className="text-gray-600 mb-6">Für Kassenbuch</p>
+            <div className="bg-white dark:bg-secondary-800 rounded-2xl shadow-sm p-8 border border-gray-200 dark:border-secondary-700">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-secondary-50 mb-2">basic_kasse</h3>
+              <p className="text-gray-600 dark:text-secondary-400 mb-6">Für Kassenbuch</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-gray-900">4,90 €</span>
-                <span className="text-gray-600">/Monat</span>
+                <span className="text-4xl font-bold text-gray-900 dark:text-secondary-50">4,90 €</span>
+                <span className="text-gray-600 dark:text-secondary-400">/Monat</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">GoBD-konformes Kassenbuch</span>
+                  <span className="text-gray-700 dark:text-secondary-200">GoBD-konformes Kassenbuch</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Kassenzählungen</span>
+                  <span className="text-gray-700 dark:text-secondary-200">Kassenzählungen</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Bargeldbuchungen</span>
+                  <span className="text-gray-700 dark:text-secondary-200">Bargeldbuchungen</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">E-Mail Support</span>
+                  <span className="text-gray-700 dark:text-secondary-200">E-Mail Support</span>
                 </li>
               </ul>
               <button
                 onClick={handleGetStarted}
-                className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors"
+                className="w-full bg-gray-900 dark:bg-secondary-950 text-white py-3 rounded-lg hover:bg-gray-800 dark:bg-secondary-900 transition-colors"
               >
                 Jetzt starten
               </button>
             </div>
 
             {/* Basic Invoice */}
-            <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">basic_invoice</h3>
-              <p className="text-gray-600 mb-6">Für Rechnungen</p>
+            <div className="bg-white dark:bg-secondary-800 rounded-2xl shadow-sm p-8 border border-gray-200 dark:border-secondary-700">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-secondary-50 mb-2">basic_invoice</h3>
+              <p className="text-gray-600 dark:text-secondary-400 mb-6">Für Rechnungen</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold text-gray-900">9,90 €</span>
-                <span className="text-gray-600">/Monat</span>
+                <span className="text-4xl font-bold text-gray-900 dark:text-secondary-50">9,90 €</span>
+                <span className="text-gray-600 dark:text-secondary-400">/Monat</span>
               </div>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Unbegrenzte Rechnungen</span>
+                  <span className="text-gray-700 dark:text-secondary-200">Unbegrenzte Rechnungen</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Kundenverwaltung</span>
+                  <span className="text-gray-700 dark:text-secondary-200">Kundenverwaltung</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Artikelverwaltung</span>
+                  <span className="text-gray-700 dark:text-secondary-200">Artikelverwaltung</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">GoBD-konform</span>
+                  <span className="text-gray-700 dark:text-secondary-200">GoBD-konform</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">E-Mail Support</span>
+                  <span className="text-gray-700 dark:text-secondary-200">E-Mail Support</span>
                 </li>
               </ul>
               <button
                 onClick={handleGetStarted}
-                className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors"
+                className="w-full bg-gray-900 dark:bg-secondary-950 text-white py-3 rounded-lg hover:bg-gray-800 dark:bg-secondary-900 transition-colors"
               >
                 Jetzt starten
               </button>
@@ -418,48 +418,48 @@ export default function LandingPage() {
               </ul>
               <button
                 onClick={handleGetStarted}
-                className="w-full bg-white text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition-colors font-semibold"
+                className="w-full bg-white dark:bg-secondary-800 text-blue-600 py-3 rounded-lg hover:bg-blue-50 transition-colors font-semibold"
               >
                 Jetzt starten
               </button>
             </div>
           </div>
 
-          <p className="text-center text-gray-600 mt-8">
+          <p className="text-center text-gray-600 dark:text-secondary-400 mt-8">
             Alle Preise inkl. MwSt. • 14 Tage kostenlos testen • Monatlich kündbar
           </p>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 px-4 bg-white">
+      <section id="faq" className="py-20 px-4 bg-white dark:bg-secondary-800">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Häufig gestellte Fragen
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-secondary-400">
               Alles, was Sie wissen müssen
             </p>
           </div>
 
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg overflow-hidden">
+              <div key={index} className="bg-gray-50 dark:bg-secondary-800 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-100 dark:bg-secondary-700 transition-colors"
                 >
-                  <span className="font-semibold text-gray-900">{faq.question}</span>
+                  <span className="font-semibold text-gray-900 dark:text-secondary-50">{faq.question}</span>
                   <ChevronDown
-                    className={`h-5 w-5 text-gray-600 transition-transform ${
+                    className={`h-5 w-5 text-gray-600 dark:text-secondary-400 transition-transform ${
                       openFaqIndex === index ? 'transform rotate-180' : ''
                     }`}
                   />
                 </button>
                 {openFaqIndex === index && (
-                  <div className="px-6 py-4 bg-white border-t border-gray-200">
-                    <p className="text-gray-700">{faq.answer}</p>
+                  <div className="px-6 py-4 bg-white dark:bg-secondary-800 border-t border-gray-200 dark:border-secondary-700">
+                    <p className="text-gray-700 dark:text-secondary-200">{faq.answer}</p>
                   </div>
                 )}
               </div>
@@ -491,7 +491,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 py-12 px-4">
+      <footer className="bg-gray-900 dark:bg-secondary-950 text-gray-300 py-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
@@ -499,7 +499,7 @@ export default function LandingPage() {
                 <FileText className="h-6 w-6 text-blue-400" />
                 <span className="ml-2 text-lg font-bold text-white">rechnung.best</span>
               </div>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-400 dark:text-secondary-600">
                 Professionelle Rechnungssoftware für Selbstständige und Unternehmen.
               </p>
             </div>
@@ -537,8 +537,8 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8">
-            <div className="text-center text-sm text-gray-400">
+          <div className="border-t border-gray-800 dark:border-secondary-700 pt-8">
+            <div className="text-center text-sm text-gray-400 dark:text-secondary-600">
               <p className="mb-2">
                 © 2025 rechnung.best. Alle Rechte vorbehalten.
               </p>

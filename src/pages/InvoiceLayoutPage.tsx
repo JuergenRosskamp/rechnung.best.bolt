@@ -311,7 +311,7 @@ export function InvoiceLayoutPage() {
     return (
       <Layout>
         <div className="flex items-center justify-center h-64">
-          <div className="text-gray-500">Lädt...</div>
+          <div className="text-gray-500 dark:text-secondary-500">Lädt...</div>
         </div>
       </Layout>
     );
@@ -321,16 +321,16 @@ export function InvoiceLayoutPage() {
     <Layout>
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Rechnungslayout</h1>
-          <p className="text-gray-600">Gestalten Sie Ihre Rechnungen individuell nach Ihren Wünschen</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-secondary-50 mb-2">Rechnungslayout</h1>
+          <p className="text-gray-600 dark:text-secondary-400">Gestalten Sie Ihre Rechnungen individuell nach Ihren Wünschen</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left: Configuration */}
           <div className="lg:col-span-2 space-y-6">
             {/* Template Selection */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Design-Vorlage wählen</h2>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm border border-gray-200 dark:border-secondary-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-4">Design-Vorlage wählen</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                 {invoiceTemplates.map((template) => (
                   <button
@@ -339,23 +339,23 @@ export function InvoiceLayoutPage() {
                     className={`p-3 rounded-lg border-2 transition-all flex flex-col items-center text-center min-h-[140px] ${
                       selectedTemplate === template.id
                         ? 'border-sky-500 bg-sky-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-gray-200 dark:border-secondary-700 hover:border-gray-300 dark:border-secondary-600'
                     }`}
                   >
                     <div className="text-3xl mb-2 flex-shrink-0">{template.preview}</div>
-                    <div className="text-sm font-semibold text-gray-900 mb-1 line-clamp-1 w-full">{template.name}</div>
-                    <div className="text-xs text-gray-500 line-clamp-3 leading-tight w-full">{template.description}</div>
+                    <div className="text-sm font-semibold text-gray-900 dark:text-secondary-50 mb-1 line-clamp-1 w-full">{template.name}</div>
+                    <div className="text-xs text-gray-500 dark:text-secondary-500 line-clamp-3 leading-tight w-full">{template.description}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Logo Upload */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Firmenlogo</h2>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm border border-gray-200 dark:border-secondary-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-4">Firmenlogo</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                     Logo hochladen
                   </label>
                   <div className="flex items-center gap-4">
@@ -363,7 +363,7 @@ export function InvoiceLayoutPage() {
                       type="file"
                       accept="image/*"
                       onChange={handleLogoChange}
-                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100"
+                      className="block w-full text-sm text-gray-500 dark:text-secondary-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100"
                     />
                   </div>
                   {logoPreview && (
@@ -375,13 +375,13 @@ export function InvoiceLayoutPage() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Position
                     </label>
                     <select
                       value={config.logo_position}
                       onChange={(e) => setConfig({ ...config, logo_position: e.target.value as any })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     >
                       <option value="top-left">Oben Links</option>
                       <option value="top-center">Oben Mitte</option>
@@ -389,14 +389,14 @@ export function InvoiceLayoutPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Breite (mm)
                     </label>
                     <input
                       type="number"
                       value={config.logo_width}
                       onChange={(e) => setConfig({ ...config, logo_width: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -404,11 +404,11 @@ export function InvoiceLayoutPage() {
             </div>
 
             {/* Colors */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Farben</h2>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm border border-gray-200 dark:border-secondary-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-4">Farben</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                     Primärfarbe
                   </label>
                   <div className="flex gap-2">
@@ -416,18 +416,18 @@ export function InvoiceLayoutPage() {
                       type="color"
                       value={config.primary_color}
                       onChange={(e) => setConfig({ ...config, primary_color: e.target.value })}
-                      className="h-10 w-16 rounded border border-gray-300 cursor-pointer"
+                      className="h-10 w-16 rounded border border-gray-300 dark:border-secondary-600 cursor-pointer"
                     />
                     <input
                       type="text"
                       value={config.primary_color}
                       onChange={(e) => setConfig({ ...config, primary_color: e.target.value })}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                     Akzentfarbe
                   </label>
                   <div className="flex gap-2">
@@ -435,13 +435,13 @@ export function InvoiceLayoutPage() {
                       type="color"
                       value={config.accent_color}
                       onChange={(e) => setConfig({ ...config, accent_color: e.target.value })}
-                      className="h-10 w-16 rounded border border-gray-300 cursor-pointer"
+                      className="h-10 w-16 rounded border border-gray-300 dark:border-secondary-600 cursor-pointer"
                     />
                     <input
                       type="text"
                       value={config.accent_color}
                       onChange={(e) => setConfig({ ...config, accent_color: e.target.value })}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                      className="flex-1 px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                     />
                   </div>
                 </div>
@@ -449,17 +449,17 @@ export function InvoiceLayoutPage() {
             </div>
 
             {/* Typography */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Schrift</h2>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm border border-gray-200 dark:border-secondary-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-4">Schrift</h2>
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                     Schriftart
                   </label>
                   <select
                     value={config.font_family}
                     onChange={(e) => setConfig({ ...config, font_family: e.target.value as any })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                   >
                     <option value="helvetica">Helvetica</option>
                     <option value="times">Times</option>
@@ -467,42 +467,42 @@ export function InvoiceLayoutPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                     Basisgröße
                   </label>
                   <input
                     type="number"
                     value={config.font_size_base}
                     onChange={(e) => setConfig({ ...config, font_size_base: parseInt(e.target.value) })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                     Überschrift
                   </label>
                   <input
                     type="number"
                     value={config.font_size_heading}
                     onChange={(e) => setConfig({ ...config, font_size_heading: parseInt(e.target.value) })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                   />
                 </div>
               </div>
             </div>
 
             {/* Options */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Optionen</h2>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm border border-gray-200 dark:border-secondary-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-4">Optionen</h2>
               <div className="space-y-3">
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={config.show_company_slogan}
                     onChange={(e) => setConfig({ ...config, show_company_slogan: e.target.checked })}
-                    className="w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
+                    className="w-4 h-4 text-sky-600 border-gray-300 dark:border-secondary-600 rounded focus:ring-sky-500"
                   />
-                  <span className="text-sm text-gray-700">Firmenslogan anzeigen</span>
+                  <span className="text-sm text-gray-700 dark:text-secondary-200">Firmenslogan anzeigen</span>
                 </label>
                 {config.show_company_slogan && (
                   <input
@@ -510,7 +510,7 @@ export function InvoiceLayoutPage() {
                     value={config.company_slogan}
                     onChange={(e) => setConfig({ ...config, company_slogan: e.target.value })}
                     placeholder="Ihr Slogan..."
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                   />
                 )}
                 <label className="flex items-center gap-2">
@@ -518,27 +518,27 @@ export function InvoiceLayoutPage() {
                     type="checkbox"
                     checked={config.show_line_numbers}
                     onChange={(e) => setConfig({ ...config, show_line_numbers: e.target.checked })}
-                    className="w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
+                    className="w-4 h-4 text-sky-600 border-gray-300 dark:border-secondary-600 rounded focus:ring-sky-500"
                   />
-                  <span className="text-sm text-gray-700">Positionsnummern anzeigen</span>
+                  <span className="text-sm text-gray-700 dark:text-secondary-200">Positionsnummern anzeigen</span>
                 </label>
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={config.show_tax_breakdown}
                     onChange={(e) => setConfig({ ...config, show_tax_breakdown: e.target.checked })}
-                    className="w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
+                    className="w-4 h-4 text-sky-600 border-gray-300 dark:border-secondary-600 rounded focus:ring-sky-500"
                   />
-                  <span className="text-sm text-gray-700">Steueraufschlüsselung anzeigen</span>
+                  <span className="text-sm text-gray-700 dark:text-secondary-200">Steueraufschlüsselung anzeigen</span>
                 </label>
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={config.show_bank_details}
                     onChange={(e) => setConfig({ ...config, show_bank_details: e.target.checked })}
-                    className="w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
+                    className="w-4 h-4 text-sky-600 border-gray-300 dark:border-secondary-600 rounded focus:ring-sky-500"
                   />
-                  <span className="text-sm text-gray-700">Bankverbindung anzeigen</span>
+                  <span className="text-sm text-gray-700 dark:text-secondary-200">Bankverbindung anzeigen</span>
                 </label>
               </div>
             </div>
@@ -546,10 +546,10 @@ export function InvoiceLayoutPage() {
 
           {/* Right: Preview & Actions */}
           <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Vorschau</h2>
-              <div className="bg-gray-100 rounded-lg p-6 mb-4 aspect-[1/1.41] flex items-center justify-center">
-                <div className="text-center text-gray-500">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm border border-gray-200 dark:border-secondary-700 p-6 sticky top-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-4">Vorschau</h2>
+              <div className="bg-gray-100 dark:bg-secondary-700 rounded-lg p-6 mb-4 aspect-[1/1.41] flex items-center justify-center">
+                <div className="text-center text-gray-500 dark:text-secondary-500">
                   <Eye className="w-12 h-12 mx-auto mb-2" />
                   <p className="text-sm">Vorschau wird generiert</p>
                 </div>
@@ -559,14 +559,14 @@ export function InvoiceLayoutPage() {
                 <button
                   onClick={handleSave}
                   disabled={saving}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 disabled:bg-gray-300"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 disabled:bg-gray-300 dark:disabled:bg-secondary-700"
                 >
                   <Save className="w-4 h-4" />
                   {saving ? 'Speichert...' : 'Layout speichern'}
                 </button>
                 <button
                   onClick={handleReset}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-secondary-200 rounded-lg hover:bg-gray-200 dark:bg-secondary-600"
                 >
                   <RotateCcw className="w-4 h-4" />
                   Zurücksetzen

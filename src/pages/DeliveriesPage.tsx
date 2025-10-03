@@ -369,7 +369,7 @@ export function DeliveriesPage() {
       DELIVERED: 'bg-green-100 text-green-800',
       CANCELLED: 'bg-red-100 text-red-800',
     };
-    return colors[status as keyof typeof colors] || 'bg-gray-100 text-gray-800';
+    return colors[status as keyof typeof colors] || 'bg-gray-100 dark:bg-secondary-700 text-gray-800 dark:text-secondary-100';
   };
 
   const getStatusLabel = (status: string) => {
@@ -403,7 +403,7 @@ export function DeliveriesPage() {
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Lade Lieferungen...</p>
+            <p className="mt-4 text-gray-600 dark:text-secondary-400">Lade Lieferungen...</p>
           </div>
         </div>
       </Layout>
@@ -424,8 +424,8 @@ export function DeliveriesPage() {
 
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Lieferungen</h1>
-            <p className="text-gray-600 mt-1">Verwalten Sie Ihre Lieferscheine und Lieferpositionen</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-secondary-50">Lieferungen</h1>
+            <p className="text-gray-600 dark:text-secondary-400 mt-1">Verwalten Sie Ihre Lieferscheine und Lieferpositionen</p>
           </div>
           <button
             onClick={() => setShowForm(true)}
@@ -442,22 +442,22 @@ export function DeliveriesPage() {
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-secondary-600 w-5 h-5" />
               <input
                 type="text"
                 placeholder="Suche nach Lieferschein-Nr., Kunde, Artikel..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="all">Alle Status</option>
               <option value="PENDING">Ausstehend</option>
@@ -468,7 +468,7 @@ export function DeliveriesPage() {
             <select
               value={billingFilter}
               onChange={(e) => setBillingFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="all">Alle Abrechnungsstatus</option>
               <option value="unbilled">Nicht abgerechnet</option>
@@ -477,54 +477,54 @@ export function DeliveriesPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-secondary-700">
+              <thead className="bg-gray-50 dark:bg-secondary-800">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">LS-Nr.</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Datum</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kunde</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Artikel</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fahrzeug</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Menge</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Einzelpreis</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Gesamt</th>
-                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Abgerechnet</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Aktionen</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">LS-Nr.</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Datum</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Kunde</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Artikel</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Fahrzeug</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Menge</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Einzelpreis</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Gesamt</th>
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Status</th>
+                  <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Abgerechnet</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">Aktionen</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-secondary-800 divide-y divide-gray-200 dark:divide-secondary-700">
                 {filteredPositions.length === 0 ? (
                   <tr>
-                    <td colSpan={11} className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan={11} className="px-6 py-12 text-center text-gray-500 dark:text-secondary-500">
                       Keine Lieferungen gefunden
                     </td>
                   </tr>
                 ) : (
                   filteredPositions.map((position) => (
-                    <tr key={position.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <tr key={position.id} className="hover:bg-gray-50 dark:bg-secondary-800">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-secondary-50">
                         {position.delivery_note_number}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-secondary-500">
                         {format(new Date(position.delivery_timestamp), 'dd.MM.yyyy HH:mm')}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-secondary-50">
                         {getCustomerName(position.customer_id)}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-secondary-50">
                         {getArticleDescription(position.article_id)}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-sm text-gray-500 dark:text-secondary-500">
                         {getVehicleName(position.vehicle_id)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900 dark:text-secondary-50">
                         {position.delivery_quantity.toFixed(3)} {position.unit}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900 dark:text-secondary-50">
                         {position.unit_price.toFixed(2)} €
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-gray-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-gray-900 dark:text-secondary-50">
                         {position.total_price.toFixed(2)} €
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -539,7 +539,7 @@ export function DeliveriesPage() {
                             Ja
                           </span>
                         ) : (
-                          <span className="text-gray-400">Nein</span>
+                          <span className="text-gray-400 dark:text-secondary-600">Nein</span>
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -585,23 +585,23 @@ export function DeliveriesPage() {
 
         {showForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-secondary-50 mb-6">
                   {editingPosition ? 'Lieferung bearbeiten' : 'Neue Lieferung'}
                 </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Kunde *
                       </label>
                       <select
                         required
                         value={formData.customer_id}
                         onChange={(e) => setFormData({ ...formData, customer_id: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Kunde wählen...</option>
                         {customers.map(customer => (
@@ -613,14 +613,14 @@ export function DeliveriesPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Artikel *
                       </label>
                       <select
                         required
                         value={formData.article_id}
                         onChange={(e) => setFormData({ ...formData, article_id: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Artikel wählen...</option>
                         {articles.map(article => (
@@ -632,13 +632,13 @@ export function DeliveriesPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Lieferort (optional)
                       </label>
                       <select
                         value={formData.delivery_location_id}
                         onChange={(e) => setFormData({ ...formData, delivery_location_id: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Kein Lieferort</option>
                         {locations
@@ -652,7 +652,7 @@ export function DeliveriesPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Menge *
                       </label>
                       <input
@@ -661,12 +661,12 @@ export function DeliveriesPage() {
                         required
                         value={formData.delivery_quantity}
                         onChange={(e) => setFormData({ ...formData, delivery_quantity: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Einzelpreis (€) *
                       </label>
                       <div className="flex gap-2">
@@ -676,7 +676,7 @@ export function DeliveriesPage() {
                           required
                           value={formData.unit_price}
                           onChange={(e) => handlePriceChange(e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                          className="flex-1 px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                         />
                         {manualPriceOverride && calculatedPrice && parseFloat(formData.unit_price) !== calculatedPrice.unit_price && (
                           <button
@@ -690,7 +690,7 @@ export function DeliveriesPage() {
                         )}
                       </div>
                       {calculatedPrice && (
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-gray-500 dark:text-secondary-500 mt-1">
                           {calculatedPrice.details.source}
                           {formData.delivery_quantity && ` | Gesamt: ${(parseFloat(formData.unit_price) * parseFloat(formData.delivery_quantity)).toFixed(2)} €`}
                         </p>
@@ -698,13 +698,13 @@ export function DeliveriesPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Fahrzeug
                       </label>
                       <select
                         value={formData.vehicle_id}
                         onChange={(e) => setFormData({ ...formData, vehicle_id: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Kein Fahrzeug</option>
                         {vehicles.map(vehicle => (
@@ -716,13 +716,13 @@ export function DeliveriesPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Status
                       </label>
                       <select
                         value={formData.delivery_status}
                         onChange={(e) => setFormData({ ...formData, delivery_status: e.target.value as any })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="PENDING">Ausstehend</option>
                         <option value="IN_TRANSIT">Unterwegs</option>
@@ -733,14 +733,14 @@ export function DeliveriesPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Notizen
                     </label>
                     <textarea
                       rows={3}
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
@@ -763,7 +763,7 @@ export function DeliveriesPage() {
                         setCalculatedPrice(null);
                         setManualPriceOverride(false);
                       }}
-                      className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
                     >
                       Abbrechen
                     </button>
@@ -782,12 +782,12 @@ export function DeliveriesPage() {
 
         {showSavePriceDialog && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-md w-full p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Preis speichern</h3>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-md w-full p-6">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-secondary-50 mb-4">Preis speichern</h3>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                     Preistyp
                   </label>
                   <div className="space-y-2">
@@ -827,7 +827,7 @@ export function DeliveriesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                     Ab Menge (optional)
                   </label>
                   <input
@@ -836,15 +836,15 @@ export function DeliveriesPage() {
                     value={savePriceMinQuantity}
                     onChange={(e) => setSavePriceMinQuantity(e.target.value)}
                     placeholder="0"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   />
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-500 dark:text-secondary-500 mt-1">
                     Leer lassen für Preis ab 0 Einheiten
                   </p>
                 </div>
 
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <p className="text-sm text-gray-700">
+                <div className="bg-gray-50 dark:bg-secondary-800 p-3 rounded-lg">
+                  <p className="text-sm text-gray-700 dark:text-secondary-200">
                     <strong>Preis:</strong> {formData.unit_price} € pro {articles.find(a => a.id === formData.article_id)?.unit || 'Einheit'}
                   </p>
                 </div>
@@ -856,7 +856,7 @@ export function DeliveriesPage() {
                     setShowSavePriceDialog(false);
                     setSavePriceMinQuantity('');
                   }}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
                 >
                   Abbrechen
                 </button>

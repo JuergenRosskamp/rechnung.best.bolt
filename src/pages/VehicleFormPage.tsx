@@ -200,7 +200,7 @@ export function VehicleFormPage() {
     return (
       <Layout>
         <div className="flex items-center justify-center h-64">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
         </div>
       </Layout>
     );
@@ -213,15 +213,15 @@ export function VehicleFormPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => window.location.href = '/vehicles'}
-            className="p-2 hover:bg-gray-100 rounded-lg"
+            className="p-2 hover:bg-gray-100 dark:bg-secondary-700 rounded-lg"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">
               {vehicleId ? 'Fahrzeug bearbeiten' : 'Neues Fahrzeug'}
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">
               Verwalten Sie die Fahrzeugdaten
             </p>
           </div>
@@ -235,12 +235,12 @@ export function VehicleFormPage() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Grunddaten */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-4">
-            <h2 className="text-lg font-medium text-gray-900">Grunddaten</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-4">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Grunddaten</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Kennzeichen *
                 </label>
                 <input
@@ -248,20 +248,20 @@ export function VehicleFormPage() {
                   required
                   value={formData.license_plate}
                   onChange={(e) => handleChange('license_plate', e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="B-AB 1234"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Fahrzeugtyp *
                 </label>
                 <select
                   required
                   value={formData.vehicle_type}
                   onChange={(e) => handleChange('vehicle_type', e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="truck">LKW</option>
                   <option value="van">Transporter</option>
@@ -272,7 +272,7 @@ export function VehicleFormPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Marke *
                 </label>
                 <input
@@ -280,13 +280,13 @@ export function VehicleFormPage() {
                   required
                   value={formData.make}
                   onChange={(e) => handleChange('make', e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Mercedes-Benz"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Modell *
                 </label>
                 <input
@@ -294,45 +294,45 @@ export function VehicleFormPage() {
                   required
                   value={formData.model}
                   onChange={(e) => handleChange('model', e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Actros"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Baujahr
                 </label>
                 <input
                   type="number"
                   value={formData.year}
                   onChange={(e) => handleChange('year', e.target.value ? parseInt(e.target.value) : '')}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="2020"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   FIN/VIN
                 </label>
                 <input
                   type="text"
                   value={formData.vin}
                   onChange={(e) => handleChange('vin', e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="WDB9634321L123456"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Kraftstoff
                 </label>
                 <select
                   value={formData.fuel_type}
                   onChange={(e) => handleChange('fuel_type', e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="diesel">Diesel</option>
                   <option value="petrol">Benzin</option>
@@ -343,13 +343,13 @@ export function VehicleFormPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Status
                 </label>
                 <select
                   value={formData.status}
                   onChange={(e) => handleChange('status', e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="active">Aktiv</option>
                   <option value="maintenance">In Wartung</option>
@@ -359,40 +359,40 @@ export function VehicleFormPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Kilometerstand (km)
                 </label>
                 <input
                   type="number"
                   value={formData.current_mileage_km}
                   onChange={(e) => handleChange('current_mileage_km', e.target.value ? parseInt(e.target.value) : '')}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="150000"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
                   Nächster TÜV
                 </label>
                 <input
                   type="date"
                   value={formData.next_inspection_date}
                   onChange={(e) => handleChange('next_inspection_date', e.target.value)}
-                  className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="mt-1 block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
             </div>
           </div>
 
           {/* Notizen */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Notizen</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50 mb-4">Notizen</h2>
             <textarea
               value={formData.notes}
               onChange={(e) => handleChange('notes', e.target.value)}
               rows={4}
-              className="block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="block w-full border border-gray-300 dark:border-secondary-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               placeholder="Zusätzliche Informationen zum Fahrzeug..."
             />
           </div>
@@ -402,14 +402,14 @@ export function VehicleFormPage() {
             <button
               type="button"
               onClick={() => window.location.href = '/vehicles'}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
             >
               Abbrechen
             </button>
             <button
               type="submit"
               disabled={isSaving}
-              className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+              className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
             >
               <Save className="h-5 w-5 mr-2" />
               {isSaving ? 'Speichern...' : 'Speichern'}

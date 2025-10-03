@@ -6,32 +6,32 @@ export default function DatenschutzPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-secondary-800">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-white dark:bg-secondary-800 border-b border-gray-200 dark:border-secondary-700">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <button
             onClick={handleBack}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50 mb-4"
           >
             <ArrowLeft className="h-4 w-4" />
             Zurück
           </button>
           <div className="flex items-center gap-3">
             <Shield className="h-8 w-8 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">Datenschutzerklärung</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-secondary-50">Datenschutzerklärung</h1>
           </div>
         </div>
       </header>
 
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-lg shadow-sm p-8 space-y-8">
+        <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-8 space-y-8">
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">1. Datenschutz auf einen Blick</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">1. Datenschutz auf einen Blick</h2>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 mt-4">Allgemeine Hinweise</h3>
-            <p className="text-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2 mt-4">Allgemeine Hinweise</h3>
+            <p className="text-gray-700 dark:text-secondary-200">
               Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
               personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten
               sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche
@@ -39,19 +39,19 @@ export default function DatenschutzPage() {
               Datenschutzerklärung.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 mt-4">Datenerfassung auf dieser Website</h3>
-            <p className="text-gray-700 mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2 mt-4">Datenerfassung auf dieser Website</h3>
+            <p className="text-gray-700 dark:text-secondary-200 mb-2">
               <strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong>
             </p>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen
               Kontaktdaten können Sie dem Impressum dieser Website entnehmen.
             </p>
 
-            <p className="text-gray-700 mb-2">
+            <p className="text-gray-700 dark:text-secondary-200 mb-2">
               <strong>Wie erfassen wir Ihre Daten?</strong>
             </p>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es
               sich z.B. um Daten handeln, die Sie in ein Kontaktformular eingeben.
               <br /><br />
@@ -61,18 +61,18 @@ export default function DatenschutzPage() {
               betreten.
             </p>
 
-            <p className="text-gray-700 mb-2">
+            <p className="text-gray-700 dark:text-secondary-200 mb-2">
               <strong>Wofür nutzen wir Ihre Daten?</strong>
             </p>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu
               gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden.
             </p>
 
-            <p className="text-gray-700 mb-2">
+            <p className="text-gray-700 dark:text-secondary-200 mb-2">
               <strong>Welche Rechte haben Sie bezüglich Ihrer Daten?</strong>
             </p>
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-secondary-200">
               Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck
               Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die
               Berichtigung oder Löschung dieser Daten zu verlangen. Hierzu sowie zu weiteren Fragen zum
@@ -83,10 +83,10 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">2. Hosting und Content Delivery Networks (CDN)</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">2. Hosting und Content Delivery Networks (CDN)</h2>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Externes Hosting</h3>
-            <p className="text-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">Externes Hosting</h3>
+            <p className="text-gray-700 dark:text-secondary-200">
               Diese Website wird bei einem externen Dienstleister gehostet (Hoster). Die
               personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des
               Hosters gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und
@@ -106,12 +106,12 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               3. Allgemeine Hinweise und Pflichtinformationen
             </h2>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Datenschutz</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">Datenschutz</h3>
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir
               behandeln Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen
               Datenschutzvorschriften sowie dieser Datenschutzerklärung.
@@ -122,10 +122,10 @@ export default function DatenschutzPage() {
               nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">
               Hinweis zur verantwortlichen Stelle
             </h3>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
               <br /><br />
               [Firmenname]<br />
@@ -140,8 +140,8 @@ export default function DatenschutzPage() {
               Daten (z.B. Namen, E-Mail-Adressen o. Ä.) entscheidet.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Speicherdauer</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">Speicherdauer</h3>
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde,
               verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung
               entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur
@@ -151,28 +151,28 @@ export default function DatenschutzPage() {
               nach Fortfall dieser Gründe.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">
               Hinweis zur Datenweitergabe in die USA
             </h3>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Wir übermitteln grundsätzlich keine Daten in die USA. Sollte dies doch erforderlich sein,
               erfolgt dies nur unter Einhaltung der DSGVO-Vorgaben und entsprechender
               Datenschutzgarantien.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">
               Widerruf Ihrer Einwilligung zur Datenverarbeitung
             </h3>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich.
               Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der
               bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">
               Recht auf Datenübertragbarkeit
             </h3>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung
               eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen,
               maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der
@@ -180,8 +180,8 @@ export default function DatenschutzPage() {
               machbar ist.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">SSL- bzw. TLS-Verschlüsselung</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">SSL- bzw. TLS-Verschlüsselung</h3>
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher
               Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber
               senden, eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie
@@ -194,10 +194,10 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">4. Datenerfassung auf dieser Website</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">4. Datenerfassung auf dieser Website</h2>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Server-Log-Dateien</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">Server-Log-Dateien</h3>
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten
               Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind:
               <br /><br />
@@ -215,8 +215,8 @@ export default function DatenschutzPage() {
               und der Optimierung seiner Website – hierzu müssen die Server-Log-Files erfasst werden.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Kontaktformular</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">Kontaktformular</h3>
+            <p className="text-gray-700 dark:text-secondary-200 mb-4">
               Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem
               Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung
               der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben
@@ -230,8 +230,8 @@ export default function DatenschutzPage() {
               1 lit. a DSGVO) sofern diese abgefragt wurde.
             </p>
 
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Registrierung auf dieser Website</h3>
-            <p className="text-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-2">Registrierung auf dieser Website</h3>
+            <p className="text-gray-700 dark:text-secondary-200">
               Sie können sich auf dieser Website registrieren, um zusätzliche Funktionen auf der Seite
               zu nutzen. Die dazu eingegebenen Daten verwenden wir nur zum Zwecke der Nutzung des
               jeweiligen Angebotes oder Dienstes, für den Sie sich registriert haben. Die bei der
@@ -249,8 +249,8 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">5. Ihre Rechte</h2>
-            <p className="text-gray-700 space-y-4">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">5. Ihre Rechte</h2>
+            <p className="text-gray-700 dark:text-secondary-200 space-y-4">
               <strong>Auskunft, Löschung und Berichtigung:</strong><br />
               Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf
               unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und
@@ -272,8 +272,8 @@ export default function DatenschutzPage() {
             </p>
           </section>
 
-          <section className="pt-4 border-t border-gray-200">
-            <p className="text-sm text-gray-500">
+          <section className="pt-4 border-t border-gray-200 dark:border-secondary-700">
+            <p className="text-sm text-gray-500 dark:text-secondary-500">
               Stand: Januar 2025<br />
               Quelle: eRecht24
             </p>

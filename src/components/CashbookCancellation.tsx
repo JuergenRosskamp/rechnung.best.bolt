@@ -119,7 +119,7 @@ export function CashbookCancellation({ entryId, entry, onClose, onSuccess }: Cas
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 dark:text-secondary-600 hover:text-gray-600 dark:text-secondary-400"
           >
             <X className="h-5 w-5" />
           </button>
@@ -139,23 +139,23 @@ export function CashbookCancellation({ entryId, entry, onClose, onSuccess }: Cas
           </div>
         )}
 
-        <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <h3 className="text-sm font-medium text-gray-700 mb-3">Zu stornierende Buchung:</h3>
+        <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-4 mb-6">
+          <h3 className="text-sm font-medium text-gray-700 dark:text-secondary-200 mb-3">Zu stornierende Buchung:</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-600">Datum:</span>
+              <span className="text-gray-600 dark:text-secondary-400">Datum:</span>
               <span className="font-medium">{new Date(entry.entry_date).toLocaleDateString('de-DE')}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Belegnummer:</span>
+              <span className="text-gray-600 dark:text-secondary-400">Belegnummer:</span>
               <span className="font-medium">{entry.document_number}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Beschreibung:</span>
+              <span className="text-gray-600 dark:text-secondary-400">Beschreibung:</span>
               <span className="font-medium">{entry.description}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Betrag:</span>
+              <span className="text-gray-600 dark:text-secondary-400">Betrag:</span>
               <span className={`font-medium ${
                 entry.document_type === 'income' ? 'text-green-600' : 'text-red-600'
               }`}>
@@ -166,14 +166,14 @@ export function CashbookCancellation({ entryId, entry, onClose, onSuccess }: Cas
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
             Stornierungsgrund * (wird im Audit-Trail gespeichert)
           </label>
           <textarea
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
             placeholder="Detaillierter Grund für die Stornierung..."
           />
         </div>
@@ -182,7 +182,7 @@ export function CashbookCancellation({ entryId, entry, onClose, onSuccess }: Cas
           <button
             onClick={onClose}
             disabled={isProcessing}
-            className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+            className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800 disabled:opacity-50"
           >
             Abbrechen
           </button>

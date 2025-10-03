@@ -235,13 +235,13 @@ export function InvoiceFormPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => window.location.href = '/invoices'}
-            className="p-2 hover:bg-gray-100 rounded-lg"
+            className="p-2 hover:bg-gray-100 dark:bg-secondary-700 rounded-lg"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Neue Rechnung</h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">Neue Rechnung</h1>
+            <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">
               Erstellen Sie eine neue Rechnung
             </p>
           </div>
@@ -256,18 +256,18 @@ export function InvoiceFormPage() {
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Invoice Header */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Rechnungsdetails</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Rechnungsdetails</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="customer_id" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="customer_id" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Kunde *
                 </label>
                 <select
                   {...register('customer_id')}
                   id="customer_id"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="">Kunde auswählen</option>
                   {customers.map((customer) => (
@@ -282,13 +282,13 @@ export function InvoiceFormPage() {
               </div>
 
               <div>
-                <label htmlFor="payment_terms" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="payment_terms" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Zahlungsziel
                 </label>
                 <select
                   {...register('payment_terms')}
                   id="payment_terms"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="immediately">Sofort fällig</option>
                   <option value="net_7">7 Tage netto</option>
@@ -299,14 +299,14 @@ export function InvoiceFormPage() {
               </div>
 
               <div>
-                <label htmlFor="invoice_date" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="invoice_date" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Rechnungsdatum *
                 </label>
                 <input
                   {...register('invoice_date')}
                   type="date"
                   id="invoice_date"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
                 {errors.invoice_date && (
                   <p className="mt-1 text-sm text-red-600">{errors.invoice_date.message}</p>
@@ -314,14 +314,14 @@ export function InvoiceFormPage() {
               </div>
 
               <div>
-                <label htmlFor="due_date" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="due_date" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Fälligkeitsdatum *
                 </label>
                 <input
                   {...register('due_date')}
                   type="date"
                   id="due_date"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
                 {errors.due_date && (
                   <p className="mt-1 text-sm text-red-600">{errors.due_date.message}</p>
@@ -329,14 +329,14 @@ export function InvoiceFormPage() {
               </div>
 
               <div className="md:col-span-2">
-                <label htmlFor="reference_number" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="reference_number" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Referenznummer
                 </label>
                 <input
                   {...register('reference_number')}
                   type="text"
                   id="reference_number"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Optional"
                 />
               </div>
@@ -344,13 +344,13 @@ export function InvoiceFormPage() {
           </div>
 
           {/* Line Items */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-medium text-gray-900">Positionen</h2>
+              <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Positionen</h2>
               <button
                 type="button"
                 onClick={() => append({ description: '', quantity: 1, unit: 'pcs', unit_price: 0, vat_rate: 19, discount_percentage: 0 })}
-                className="inline-flex items-center px-3 py-2 text-sm bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                className="inline-flex items-center px-3 py-2 text-sm bg-primary-600 text-white rounded-lg hover:bg-primary-700"
               >
                 <Plus className="h-4 w-4 mr-1" />
                 Position hinzufügen
@@ -361,9 +361,9 @@ export function InvoiceFormPage() {
               {fields.map((field, index) => {
                 const itemTotal = calculateItemTotal(index);
                 return (
-                  <div key={field.id} className="border border-gray-200 rounded-lg p-4 space-y-4">
+                  <div key={field.id} className="border border-gray-200 dark:border-secondary-700 rounded-lg p-4 space-y-4">
                     <div className="flex items-start justify-between">
-                      <h3 className="text-sm font-medium text-gray-900">Position {index + 1}</h3>
+                      <h3 className="text-sm font-medium text-gray-900 dark:text-secondary-50">Position {index + 1}</h3>
                       {fields.length > 1 && (
                         <button
                           type="button"
@@ -377,13 +377,13 @@ export function InvoiceFormPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
                       <div className="md:col-span-2">
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
+                        <label className="block text-xs font-medium text-gray-700 dark:text-secondary-200 mb-1">
                           Beschreibung *
                         </label>
                         <input
                           {...register(`items.${index}.description`)}
                           type="text"
-                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                          className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500"
                           placeholder="Artikelbezeichnung"
                         />
                         {errors.items?.[index]?.description && (
@@ -392,36 +392,36 @@ export function InvoiceFormPage() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
+                        <label className="block text-xs font-medium text-gray-700 dark:text-secondary-200 mb-1">
                           Menge *
                         </label>
                         <input
                           {...register(`items.${index}.quantity`)}
                           type="number"
                           step="0.01"
-                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                          className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
+                        <label className="block text-xs font-medium text-gray-700 dark:text-secondary-200 mb-1">
                           Einzelpreis (€) *
                         </label>
                         <input
                           {...register(`items.${index}.unit_price`)}
                           type="number"
                           step="0.01"
-                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                          className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
+                        <label className="block text-xs font-medium text-gray-700 dark:text-secondary-200 mb-1">
                           MwSt. (%)
                         </label>
                         <select
                           {...register(`items.${index}.vat_rate`)}
-                          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                          className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500"
                         >
                           <option value="0">0%</option>
                           <option value="7">7%</option>
@@ -430,10 +430,10 @@ export function InvoiceFormPage() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
+                        <label className="block text-xs font-medium text-gray-700 dark:text-secondary-200 mb-1">
                           Gesamt
                         </label>
-                        <div className="px-3 py-2 text-sm bg-gray-50 border border-gray-300 rounded-lg font-medium">
+                        <div className="px-3 py-2 text-sm bg-gray-50 dark:bg-secondary-800 border border-gray-300 dark:border-secondary-600 rounded-lg font-medium">
                           {itemTotal.gross.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                         </div>
                       </div>
@@ -448,11 +448,11 @@ export function InvoiceFormPage() {
               <div className="flex justify-end">
                 <div className="w-64 space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Zwischensumme (netto):</span>
+                    <span className="text-gray-600 dark:text-secondary-400">Zwischensumme (netto):</span>
                     <span className="font-medium">{totals.subtotal.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">MwSt.:</span>
+                    <span className="text-gray-600 dark:text-secondary-400">MwSt.:</span>
                     <span className="font-medium">{totals.totalVat.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</span>
                   </div>
                   <div className="flex justify-between text-lg font-bold border-t pt-2">
@@ -465,31 +465,31 @@ export function InvoiceFormPage() {
           </div>
 
           {/* Notes */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Notizen</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Notizen</h2>
 
             <div>
-              <label htmlFor="customer_notes" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="customer_notes" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Kundennotizen (erscheinen auf der Rechnung)
               </label>
               <textarea
                 {...register('customer_notes')}
                 id="customer_notes"
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="z.B. Zahlungshinweise, Lieferbedingungen..."
               />
             </div>
 
             <div>
-              <label htmlFor="internal_notes" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="internal_notes" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Interne Notizen (nicht auf der Rechnung)
               </label>
               <textarea
                 {...register('internal_notes')}
                 id="internal_notes"
                 rows={2}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Nur für interne Zwecke..."
               />
             </div>
@@ -500,14 +500,14 @@ export function InvoiceFormPage() {
             <button
               type="button"
               onClick={() => window.location.href = '/invoices'}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
             >
               Abbrechen
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="inline-flex items-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+              className="inline-flex items-center px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
             >
               <Save className="h-5 w-5 mr-2" />
               {isLoading ? 'Erstellt...' : 'Rechnung erstellen'}

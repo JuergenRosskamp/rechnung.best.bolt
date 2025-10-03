@@ -242,7 +242,7 @@ export default function DeliveryLocationsPage() {
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Lade Lieferorte...</p>
+            <p className="mt-4 text-gray-600 dark:text-secondary-400">Lade Lieferorte...</p>
           </div>
         </div>
       </Layout>
@@ -255,8 +255,8 @@ export default function DeliveryLocationsPage() {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Lieferorte</h1>
-            <p className="text-gray-600 mt-1">Verwalten Sie Ihre Lieferorte und Baustellen</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-secondary-50">Lieferorte</h1>
+            <p className="text-gray-600 dark:text-secondary-400 mt-1">Verwalten Sie Ihre Lieferorte und Baustellen</p>
           </div>
           <button
             onClick={() => setShowForm(true)}
@@ -277,7 +277,7 @@ export default function DeliveryLocationsPage() {
         {/* Form Modal */}
         {showForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <div className="p-6">
                 <h2 className="text-2xl font-bold mb-4">
                   {editingLocation ? 'Lieferort bearbeiten' : 'Neuer Lieferort'}
@@ -286,13 +286,13 @@ export default function DeliveryLocationsPage() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Customer Selection */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Kunde *
                     </label>
                     <select
                       value={formData.customer_id}
                       onChange={(e) => setFormData({ ...formData, customer_id: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
                       disabled={!!editingLocation}
                     >
@@ -307,7 +307,7 @@ export default function DeliveryLocationsPage() {
 
                   {/* Location Name */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Bezeichnung *
                     </label>
                     <input
@@ -315,7 +315,7 @@ export default function DeliveryLocationsPage() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="z.B. Baustelle Hauptstraße, Lager Nord"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
                     />
                   </div>
@@ -323,43 +323,43 @@ export default function DeliveryLocationsPage() {
                   {/* Contact Person */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Ansprechpartner
                       </label>
                       <input
                         type="text"
                         value={formData.contact_person}
                         onChange={(e) => setFormData({ ...formData, contact_person: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Telefon
                       </label>
                       <input
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         E-Mail
                       </label>
                       <input
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                   </div>
 
                   {/* Address */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Adresse *
                     </label>
                     <input
@@ -367,13 +367,13 @@ export default function DeliveryLocationsPage() {
                       value={formData.address_line1}
                       onChange={(e) => setFormData({ ...formData, address_line1: e.target.value })}
                       placeholder="Straße und Hausnummer"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Adresszusatz
                     </label>
                     <input
@@ -381,43 +381,43 @@ export default function DeliveryLocationsPage() {
                       value={formData.address_line2}
                       onChange={(e) => setFormData({ ...formData, address_line2: e.target.value })}
                       placeholder="Gebäude, Etage, etc."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         PLZ *
                       </label>
                       <input
                         type="text"
                         value={formData.zip_code}
                         onChange={(e) => setFormData({ ...formData, zip_code: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Ort *
                       </label>
                       <input
                         type="text"
                         value={formData.city}
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         Land *
                       </label>
                       <select
                         value={formData.country}
                         onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         required
                       >
                         <option value="DE">Deutschland</option>
@@ -430,7 +430,7 @@ export default function DeliveryLocationsPage() {
                   {/* GPS Coordinates */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         GPS Breitengrad
                       </label>
                       <input
@@ -438,11 +438,11 @@ export default function DeliveryLocationsPage() {
                         value={formData.gps_latitude}
                         onChange={(e) => setFormData({ ...formData, gps_latitude: e.target.value })}
                         placeholder="z.B. 52.520008"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                         GPS Längengrad
                       </label>
                       <input
@@ -450,14 +450,14 @@ export default function DeliveryLocationsPage() {
                         value={formData.gps_longitude}
                         onChange={(e) => setFormData({ ...formData, gps_longitude: e.target.value })}
                         placeholder="z.B. 13.404954"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       />
                     </div>
                   </div>
 
                   {/* Delivery Instructions */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Lieferhinweise
                     </label>
                     <textarea
@@ -465,13 +465,13 @@ export default function DeliveryLocationsPage() {
                       onChange={(e) => setFormData({ ...formData, delivery_instructions: e.target.value })}
                       placeholder="Besondere Lieferhinweise..."
                       rows={2}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
                   {/* Access Notes */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                       Zugangshinweise
                     </label>
                     <textarea
@@ -479,7 +479,7 @@ export default function DeliveryLocationsPage() {
                       onChange={(e) => setFormData({ ...formData, access_notes: e.target.value })}
                       placeholder="Zugangscode, Toreinfahrt, etc."
                       rows={2}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
 
@@ -488,7 +488,7 @@ export default function DeliveryLocationsPage() {
                     <button
                       type="button"
                       onClick={resetForm}
-                      className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+                      className="px-4 py-2 text-gray-700 dark:text-secondary-200 bg-gray-100 dark:bg-secondary-700 rounded-lg hover:bg-gray-200 dark:bg-secondary-600 transition"
                     >
                       Abbrechen
                     </button>
@@ -508,10 +508,10 @@ export default function DeliveryLocationsPage() {
         {/* Locations List */}
         <div className="grid gap-4">
           {locations.length === 0 ? (
-            <div className="bg-white rounded-lg shadow p-8 text-center">
-              <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Keine Lieferorte vorhanden</h3>
-              <p className="text-gray-600 mb-4">Erstellen Sie Ihren ersten Lieferort</p>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-8 text-center">
+              <MapPin className="w-16 h-16 text-gray-400 dark:text-secondary-600 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 dark:text-secondary-50 mb-2">Keine Lieferorte vorhanden</h3>
+              <p className="text-gray-600 dark:text-secondary-400 mb-4">Erstellen Sie Ihren ersten Lieferort</p>
               <button
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
@@ -532,18 +532,18 @@ export default function DeliveryLocationsPage() {
                       <MapPin className="w-6 h-6 text-blue-600 mt-1" />
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-xl font-semibold text-gray-900">{location.name}</h3>
-                          <span className="text-sm text-gray-500">#{location.location_number}</span>
+                          <h3 className="text-xl font-semibold text-gray-900 dark:text-secondary-50">{location.name}</h3>
+                          <span className="text-sm text-gray-500 dark:text-secondary-500">#{location.location_number}</span>
                           {!location.is_active && (
-                            <span className="px-2 py-1 bg-gray-200 text-gray-700 text-xs rounded">
+                            <span className="px-2 py-1 bg-gray-200 dark:bg-secondary-600 text-gray-700 dark:text-secondary-200 text-xs rounded">
                               Inaktiv
                             </span>
                           )}
                         </div>
-                        <p className="text-gray-600 mb-2">
+                        <p className="text-gray-600 dark:text-secondary-400 mb-2">
                           {(location as any).customers?.display_name}
                         </p>
-                        <div className="text-gray-700">
+                        <div className="text-gray-700 dark:text-secondary-200">
                           <p>{location.address_line1}</p>
                           {location.address_line2 && <p>{location.address_line2}</p>}
                           <p>
@@ -555,18 +555,18 @@ export default function DeliveryLocationsPage() {
                         {(location.contact_person || location.phone || location.email) && (
                           <div className="mt-3 space-y-1">
                             {location.contact_person && (
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-gray-600 dark:text-secondary-400">
                                 <strong>Ansprechpartner:</strong> {location.contact_person}
                               </p>
                             )}
                             {location.phone && (
-                              <p className="text-sm text-gray-600 flex items-center gap-1">
+                              <p className="text-sm text-gray-600 dark:text-secondary-400 flex items-center gap-1">
                                 <Phone className="w-4 h-4" />
                                 {location.phone}
                               </p>
                             )}
                             {location.email && (
-                              <p className="text-sm text-gray-600 flex items-center gap-1">
+                              <p className="text-sm text-gray-600 dark:text-secondary-400 flex items-center gap-1">
                                 <Mail className="w-4 h-4" />
                                 {location.email}
                               </p>
@@ -577,14 +577,14 @@ export default function DeliveryLocationsPage() {
                         {/* Notes */}
                         {location.delivery_instructions && (
                           <div className="mt-3 p-3 bg-blue-50 rounded-lg">
-                            <p className="text-sm text-gray-700">
+                            <p className="text-sm text-gray-700 dark:text-secondary-200">
                               <strong>Lieferhinweise:</strong> {location.delivery_instructions}
                             </p>
                           </div>
                         )}
                         {location.access_notes && (
                           <div className="mt-2 p-3 bg-yellow-50 rounded-lg">
-                            <p className="text-sm text-gray-700">
+                            <p className="text-sm text-gray-700 dark:text-secondary-200">
                               <strong>Zugang:</strong> {location.access_notes}
                             </p>
                           </div>

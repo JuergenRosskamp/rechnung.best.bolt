@@ -59,16 +59,16 @@ export class ErrorBoundary extends Component<Props, State> {
               Etwas ist schiefgelaufen
             </h1>
 
-            <p className="text-gray-600 text-center mb-6">
+            <p className="text-gray-600 dark:text-secondary-400 text-center mb-6">
               Die Anwendung hat einen unerwarteten Fehler festgestellt. Bitte versuchen Sie es erneut.
             </p>
 
             {process.env.NODE_ENV === 'development' && this.state.error && (
-              <details className="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
-                <summary className="cursor-pointer font-medium text-sm text-gray-700 mb-2">
+              <details className="mb-6 p-4 bg-gray-50 dark:bg-secondary-800 rounded border border-gray-200 dark:border-secondary-700">
+                <summary className="cursor-pointer font-medium text-sm text-gray-700 dark:text-secondary-200 mb-2">
                   Technische Details
                 </summary>
-                <div className="text-xs font-mono text-gray-600 overflow-auto max-h-40">
+                <div className="text-xs font-mono text-gray-600 dark:text-secondary-400 overflow-auto max-h-40">
                   <p className="font-bold mb-2">{this.state.error.name}: {this.state.error.message}</p>
                   <pre className="whitespace-pre-wrap">{this.state.error.stack}</pre>
                   {this.state.errorInfo && (
@@ -81,7 +81,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="flex gap-3">
               <button
                 onClick={this.handleReload}
-                className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex-1 inline-flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800 transition-colors"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
                 Seite neu laden

@@ -145,15 +145,15 @@ export function CustomerFormPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => window.location.href = '/customers'}
-            className="p-2 hover:bg-gray-100 rounded-lg"
+            className="p-2 hover:bg-gray-100 dark:bg-secondary-700 rounded-lg"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">
               {customerId ? 'Kunde bearbeiten' : 'Neuer Kunde'}
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">
               Erfassen Sie alle relevanten Kundendaten
             </p>
           </div>
@@ -168,12 +168,12 @@ export function CustomerFormPage() {
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Basic Information */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Grundinformationen</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Grundinformationen</h2>
 
             {/* Customer Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Kundentyp *
               </label>
               <div className="flex gap-4">
@@ -182,27 +182,27 @@ export function CustomerFormPage() {
                     {...register('customer_type')}
                     type="radio"
                     value="b2b"
-                    className="w-4 h-4 text-indigo-600"
+                    className="w-4 h-4 text-primary-600"
                   />
-                  <span className="ml-2 text-sm text-gray-700">B2B (Geschäftskunde)</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-secondary-200">B2B (Geschäftskunde)</span>
                 </label>
                 <label className="flex items-center">
                   <input
                     {...register('customer_type')}
                     type="radio"
                     value="b2c"
-                    className="w-4 h-4 text-indigo-600"
+                    className="w-4 h-4 text-primary-600"
                   />
-                  <span className="ml-2 text-sm text-gray-700">B2C (Privatkunde)</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-secondary-200">B2C (Privatkunde)</span>
                 </label>
                 <label className="flex items-center">
                   <input
                     {...register('customer_type')}
                     type="radio"
                     value="b2g"
-                    className="w-4 h-4 text-indigo-600"
+                    className="w-4 h-4 text-primary-600"
                   />
-                  <span className="ml-2 text-sm text-gray-700">B2G (Öffentlicher Sektor)</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-secondary-200">B2G (Öffentlicher Sektor)</span>
                 </label>
               </div>
             </div>
@@ -210,14 +210,14 @@ export function CustomerFormPage() {
             {/* Company or Person */}
             {customerType === 'b2b' || customerType === 'b2g' ? (
               <div>
-                <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Firmenname *
                 </label>
                 <input
                   {...register('company_name')}
                   type="text"
                   id="company_name"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Musterfirma GmbH"
                 />
                 {errors.company_name && (
@@ -227,26 +227,26 @@ export function CustomerFormPage() {
             ) : (
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                     Vorname *
                   </label>
                   <input
                     {...register('first_name')}
                     type="text"
                     id="first_name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="Max"
                   />
                 </div>
                 <div>
-                  <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                     Nachname *
                   </label>
                   <input
                     {...register('last_name')}
                     type="text"
                     id="last_name"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="Mustermann"
                   />
                 </div>
@@ -255,19 +255,19 @@ export function CustomerFormPage() {
           </div>
 
           {/* Contact Information */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Kontaktdaten</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Kontaktdaten</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   E-Mail
                 </label>
                 <input
                   {...register('email')}
                   type="email"
                   id="email"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="kunde@beispiel.de"
                 />
                 {errors.email && (
@@ -276,27 +276,27 @@ export function CustomerFormPage() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Telefon
                 </label>
                 <input
                   {...register('phone')}
                   type="tel"
                   id="phone"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="+49 123 456789"
                 />
               </div>
 
               <div>
-                <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="mobile" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Mobil
                 </label>
                 <input
                   {...register('mobile')}
                   type="tel"
                   id="mobile"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="+49 170 1234567"
                 />
               </div>
@@ -304,18 +304,18 @@ export function CustomerFormPage() {
           </div>
 
           {/* Address */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Rechnungsadresse</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Rechnungsadresse</h2>
 
             <div>
-              <label htmlFor="address_line1" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="address_line1" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Straße und Hausnummer *
               </label>
               <input
                 {...register('address_line1')}
                 type="text"
                 id="address_line1"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Musterstraße 123"
               />
               {errors.address_line1 && (
@@ -324,28 +324,28 @@ export function CustomerFormPage() {
             </div>
 
             <div>
-              <label htmlFor="address_line2" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="address_line2" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Adresszusatz
               </label>
               <input
                 {...register('address_line2')}
                 type="text"
                 id="address_line2"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Gebäude A, 3. OG"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label htmlFor="zip_code" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="zip_code" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   PLZ *
                 </label>
                 <input
                   {...register('zip_code')}
                   type="text"
                   id="zip_code"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="12345"
                 />
                 {errors.zip_code && (
@@ -354,14 +354,14 @@ export function CustomerFormPage() {
               </div>
 
               <div className="md:col-span-2">
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Stadt *
                 </label>
                 <input
                   {...register('city')}
                   type="text"
                   id="city"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Berlin"
                 />
                 {errors.city && (
@@ -371,13 +371,13 @@ export function CustomerFormPage() {
             </div>
 
             <div>
-              <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Land
               </label>
               <select
                 {...register('country')}
                 id="country"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="DE">Deutschland</option>
                 <option value="AT">Österreich</option>
@@ -387,32 +387,32 @@ export function CustomerFormPage() {
           </div>
 
           {/* Tax Information */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Steuerinformationen</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Steuerinformationen</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="tax_id" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="tax_id" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Steuernummer
                 </label>
                 <input
                   {...register('tax_id')}
                   type="text"
                   id="tax_id"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="12/345/67890"
                 />
               </div>
 
               <div>
-                <label htmlFor="vat_id" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="vat_id" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   USt-IdNr.
                 </label>
                 <input
                   {...register('vat_id')}
                   type="text"
                   id="vat_id"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="DE123456789"
                 />
               </div>
@@ -420,18 +420,18 @@ export function CustomerFormPage() {
           </div>
 
           {/* Payment Settings */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Zahlungskonditionen</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Zahlungskonditionen</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="payment_terms" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="payment_terms" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Zahlungsziel
                 </label>
                 <select
                   {...register('payment_terms')}
                   id="payment_terms"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="immediately">Sofort fällig</option>
                   <option value="net_7">7 Tage netto</option>
@@ -442,7 +442,7 @@ export function CustomerFormPage() {
               </div>
 
               <div>
-                <label htmlFor="discount_percentage" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="discount_percentage" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Standardrabatt (%)
                 </label>
                 <input
@@ -452,7 +452,7 @@ export function CustomerFormPage() {
                   min="0"
                   max="100"
                   step="0.01"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="0"
                 />
               </div>
@@ -460,31 +460,31 @@ export function CustomerFormPage() {
           </div>
 
           {/* Notes */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Notizen</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Notizen</h2>
 
             <div>
-              <label htmlFor="internal_notes" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="internal_notes" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Interne Notizen (nur für Ihr Team sichtbar)
               </label>
               <textarea
                 {...register('internal_notes')}
                 id="internal_notes"
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Notizen, die nur Ihr Team sehen kann..."
               />
             </div>
 
             <div>
-              <label htmlFor="customer_notes" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="customer_notes" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Kundennotizen (erscheinen auf Rechnungen)
               </label>
               <textarea
                 {...register('customer_notes')}
                 id="customer_notes"
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Notizen, die auf Rechnungen erscheinen..."
               />
             </div>
@@ -495,14 +495,14 @@ export function CustomerFormPage() {
             <button
               type="button"
               onClick={() => window.location.href = '/customers'}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
             >
               Abbrechen
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="inline-flex items-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+              className="inline-flex items-center px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
             >
               <Save className="h-5 w-5 mr-2" />
               {isLoading ? 'Speichert...' : 'Kunde speichern'}

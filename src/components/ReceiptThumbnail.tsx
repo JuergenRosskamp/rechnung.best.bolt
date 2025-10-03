@@ -136,7 +136,7 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
 
   if (!receipt) {
     return (
-      <div className="inline-flex items-center px-3 py-1 text-xs text-gray-400">
+      <div className="inline-flex items-center px-3 py-1 text-xs text-gray-400 dark:text-secondary-600">
         <FileText className="h-3 w-3" />
       </div>
     );
@@ -157,11 +157,11 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
             <img
               src={imageUrl}
               alt="Beleg"
-              className="h-10 w-10 object-cover rounded border border-gray-300 hover:border-blue-500 transition-colors"
+              className="h-10 w-10 object-cover rounded border border-gray-300 dark:border-secondary-600 hover:border-blue-500 transition-colors"
             />
           ) : (
-            <div className="h-10 w-10 bg-gray-100 rounded border border-gray-300 hover:border-blue-500 flex items-center justify-center">
-              <FileText className="h-5 w-5 text-gray-600" />
+            <div className="h-10 w-10 bg-gray-100 dark:bg-secondary-700 rounded border border-gray-300 dark:border-secondary-600 hover:border-blue-500 flex items-center justify-center">
+              <FileText className="h-5 w-5 text-gray-600 dark:text-secondary-400" />
             </div>
           )}
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 rounded flex items-center justify-center transition-all">
@@ -192,7 +192,7 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
               </div>
               <button
                 onClick={() => setShowPreview(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 dark:text-secondary-600 hover:text-gray-600 dark:text-secondary-400"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -223,11 +223,11 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
             <div className="flex items-start mb-4">
               <AlertTriangle className="h-6 w-6 text-red-600 mr-3 flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Beleg löschen?</h3>
-                <p className="text-sm text-gray-600 mb-2">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-secondary-50 mb-2">Beleg löschen?</h3>
+                <p className="text-sm text-gray-600 dark:text-secondary-400 mb-2">
                   Möchten Sie den Beleg "{receipt.file_name}" wirklich löschen?
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-secondary-400">
                   Diese Aktion kann nicht rückgängig gemacht werden.
                 </p>
                 {!canDelete && (
@@ -252,7 +252,7 @@ export function ReceiptThumbnail({ receiptId, entryId, onDeleted }: ReceiptThumb
                   setDeleteError('');
                 }}
                 disabled={isDeleting}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800 disabled:opacity-50"
               >
                 Abbrechen
               </button>

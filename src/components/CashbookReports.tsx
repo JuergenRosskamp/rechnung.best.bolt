@@ -185,39 +185,39 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
             <BarChart3 className="h-6 w-6 text-blue-600 dark:text-blue-400 mr-3" />
             <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50">Kassenbuch-Auswertungen</h2>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+          <button onClick={onClose} className="text-gray-400 dark:text-secondary-600 hover:text-gray-600 dark:text-secondary-400">
             <X className="h-5 w-5" />
           </button>
         </div>
 
         <div className="p-6 space-y-6">
           {/* Period Selection */}
-          <div className="bg-gray-50 rounded-lg p-4">
+          <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Von</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">Von</label>
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Bis</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">Bis</label>
                 <input
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Berichtstyp</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">Berichtstyp</label>
                 <select
                   value={reportType}
                   onChange={(e) => setReportType(e.target.value as any)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="overview">Übersicht</option>
                   <option value="categories">Nach Kategorien</option>
@@ -332,49 +332,49 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
               {/* Category Report */}
               {reportType === 'categories' && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-gray-900">Auswertung nach Kategorien</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-secondary-50">Auswertung nach Kategorien</h3>
                   <div className="bg-white dark:bg-secondary-700/30 rounded-lg border border-gray-200 dark:border-secondary-700 overflow-hidden">
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-gray-200 dark:divide-secondary-700">
+                      <thead className="bg-gray-50 dark:bg-secondary-800">
                         <tr>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Kategorie
                           </th>
-                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Anzahl
                           </th>
-                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Summe
                           </th>
-                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Anteil
                           </th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Visualisierung
                           </th>
                         </tr>
                       </thead>
                       <tbody className="bg-white dark:bg-secondary-700/30 divide-y divide-gray-200 dark:divide-secondary-700">
                         {categoryStats.map((cat, index) => (
-                          <tr key={index} className="hover:bg-gray-50">
+                          <tr key={index} className="hover:bg-gray-50 dark:bg-secondary-800">
                             <td className="px-6 py-4">
-                              <div className="text-sm font-medium text-gray-900">{cat.category_name}</div>
-                              <div className="text-xs text-gray-500">{cat.category_code}</div>
+                              <div className="text-sm font-medium text-gray-900 dark:text-secondary-50">{cat.category_name}</div>
+                              <div className="text-xs text-gray-500 dark:text-secondary-500">{cat.category_code}</div>
                             </td>
-                            <td className="px-6 py-4 text-right text-sm text-gray-900">
+                            <td className="px-6 py-4 text-right text-sm text-gray-900 dark:text-secondary-50">
                               {cat.count}
                             </td>
-                            <td className="px-6 py-4 text-right text-sm font-medium text-gray-900">
+                            <td className="px-6 py-4 text-right text-sm font-medium text-gray-900 dark:text-secondary-50">
                               {cat.total.toLocaleString('de-DE', {
                                 style: 'currency',
                                 currency: 'EUR'
                               })}
                             </td>
-                            <td className="px-6 py-4 text-right text-sm text-gray-900">
+                            <td className="px-6 py-4 text-right text-sm text-gray-900 dark:text-secondary-50">
                               {cat.percentage.toFixed(1)}%
                             </td>
                             <td className="px-6 py-4">
-                              <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div className="w-full bg-gray-200 dark:bg-secondary-600 rounded-full h-2">
                                 <div
                                   className="bg-blue-600 h-2 rounded-full"
                                   style={{ width: `${cat.percentage}%` }}
@@ -392,32 +392,32 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
               {/* Daily Report */}
               {reportType === 'daily' && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-gray-900">Tagesübersicht</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-secondary-50">Tagesübersicht</h3>
                   <div className="bg-white dark:bg-secondary-700/30 rounded-lg border border-gray-200 dark:border-secondary-700 overflow-hidden">
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-gray-200 dark:divide-secondary-700">
+                      <thead className="bg-gray-50 dark:bg-secondary-800">
                         <tr>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Datum
                           </th>
-                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Einnahmen
                           </th>
-                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Ausgaben
                           </th>
-                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Netto
                           </th>
-                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                             Buchungen
                           </th>
                         </tr>
                       </thead>
                       <tbody className="bg-white dark:bg-secondary-700/30 divide-y divide-gray-200 dark:divide-secondary-700">
                         {dailyStats.map((day, index) => (
-                          <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                          <tr key={index} className="hover:bg-gray-50 dark:bg-secondary-800">
+                            <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-secondary-50">
                               {new Date(day.date).toLocaleDateString('de-DE', {
                                 weekday: 'short',
                                 year: 'numeric',
@@ -446,7 +446,7 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
                                 currency: 'EUR'
                               })}
                             </td>
-                            <td className="px-6 py-4 text-right text-sm text-gray-900">
+                            <td className="px-6 py-4 text-right text-sm text-gray-900 dark:text-secondary-50">
                               {day.count}
                             </td>
                           </tr>
@@ -501,8 +501,8 @@ export function CashbookReports({ onClose }: CashbookReportsProps) {
 
                     {stats && (
                       <div className="bg-white dark:bg-secondary-700/30 rounded-lg p-4 mb-4">
-                        <p className="text-sm text-gray-600 mb-2">Export umfasst:</p>
-                        <ul className="text-sm text-gray-900 space-y-1">
+                        <p className="text-sm text-gray-600 dark:text-secondary-400 mb-2">Export umfasst:</p>
+                        <ul className="text-sm text-gray-900 dark:text-secondary-50 space-y-1">
                           <li>• {stats.transactionCount} Buchungen</li>
                           <li>• Zeitraum: {new Date(startDate).toLocaleDateString('de-DE')} bis {new Date(endDate).toLocaleDateString('de-DE')}</li>
                           <li>• Kontenrahmen: {skr}</li>

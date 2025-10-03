@@ -211,12 +211,12 @@ export function InvoiceDetailPage() {
 
   const getStatusBadge = (status: string) => {
     const colors: Record<string, string> = {
-      draft: 'bg-gray-100 text-gray-800',
+      draft: 'bg-gray-100 dark:bg-secondary-700 text-gray-800 dark:text-secondary-100',
       sent: 'bg-blue-100 text-blue-800',
       paid: 'bg-green-100 text-green-800',
       overdue: 'bg-red-100 text-red-800',
       partially_paid: 'bg-yellow-100 text-yellow-800',
-      cancelled: 'bg-gray-100 text-gray-600',
+      cancelled: 'bg-gray-100 dark:bg-secondary-700 text-gray-600 dark:text-secondary-400',
     };
     const labels: Record<string, string> = {
       draft: 'Entwurf',
@@ -250,8 +250,8 @@ export function InvoiceDetailPage() {
       <Layout>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-            <p className="mt-4 text-gray-600">Lade Rechnung...</p>
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+            <p className="mt-4 text-gray-600 dark:text-secondary-400">Lade Rechnung...</p>
           </div>
         </div>
       </Layout>
@@ -262,10 +262,10 @@ export function InvoiceDetailPage() {
     return (
       <Layout>
         <div className="text-center py-12">
-          <p className="text-gray-500">Rechnung nicht gefunden</p>
+          <p className="text-gray-500 dark:text-secondary-500">Rechnung nicht gefunden</p>
           <button
             onClick={() => window.location.href = '/invoices'}
-            className="mt-4 text-indigo-600 hover:text-indigo-700"
+            className="mt-4 text-primary-600 hover:text-primary-700"
           >
             Zurück zur Übersicht
           </button>
@@ -285,15 +285,15 @@ export function InvoiceDetailPage() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => window.location.href = '/invoices'}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-gray-100 dark:bg-secondary-700 rounded-lg"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">
                 {invoice.invoice_number}
               </h1>
-              <p className="mt-1 text-sm text-gray-500">{customerName}</p>
+              <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">{customerName}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -302,7 +302,7 @@ export function InvoiceDetailPage() {
         </div>
 
         {/* Actions */}
-        <div className="bg-white rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-4">
           <div className="flex flex-wrap gap-2">
             {invoice.finalized_at && (
               <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-lg">
@@ -319,15 +319,15 @@ export function InvoiceDetailPage() {
                 Rechnung finalisieren (GoBD)
               </button>
             )}
-            <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+            <button className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800">
               <Printer className="h-4 w-4 mr-2" />
               Drucken
             </button>
-            <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+            <button className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800">
               <Download className="h-4 w-4 mr-2" />
               PDF
             </button>
-            <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+            <button className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800">
               <Send className="h-4 w-4 mr-2" />
               Versenden
             </button>
@@ -341,7 +341,7 @@ export function InvoiceDetailPage() {
               </button>
             )}
             {!invoice.finalized_at && (
-              <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+              <button className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800">
                 <Edit className="h-4 w-4 mr-2" />
                 Bearbeiten
               </button>
@@ -353,12 +353,12 @@ export function InvoiceDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             {/* Main Invoice Card */}
-            <div className="bg-white rounded-lg shadow">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow">
               <div className="p-6 space-y-6">
                 {/* Addresses */}
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-500 mb-2">Von</h3>
+                    <h3 className="text-sm font-medium text-gray-500 dark:text-secondary-500 mb-2">Von</h3>
                     <div className="text-sm">
                       <p className="font-medium">{tenant?.company_name}</p>
                       {tenant?.address_line1 && <p>{tenant.address_line1}</p>}
@@ -370,7 +370,7 @@ export function InvoiceDetailPage() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-gray-500 mb-2">An</h3>
+                    <h3 className="text-sm font-medium text-gray-500 dark:text-secondary-500 mb-2">An</h3>
                     <div className="text-sm">
                       <p className="font-medium">{customerName}</p>
                       {invoice.customer_snapshot?.address_line1 && (
@@ -389,26 +389,26 @@ export function InvoiceDetailPage() {
                 {/* Invoice Info */}
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                   <div>
-                    <p className="text-sm text-gray-500">Rechnungsdatum</p>
+                    <p className="text-sm text-gray-500 dark:text-secondary-500">Rechnungsdatum</p>
                     <p className="text-sm font-medium">
                       {new Date(invoice.invoice_date).toLocaleDateString('de-DE')}
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Fälligkeitsdatum</p>
+                    <p className="text-sm text-gray-500 dark:text-secondary-500">Fälligkeitsdatum</p>
                     <p className="text-sm font-medium">
                       {new Date(invoice.due_date).toLocaleDateString('de-DE')}
                     </p>
                   </div>
                   {invoice.reference_number && (
                     <div>
-                      <p className="text-sm text-gray-500">Referenznummer</p>
+                      <p className="text-sm text-gray-500 dark:text-secondary-500">Referenznummer</p>
                       <p className="text-sm font-medium">{invoice.reference_number}</p>
                     </div>
                   )}
                   {invoice.payment_terms && (
                     <div>
-                      <p className="text-sm text-gray-500">Zahlungsbedingungen</p>
+                      <p className="text-sm text-gray-500 dark:text-secondary-500">Zahlungsbedingungen</p>
                       <p className="text-sm font-medium">{invoice.payment_terms}</p>
                     </div>
                   )}
@@ -419,32 +419,32 @@ export function InvoiceDetailPage() {
                   <table className="min-w-full">
                     <thead>
                       <tr className="border-b">
-                        <th className="py-2 text-left text-sm font-medium text-gray-500">Position</th>
-                        <th className="py-2 text-right text-sm font-medium text-gray-500">Menge</th>
-                        <th className="py-2 text-right text-sm font-medium text-gray-500">Einzelpreis</th>
-                        <th className="py-2 text-right text-sm font-medium text-gray-500">MwSt.</th>
-                        <th className="py-2 text-right text-sm font-medium text-gray-500">Gesamt</th>
+                        <th className="py-2 text-left text-sm font-medium text-gray-500 dark:text-secondary-500">Position</th>
+                        <th className="py-2 text-right text-sm font-medium text-gray-500 dark:text-secondary-500">Menge</th>
+                        <th className="py-2 text-right text-sm font-medium text-gray-500 dark:text-secondary-500">Einzelpreis</th>
+                        <th className="py-2 text-right text-sm font-medium text-gray-500 dark:text-secondary-500">MwSt.</th>
+                        <th className="py-2 text-right text-sm font-medium text-gray-500 dark:text-secondary-500">Gesamt</th>
                       </tr>
                     </thead>
                     <tbody>
                       {invoice.items?.map((item: any, index: number) => (
                         <tr key={index} className="border-b">
                           <td className="py-3">
-                            <p className="text-sm font-medium text-gray-900">{item.description}</p>
+                            <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">{item.description}</p>
                             {item.unit && (
-                              <p className="text-xs text-gray-500">Einheit: {item.unit}</p>
+                              <p className="text-xs text-gray-500 dark:text-secondary-500">Einheit: {item.unit}</p>
                             )}
                           </td>
-                          <td className="py-3 text-right text-sm text-gray-900">
+                          <td className="py-3 text-right text-sm text-gray-900 dark:text-secondary-50">
                             {item.quantity}
                           </td>
-                          <td className="py-3 text-right text-sm text-gray-900">
+                          <td className="py-3 text-right text-sm text-gray-900 dark:text-secondary-50">
                             {item.unit_price.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                           </td>
-                          <td className="py-3 text-right text-sm text-gray-900">
+                          <td className="py-3 text-right text-sm text-gray-900 dark:text-secondary-50">
                             {item.vat_rate}%
                           </td>
-                          <td className="py-3 text-right text-sm font-medium text-gray-900">
+                          <td className="py-3 text-right text-sm font-medium text-gray-900 dark:text-secondary-50">
                             {item.total.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                           </td>
                         </tr>
@@ -457,13 +457,13 @@ export function InvoiceDetailPage() {
                 <div className="flex justify-end">
                   <div className="w-64 space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Zwischensumme</span>
+                      <span className="text-gray-500 dark:text-secondary-500">Zwischensumme</span>
                       <span className="font-medium">
                         {invoice.subtotal.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">MwSt.</span>
+                      <span className="text-gray-500 dark:text-secondary-500">MwSt.</span>
                       <span className="font-medium">
                         {invoice.total_vat.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                       </span>
@@ -494,35 +494,35 @@ export function InvoiceDetailPage() {
                 {/* Notes */}
                 {invoice.customer_notes && (
                   <div className="pt-4 border-t">
-                    <p className="text-sm font-medium text-gray-900 mb-2">Notizen für Kunden</p>
-                    <p className="text-sm text-gray-600">{invoice.customer_notes}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-secondary-50 mb-2">Notizen für Kunden</p>
+                    <p className="text-sm text-gray-600 dark:text-secondary-400">{invoice.customer_notes}</p>
                   </div>
                 )}
 
                 {/* Bank Details */}
                 {tenant?.iban && (
-                  <div className="pt-4 border-t bg-gray-50 -mx-6 -mb-6 px-6 py-4 rounded-b-lg">
-                    <p className="text-sm font-medium text-gray-900 mb-2">Zahlungsinformationen</p>
+                  <div className="pt-4 border-t bg-gray-50 dark:bg-secondary-800 -mx-6 -mb-6 px-6 py-4 rounded-b-lg">
+                    <p className="text-sm font-medium text-gray-900 dark:text-secondary-50 mb-2">Zahlungsinformationen</p>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       {tenant.bank_account_holder && (
                         <div>
-                          <span className="text-gray-500">Kontoinhaber: </span>
+                          <span className="text-gray-500 dark:text-secondary-500">Kontoinhaber: </span>
                           <span className="font-medium">{tenant.bank_account_holder}</span>
                         </div>
                       )}
                       {tenant.bank_name && (
                         <div>
-                          <span className="text-gray-500">Bank: </span>
+                          <span className="text-gray-500 dark:text-secondary-500">Bank: </span>
                           <span className="font-medium">{tenant.bank_name}</span>
                         </div>
                       )}
                       <div>
-                        <span className="text-gray-500">IBAN: </span>
+                        <span className="text-gray-500 dark:text-secondary-500">IBAN: </span>
                         <span className="font-mono font-medium">{tenant.iban}</span>
                       </div>
                       {tenant.bic && (
                         <div>
-                          <span className="text-gray-500">BIC: </span>
+                          <span className="text-gray-500 dark:text-secondary-500">BIC: </span>
                           <span className="font-mono font-medium">{tenant.bic}</span>
                         </div>
                       )}
@@ -536,32 +536,32 @@ export function InvoiceDetailPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Payment History */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Zahlungshistorie</h3>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-secondary-50 mb-4">Zahlungshistorie</h3>
               {payments.length === 0 ? (
-                <p className="text-sm text-gray-500 italic">Keine Zahlungen erfasst</p>
+                <p className="text-sm text-gray-500 dark:text-secondary-500 italic">Keine Zahlungen erfasst</p>
               ) : (
                 <div className="space-y-3">
                   {payments.map((payment) => (
                     <div key={payment.id} className="border-l-4 border-green-500 pl-3 py-2">
                       <div className="flex justify-between items-start">
                         <div>
-                          <p className="text-sm font-medium text-gray-900">
+                          <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">
                             {payment.amount.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-500 dark:text-secondary-500">
                             {getPaymentMethodLabel(payment.payment_method)}
                           </p>
                           {payment.reference && (
-                            <p className="text-xs text-gray-500">Ref: {payment.reference}</p>
+                            <p className="text-xs text-gray-500 dark:text-secondary-500">Ref: {payment.reference}</p>
                           )}
                         </div>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-secondary-500">
                           {new Date(payment.payment_date).toLocaleDateString('de-DE')}
                         </p>
                       </div>
                       {payment.notes && (
-                        <p className="text-xs text-gray-600 mt-1">{payment.notes}</p>
+                        <p className="text-xs text-gray-600 dark:text-secondary-400 mt-1">{payment.notes}</p>
                       )}
                     </div>
                   ))}
@@ -570,14 +570,14 @@ export function InvoiceDetailPage() {
             </div>
 
             {/* Timeline */}
-            <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Verlauf</h3>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-secondary-50 mb-4">Verlauf</h3>
               <div className="space-y-3">
                 <div className="flex items-start">
-                  <div className="flex-shrink-0 w-2 h-2 mt-1.5 rounded-full bg-indigo-600"></div>
+                  <div className="flex-shrink-0 w-2 h-2 mt-1.5 rounded-full bg-primary-600"></div>
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-900">Rechnung erstellt</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">Rechnung erstellt</p>
+                    <p className="text-xs text-gray-500 dark:text-secondary-500">
                       {new Date(invoice.created_at).toLocaleDateString('de-DE')}
                     </p>
                   </div>
@@ -586,8 +586,8 @@ export function InvoiceDetailPage() {
                   <div className="flex items-start">
                     <div className="flex-shrink-0 w-2 h-2 mt-1.5 rounded-full bg-green-600"></div>
                     <div className="ml-3">
-                      <p className="text-sm font-medium text-gray-900">Vollständig bezahlt</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-sm font-medium text-gray-900 dark:text-secondary-50">Vollständig bezahlt</p>
+                      <p className="text-xs text-gray-500 dark:text-secondary-500">
                         {payments.length > 0 && new Date(payments[0].payment_date).toLocaleDateString('de-DE')}
                       </p>
                     </div>
@@ -602,11 +602,11 @@ export function InvoiceDetailPage() {
       {/* Payment Modal */}
       {showPaymentModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Zahlung erfassen</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-md w-full p-6">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">Zahlung erfassen</h2>
             <form onSubmit={handleAddPayment} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Zahlungsdatum *
                 </label>
                 <input
@@ -614,12 +614,12 @@ export function InvoiceDetailPage() {
                   required
                   value={paymentForm.payment_date}
                   onChange={(e) => setPaymentForm({ ...paymentForm, payment_date: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Betrag * (Offen: {invoice.amount_due.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })})
                 </label>
                 <input
@@ -630,19 +630,19 @@ export function InvoiceDetailPage() {
                   max={invoice.amount_due}
                   value={paymentForm.amount}
                   onChange={(e) => setPaymentForm({ ...paymentForm, amount: parseFloat(e.target.value) })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Zahlungsmethode *
                 </label>
                 <select
                   required
                   value={paymentForm.payment_method}
                   onChange={(e) => setPaymentForm({ ...paymentForm, payment_method: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="bank_transfer">Überweisung</option>
                   <option value="cash">Bar</option>
@@ -654,7 +654,7 @@ export function InvoiceDetailPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Referenz
                 </label>
                 <input
@@ -662,19 +662,19 @@ export function InvoiceDetailPage() {
                   value={paymentForm.reference}
                   onChange={(e) => setPaymentForm({ ...paymentForm, reference: e.target.value })}
                   placeholder="z.B. Transaktionsnummer"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Notizen
                 </label>
                 <textarea
                   value={paymentForm.notes}
                   onChange={(e) => setPaymentForm({ ...paymentForm, notes: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
 
@@ -682,7 +682,7 @@ export function InvoiceDetailPage() {
                 <button
                   type="button"
                   onClick={() => setShowPaymentModal(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
                 >
                   Abbrechen
                 </button>

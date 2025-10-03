@@ -6,30 +6,30 @@ export default function ImpressumPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-secondary-800">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-white dark:bg-secondary-800 border-b border-gray-200 dark:border-secondary-700">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <button
             onClick={handleBack}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"
+            className="inline-flex items-center gap-2 text-gray-600 dark:text-secondary-400 hover:text-gray-900 dark:text-secondary-50 mb-4"
           >
             <ArrowLeft className="h-4 w-4" />
             Zurück
           </button>
           <div className="flex items-center gap-3">
             <FileText className="h-8 w-8 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">Impressum</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-secondary-50">Impressum</h1>
           </div>
         </div>
       </header>
 
       {/* Content */}
       <main className="max-w-4xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-lg shadow-sm p-8 space-y-8">
+        <div className="bg-white dark:bg-secondary-800 rounded-lg shadow-sm p-8 space-y-8">
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Angaben gemäß § 5 TMG</h2>
-            <p className="text-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">Angaben gemäß § 5 TMG</h2>
+            <p className="text-gray-700 dark:text-secondary-200">
               [Firmenname]<br />
               [Straße und Hausnummer]<br />
               [PLZ und Ort]<br />
@@ -38,31 +38,31 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Vertreten durch</h2>
-            <p className="text-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">Vertreten durch</h2>
+            <p className="text-gray-700 dark:text-secondary-200">
               [Name des Geschäftsführers/Inhabers]
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Kontakt</h2>
-            <p className="text-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">Kontakt</h2>
+            <p className="text-gray-700 dark:text-secondary-200">
               Telefon: [Telefonnummer]<br />
               E-Mail: [E-Mail-Adresse]
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Umsatzsteuer-ID</h2>
-            <p className="text-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">Umsatzsteuer-ID</h2>
+            <p className="text-gray-700 dark:text-secondary-200">
               Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br />
               [USt-IdNr.]
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">EU-Streitschlichtung</h2>
-            <p className="text-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">EU-Streitschlichtung</h2>
+            <p className="text-gray-700 dark:text-secondary-200">
               Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{' '}
               <a
                 href="https://ec.europa.eu/consumers/odr/"
@@ -78,18 +78,18 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">
               Verbraucherstreitbeilegung/Universalschlichtungsstelle
             </h2>
-            <p className="text-gray-700">
+            <p className="text-gray-700 dark:text-secondary-200">
               Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
               Verbraucherschlichtungsstelle teilzunehmen.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Haftung für Inhalte</h2>
-            <p className="text-gray-700 space-y-2">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">Haftung für Inhalte</h2>
+            <p className="text-gray-700 dark:text-secondary-200 space-y-2">
               Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten
               nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
               Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
@@ -105,8 +105,8 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Haftung für Links</h2>
-            <p className="text-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">Haftung für Links</h2>
+            <p className="text-gray-700 dark:text-secondary-200">
               Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
               Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr
               übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder
@@ -121,8 +121,8 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Urheberrecht</h2>
-            <p className="text-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50 mb-4">Urheberrecht</h2>
+            <p className="text-gray-700 dark:text-secondary-200">
               Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen
               dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
               der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen
@@ -137,8 +137,8 @@ export default function ImpressumPage() {
             </p>
           </section>
 
-          <section className="pt-4 border-t border-gray-200">
-            <p className="text-sm text-gray-500">
+          <section className="pt-4 border-t border-gray-200 dark:border-secondary-700">
+            <p className="text-sm text-gray-500 dark:text-secondary-500">
               Quelle: eRecht24
             </p>
           </section>

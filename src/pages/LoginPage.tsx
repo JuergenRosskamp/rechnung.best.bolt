@@ -61,7 +61,7 @@ export function LoginPage() {
         <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Side - Branding */}
           <div className="hidden lg:block space-y-8 animate-fade-in">
-            <div className="inline-flex items-center gap-3 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-2xl shadow-soft border border-white/20">
+            <div className="inline-flex items-center gap-3 px-4 py-2 bg-white dark:bg-secondary-800/80 backdrop-blur-sm rounded-2xl shadow-soft border border-white/20">
               <Sparkles className="w-5 h-5 text-primary-600" />
               <span className="text-sm font-medium text-secondary-700">Professionelle Rechnungsverwaltung</span>
             </div>
@@ -79,7 +79,7 @@ export function LoginPage() {
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-4 p-4 bg-white/60 backdrop-blur-sm rounded-2xl shadow-soft border border-white/20">
+              <div className="flex items-start gap-4 p-4 bg-white dark:bg-secondary-800/60 backdrop-blur-sm rounded-2xl shadow-soft border border-white/20">
                 <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center flex-shrink-0">
                   <Building2 className="w-5 h-5 text-primary-600" />
                 </div>
@@ -89,7 +89,7 @@ export function LoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 p-4 bg-white/60 backdrop-blur-sm rounded-2xl shadow-soft border border-white/20">
+              <div className="flex items-start gap-4 p-4 bg-white dark:bg-secondary-800/60 backdrop-blur-sm rounded-2xl shadow-soft border border-white/20">
                 <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center flex-shrink-0">
                   <LogIn className="w-5 h-5 text-primary-600" />
                 </div>

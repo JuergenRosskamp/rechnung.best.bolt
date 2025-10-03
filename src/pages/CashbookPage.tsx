@@ -108,12 +108,12 @@ export function CashbookPage() {
 
   const getTypeColor = (type: string) => {
     const colors: Record<string, string> = {
-      income: 'bg-green-100 text-green-800',
-      expense: 'bg-red-100 text-red-800',
-      opening_balance: 'bg-blue-100 text-blue-800',
-      cash_count: 'bg-purple-100 text-purple-800',
+      income: 'bg-green-100 text-green-800 dark:bg-green-500/10 dark:text-green-400',
+      expense: 'bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-400',
+      opening_balance: 'bg-blue-100 text-blue-800 dark:bg-blue-500/10 dark:text-blue-400',
+      cash_count: 'bg-amber-100 text-amber-800 dark:bg-amber-500/10 dark:text-amber-400',
     };
-    return colors[type] || 'bg-gray-100 text-gray-800';
+    return colors[type] || 'bg-gray-100 dark:bg-secondary-700 text-gray-800 dark:text-secondary-100';
   };
 
   const handleVerifyHashChain = async () => {
@@ -124,7 +124,7 @@ export function CashbookPage() {
   };
 
   const handleReceiptProcessed = (data: ReceiptData) => {
-    console.log('Receipt processed:', data);
+    // Receipt data processed successfully
   };
 
   const handleAttachReceipt = async (entryId: string, receiptId: string) => {
@@ -185,8 +185,8 @@ export function CashbookPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">GoBD-Kassenbuch</h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">GoBD-Kassenbuch</h1>
+            <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">
               Revisionssicheres, GoBD-konformes Kassenbuch
             </p>
           </div>
@@ -214,14 +214,14 @@ export function CashbookPage() {
             </button>
             <button
               onClick={exportToCsv}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-50"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-secondary-600 bg-white text-gray-700 dark:text-secondary-200 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
             >
               <Download className="h-5 w-5 mr-2" />
               CSV
             </button>
             <button
               onClick={() => window.location.href = '/cashbook/count'}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-lg hover:bg-gray-50"
+              className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-secondary-600 bg-white text-gray-700 dark:text-secondary-200 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
             >
               <Calculator className="h-5 w-5 mr-2" />
               Kassensturz
@@ -238,22 +238,22 @@ export function CashbookPage() {
 
         {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">Kassenbestand</p>
-                <p className="mt-2 text-3xl font-bold text-gray-900">
+                <p className="text-sm font-medium text-gray-500 dark:text-secondary-500">Kassenbestand</p>
+                <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-secondary-50">
                   {stats.balance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                 </p>
               </div>
-              <DollarSign className="h-10 w-10 text-gray-400" />
+              <DollarSign className="h-10 w-10 text-gray-400 dark:text-secondary-600" />
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">Einnahmen</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-secondary-500">Einnahmen</p>
                 <p className="mt-2 text-3xl font-bold text-green-600">
                   {stats.totalIncome.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}
                 </p>
@@ -262,10 +262,10 @@ export function CashbookPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">Ausgaben</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-secondary-500">Ausgaben</p>
                 <p className="mt-2 text-3xl font-bold text-red-600">
                   {stats.totalExpense.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}
                 </p>
@@ -274,13 +274,13 @@ export function CashbookPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">Buchungen</p>
-                <p className="mt-2 text-3xl font-bold text-gray-900">{stats.entryCount}</p>
+                <p className="text-sm font-medium text-gray-500 dark:text-secondary-500">Buchungen</p>
+                <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-secondary-50">{stats.entryCount}</p>
               </div>
-              <Calculator className="h-10 w-10 text-gray-400" />
+              <Calculator className="h-10 w-10 text-gray-400 dark:text-secondary-600" />
             </div>
           </div>
         </div>
@@ -313,7 +313,7 @@ export function CashbookPage() {
               </div>
               <button
                 onClick={() => setShowVerification(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 dark:text-secondary-600 hover:text-gray-600 dark:text-secondary-400"
               >
                 ✕
               </button>
@@ -323,8 +323,8 @@ export function CashbookPage() {
 
         {/* Monthly Closings Overview */}
         {monthlyClosings.length > 0 && (
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-secondary-50 mb-4 flex items-center">
               <Calendar className="h-5 w-5 mr-2 text-green-600" />
               Letzte Monatsabschlüsse
             </h3>
@@ -339,7 +339,7 @@ export function CashbookPage() {
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-gray-900">
+                    <span className="font-bold text-gray-900 dark:text-secondary-50">
                       {closing.closing_month}/{closing.closing_year}
                     </span>
                     <span className={`text-xs px-2 py-1 rounded-full ${
@@ -352,7 +352,7 @@ export function CashbookPage() {
                   </div>
                   <div className="space-y-1 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Bestand:</span>
+                      <span className="text-gray-600 dark:text-secondary-400">Bestand:</span>
                       <span className="font-medium">
                         {parseFloat(closing.counted_balance).toLocaleString('de-DE', {
                           style: 'currency',
@@ -398,22 +398,22 @@ export function CashbookPage() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow p-4">
+        <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-secondary-600" />
               <input
                 type="text"
                 placeholder="Suche nach Beschreibung oder Nummer..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="all">Alle Vorgänge</option>
               <option value="income">Einnahmen</option>
@@ -424,23 +424,23 @@ export function CashbookPage() {
         </div>
 
         {/* Entries list */}
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white dark:bg-secondary-800 rounded-lg shadow overflow-hidden">
           {isLoading ? (
             <div className="p-12 text-center">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-              <p className="mt-4 text-gray-500">Lade Kassenbuch...</p>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+              <p className="mt-4 text-gray-500 dark:text-secondary-500">Lade Kassenbuch...</p>
             </div>
           ) : filteredEntries.length === 0 ? (
             <div className="p-12 text-center">
-              <Calculator className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-4 text-lg font-medium text-gray-900">Keine Einträge gefunden</h3>
-              <p className="mt-2 text-gray-500">
+              <Calculator className="mx-auto h-12 w-12 text-gray-400 dark:text-secondary-600" />
+              <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-secondary-50">Keine Einträge gefunden</h3>
+              <p className="mt-2 text-gray-500 dark:text-secondary-500">
                 {searchTerm ? 'Versuchen Sie eine andere Suche.' : 'Erstellen Sie Ihre erste Kassenbuchung.'}
               </p>
               {!searchTerm && (
                 <button
                   onClick={() => window.location.href = '/cashbook/new'}
-                  className="mt-4 inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+                  className="mt-4 inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
                 >
                   <Plus className="h-5 w-5 mr-2" />
                   Erste Buchung erstellen
@@ -449,46 +449,46 @@ export function CashbookPage() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-secondary-700">
+                <thead className="bg-gray-50 dark:bg-secondary-800">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                       Datum
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                       Belegnummer
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                       Beschreibung
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                       Typ
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                       Betrag
                     </th>
-                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                       Kassenbestand
                     </th>
-                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                       Beleg
                     </th>
-                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase tracking-wider">
                       Aktionen
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white dark:bg-secondary-800 divide-y divide-gray-200 dark:divide-secondary-700">
                   {filteredEntries.map((entry) => (
-                    <tr key={entry.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                    <tr key={entry.id} className="hover:bg-gray-50 dark:bg-secondary-800 transition-colors">
+                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900 dark:text-secondary-50">
                         {new Date(entry.entry_date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                       </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-secondary-50">
                         {entry.document_number}
                       </td>
                       <td className="px-4 py-2">
-                        <div className="text-sm text-gray-900 truncate max-w-xs" title={entry.description}>
+                        <div className="text-sm text-gray-900 dark:text-secondary-50 truncate max-w-xs" title={entry.description}>
                           {entry.description}
                         </div>
                       </td>
@@ -501,13 +501,13 @@ export function CashbookPage() {
                         <div className={`text-sm font-medium ${
                           entry.document_type === 'income' ? 'text-green-600' :
                           entry.document_type === 'expense' ? 'text-red-600' :
-                          'text-gray-900'
+                          'text-gray-900 dark:text-secondary-50'
                         }`}>
                           {entry.document_type === 'income' ? '+' : entry.document_type === 'expense' ? '-' : ''}
                           {Math.abs(entry.amount).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                         </div>
                       </td>
-                      <td className="px-4 py-2 whitespace-nowrap text-right text-sm font-medium text-gray-900">
+                      <td className="px-4 py-2 whitespace-nowrap text-right text-sm font-medium text-gray-900 dark:text-secondary-50">
                         {entry.cash_balance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                       </td>
                       <td className="px-4 py-2 whitespace-nowrap text-center">
@@ -553,15 +553,15 @@ export function CashbookPage() {
         {/* Receipt Upload Modal */}
         {showReceiptUpload && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold text-gray-900">Beleg anhängen</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50">Beleg anhängen</h2>
                 <button
                   onClick={() => {
                     setShowReceiptUpload(false);
                     setSelectedEntryId(null);
                   }}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-400 dark:text-secondary-600 hover:text-gray-600 dark:text-secondary-400"
                 >
                   ✕
                 </button>

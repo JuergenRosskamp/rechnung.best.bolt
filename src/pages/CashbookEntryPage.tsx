@@ -254,13 +254,13 @@ export function CashbookEntryPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => window.location.href = '/cashbook'}
-            className="p-2 hover:bg-gray-100 rounded-lg"
+            className="p-2 hover:bg-gray-100 dark:bg-secondary-700 rounded-lg"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Neue Kassenbuchung</h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">Neue Kassenbuchung</h1>
+            <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">
               GoBD-konforme Kassenbuchung erstellen
             </p>
           </div>
@@ -280,8 +280,8 @@ export function CashbookEntryPage() {
                 <h3 className="text-lg font-bold text-yellow-900 mb-2">Mögliche Doppelbuchung erkannt!</h3>
                 <p className="text-sm text-yellow-800 mb-3">{duplicateWarning.matchReason}</p>
                 {duplicateWarning.matchingEntry && (
-                  <div className="bg-white rounded border border-yellow-300 p-3 mb-4">
-                    <p className="text-xs font-medium text-gray-500 mb-2">Vorhandene Buchung:</p>
+                  <div className="bg-white dark:bg-secondary-800 rounded border border-yellow-300 p-3 mb-4">
+                    <p className="text-xs font-medium text-gray-500 dark:text-secondary-500 mb-2">Vorhandene Buchung:</p>
                     <div className="space-y-1 text-sm">
                       <p><span className="font-medium">Datum:</span> {new Date(duplicateWarning.matchingEntry.entry_date).toLocaleDateString('de-DE')}</p>
                       <p><span className="font-medium">Betrag:</span> {Math.abs(duplicateWarning.matchingEntry.amount).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
@@ -293,7 +293,7 @@ export function CashbookEntryPage() {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setDuplicateWarning(null)}
-                    className="px-4 py-2 bg-white border-2 border-yellow-600 text-yellow-900 rounded-lg hover:bg-yellow-50 font-medium"
+                    className="px-4 py-2 bg-white dark:bg-secondary-800 border-2 border-yellow-600 text-yellow-900 rounded-lg hover:bg-yellow-50 font-medium"
                   >
                     Abbrechen & Überprüfen
                   </button>
@@ -314,17 +314,17 @@ export function CashbookEntryPage() {
         )}
 
         {/* Current Balance */}
-        <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+        <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-indigo-900">Aktueller Kassenbestand</p>
-              <p className="mt-1 text-2xl font-bold text-indigo-900">
+              <p className="text-sm font-medium text-primary-900">Aktueller Kassenbestand</p>
+              <p className="mt-1 text-2xl font-bold text-primary-900">
                 {currentBalance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
               </p>
             </div>
             {amount > 0 && (
               <div className="text-right">
-                <p className="text-sm font-medium text-indigo-900">Neuer Bestand</p>
+                <p className="text-sm font-medium text-primary-900">Neuer Bestand</p>
                 <p className={`mt-1 text-2xl font-bold ${
                   newBalance < 0 ? 'text-red-600' : 'text-green-600'
                 }`}>
@@ -338,7 +338,7 @@ export function CashbookEntryPage() {
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Receipt Upload */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
             <ReceiptUpload
               onReceiptProcessed={handleReceiptProcessed}
               onReceiptIdChange={setReceiptId}
@@ -346,11 +346,11 @@ export function CashbookEntryPage() {
           </div>
 
           {/* Entry Type */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Buchungsdetails</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Buchungsdetails</h2>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Vorgangstyp *
               </label>
               <div className="flex gap-4">
@@ -359,25 +359,25 @@ export function CashbookEntryPage() {
                     {...register('document_type')}
                     type="radio"
                     value="income"
-                    className="w-4 h-4 text-indigo-600"
+                    className="w-4 h-4 text-primary-600"
                   />
-                  <span className="ml-2 text-sm text-gray-700">Einnahme (Geld in die Kasse)</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-secondary-200">Einnahme (Geld in die Kasse)</span>
                 </label>
                 <label className="flex items-center flex-1">
                   <input
                     {...register('document_type')}
                     type="radio"
                     value="expense"
-                    className="w-4 h-4 text-indigo-600"
+                    className="w-4 h-4 text-primary-600"
                   />
-                  <span className="ml-2 text-sm text-gray-700">Ausgabe (Geld aus der Kasse)</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-secondary-200">Ausgabe (Geld aus der Kasse)</span>
                 </label>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="entry_date" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="entry_date" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Datum *
                 </label>
                 <input
@@ -385,7 +385,7 @@ export function CashbookEntryPage() {
                   type="date"
                   id="entry_date"
                   max={new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
                 {errors.entry_date && (
                   <p className="mt-1 text-sm text-red-600">{errors.entry_date.message}</p>
@@ -393,13 +393,13 @@ export function CashbookEntryPage() {
               </div>
 
               <div>
-                <label htmlFor="category_id" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="category_id" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Kategorie *
                 </label>
                 <select
                   {...register('category_id')}
                   id="category_id"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="">Kategorie wählen</option>
                   {filteredCategories.map((cat) => (
@@ -415,14 +415,14 @@ export function CashbookEntryPage() {
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Beschreibung *
               </label>
               <textarea
                 {...register('description')}
                 id="description"
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Detaillierte Beschreibung des Vorgangs..."
               />
               {errors.description && (
@@ -431,26 +431,26 @@ export function CashbookEntryPage() {
             </div>
 
             <div>
-              <label htmlFor="reference" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="reference" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Referenz (z.B. Belegnummer)
               </label>
               <input
                 {...register('reference')}
                 type="text"
                 id="reference"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Optional"
               />
             </div>
           </div>
 
           {/* Amounts */}
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Beträge</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Beträge</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="amount" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Bruttobetrag (inkl. MwSt.) *
                 </label>
                 <div className="relative">
@@ -459,10 +459,10 @@ export function CashbookEntryPage() {
                     type="number"
                     step="0.01"
                     id="amount"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="0.00"
                   />
-                  <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">€</span>
+                  <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-secondary-500">€</span>
                 </div>
                 {errors.amount && (
                   <p className="mt-1 text-sm text-red-600">{errors.amount.message}</p>
@@ -470,13 +470,13 @@ export function CashbookEntryPage() {
               </div>
 
               <div>
-                <label htmlFor="vat_rate" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="vat_rate" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   MwSt.-Satz
                 </label>
                 <select
                   {...register('vat_rate')}
                   id="vat_rate"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="0">0% (steuerfrei)</option>
                   <option value="7">7% (ermäßigt)</option>
@@ -487,15 +487,15 @@ export function CashbookEntryPage() {
 
             {/* Calculated amounts */}
             {amount > 0 && (
-              <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+              <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-4 space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Nettobetrag:</span>
+                  <span className="text-gray-600 dark:text-secondary-400">Nettobetrag:</span>
                   <span className="font-medium">
                     {calculatedNet.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">MwSt. ({vatRate}%):</span>
+                  <span className="text-gray-600 dark:text-secondary-400">MwSt. ({vatRate}%):</span>
                   <span className="font-medium">
                     {calculatedVat.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                   </span>
@@ -531,14 +531,14 @@ export function CashbookEntryPage() {
             <button
               type="button"
               onClick={() => window.location.href = '/cashbook'}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
             >
               Abbrechen
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="inline-flex items-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+              className="inline-flex items-center px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
             >
               <Save className="h-5 w-5 mr-2" />
               {isLoading ? 'Speichert...' : 'Buchung speichern'}

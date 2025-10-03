@@ -222,13 +222,13 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200">
           Beleg hochladen oder scannen
         </label>
         {uploadStatus !== 'idle' && uploadStatus !== 'error' && (
           <button
             onClick={handleClear}
-            className="text-sm text-gray-500 hover:text-gray-700"
+            className="text-sm text-gray-500 dark:text-secondary-500 hover:text-gray-700 dark:text-secondary-200"
             disabled={isProcessing}
           >
             <X className="h-4 w-4" />
@@ -247,23 +247,23 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
             className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-lg transition-colors cursor-pointer ${
               isDragging
                 ? 'border-blue-500 bg-blue-100'
-                : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'
+                : 'border-gray-300 dark:border-secondary-600 hover:border-blue-500 hover:bg-blue-50'
             }`}
           >
-            <Upload className="h-8 w-8 text-gray-400 mb-2" />
-            <span className="text-sm font-medium text-gray-700">
+            <Upload className="h-8 w-8 text-gray-400 dark:text-secondary-600 mb-2" />
+            <span className="text-sm font-medium text-gray-700 dark:text-secondary-200">
               {isDragging ? 'Datei hier ablegen' : 'Datei hochladen oder hierher ziehen'}
             </span>
-            <span className="text-xs text-gray-500 mt-1">PDF, JPG, PNG</span>
+            <span className="text-xs text-gray-500 dark:text-secondary-500 mt-1">PDF, JPG, PNG</span>
           </div>
 
           <div
             onClick={() => cameraInputRef.current?.click()}
-            className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors md:hidden cursor-pointer"
+            className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-gray-300 dark:border-secondary-600 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-colors md:hidden cursor-pointer"
           >
-            <Camera className="h-8 w-8 text-gray-400 mb-2" />
-            <span className="text-sm font-medium text-gray-700">Mit Kamera scannen</span>
-            <span className="text-xs text-gray-500 mt-1">Foto aufnehmen</span>
+            <Camera className="h-8 w-8 text-gray-400 dark:text-secondary-600 mb-2" />
+            <span className="text-sm font-medium text-gray-700 dark:text-secondary-200">Mit Kamera scannen</span>
+            <span className="text-xs text-gray-500 dark:text-secondary-500 mt-1">Foto aufnehmen</span>
           </div>
 
           <input
@@ -374,8 +374,8 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
         </div>
       )}
 
-      <div className="bg-gray-50 rounded-lg p-3">
-        <p className="text-xs text-gray-600">
+      <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-3">
+        <p className="text-xs text-gray-600 dark:text-secondary-400">
           Die KI-Beleganerkennung analysiert automatisch Datum, Betrag, MwSt., Händler und Kategorie.
           Der Beleg wird GoBD-konform archiviert. Formate: JPG, PNG, PDF (max. 10 MB)
         </p>

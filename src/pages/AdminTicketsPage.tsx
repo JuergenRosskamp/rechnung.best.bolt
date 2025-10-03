@@ -163,7 +163,7 @@ export function AdminTicketsPage() {
       in_progress: { color: 'bg-yellow-100 text-yellow-700', label: 'In Bearbeitung' },
       waiting: { color: 'bg-orange-100 text-orange-700', label: 'Wartet' },
       resolved: { color: 'bg-green-100 text-green-700', label: 'Gelöst' },
-      closed: { color: 'bg-gray-100 text-gray-700', label: 'Geschlossen' },
+      closed: { color: 'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-secondary-200', label: 'Geschlossen' },
     };
 
     const badge = badges[status as keyof typeof badges];
@@ -180,16 +180,16 @@ export function AdminTicketsPage() {
       <div className="p-4 md:p-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Admin - Support-Tickets</h1>
-            <p className="text-sm text-gray-600 mt-1">Ticket-Verwaltung & Support</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-secondary-50">Admin - Support-Tickets</h1>
+            <p className="text-sm text-gray-600 dark:text-secondary-400 mt-1">Ticket-Verwaltung & Support</p>
           </div>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
           <div className="card p-4">
-            <p className="text-sm text-gray-600 font-medium">Gesamt</p>
-            <p className="text-3xl font-bold text-gray-900 mt-1">{stats.total}</p>
+            <p className="text-sm text-gray-600 dark:text-secondary-400 font-medium">Gesamt</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-secondary-50 mt-1">{stats.total}</p>
           </div>
 
           <div className="card p-4 bg-gradient-to-br from-blue-50 to-blue-100">
@@ -223,8 +223,8 @@ export function AdminTicketsPage() {
           </div>
 
           <div className="card p-4">
-            <p className="text-sm text-gray-600 font-medium">Ø Antwortzeit</p>
-            <p className="text-3xl font-bold text-gray-900 mt-1">{stats.avg_response_time.toFixed(1)}h</p>
+            <p className="text-sm text-gray-600 dark:text-secondary-400 font-medium">Ø Antwortzeit</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-secondary-50 mt-1">{stats.avg_response_time.toFixed(1)}h</p>
           </div>
         </div>
 
@@ -234,20 +234,20 @@ export function AdminTicketsPage() {
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-secondary-600" />
                   <input
                     type="text"
                     placeholder="Ticket-Nummer, Betreff oder Firma suchen..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full md:w-48 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full md:w-48 px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">Alle Status</option>
                 <option value="open">Offen</option>
@@ -259,7 +259,7 @@ export function AdminTicketsPage() {
               <select
                 value={priorityFilter}
                 onChange={(e) => setPriorityFilter(e.target.value)}
-                className="w-full md:w-48 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="w-full md:w-48 px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="all">Alle Prioritäten</option>
                 <option value="urgent">Dringend</option>
@@ -275,53 +275,53 @@ export function AdminTicketsPage() {
         {isLoading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="mt-4 text-gray-500">Lade Tickets...</p>
+            <p className="mt-4 text-gray-500 dark:text-secondary-500">Lade Tickets...</p>
           </div>
         ) : (
           <div className="table-responsive">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-secondary-700">
+              <thead className="bg-gray-50 dark:bg-secondary-800">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Ticket#
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Firma
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Betreff
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Kategorie
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Priorität
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Status
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Erstellt
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 dark:text-secondary-500 uppercase">
                     Aktionen
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-secondary-800 divide-y divide-gray-200 dark:divide-secondary-700">
                 {filteredTickets.map((ticket) => (
-                  <tr key={ticket.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={ticket.id} className="hover:bg-gray-50 dark:bg-secondary-800 transition-colors">
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <span className="text-sm font-medium text-gray-900">{ticket.ticket_number}</span>
+                      <span className="text-sm font-medium text-gray-900 dark:text-secondary-50">{ticket.ticket_number}</span>
                     </td>
                     <td className="px-4 py-3">
-                      <div className="text-sm text-gray-900">{ticket.tenant.name}</div>
-                      <div className="text-xs text-gray-500">{ticket.creator.email}</div>
+                      <div className="text-sm text-gray-900 dark:text-secondary-50">{ticket.tenant.name}</div>
+                      <div className="text-xs text-gray-500 dark:text-secondary-500">{ticket.creator.email}</div>
                     </td>
                     <td className="px-4 py-3">
-                      <div className="text-sm text-gray-900 max-w-md truncate">{ticket.subject}</div>
+                      <div className="text-sm text-gray-900 dark:text-secondary-50 max-w-md truncate">{ticket.subject}</div>
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 dark:text-secondary-50">
                       {ticket.category}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
@@ -329,7 +329,7 @@ export function AdminTicketsPage() {
                         ticket.priority === 'urgent' ? 'bg-red-100 text-red-700' :
                         ticket.priority === 'high' ? 'bg-orange-100 text-orange-700' :
                         ticket.priority === 'medium' ? 'bg-blue-100 text-blue-700' :
-                        'bg-gray-100 text-gray-700'
+                        'bg-gray-100 dark:bg-secondary-700 text-gray-700 dark:text-secondary-200'
                       }`}>
                         {ticket.priority}
                       </span>
@@ -337,7 +337,7 @@ export function AdminTicketsPage() {
                     <td className="px-4 py-3 whitespace-nowrap">
                       {getStatusBadge(ticket.status)}
                     </td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900 dark:text-secondary-50">
                       {new Date(ticket.created_at).toLocaleDateString('de-DE')}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-center">
@@ -354,7 +354,7 @@ export function AdminTicketsPage() {
                         <select
                           value={ticket.status}
                           onChange={(e) => updateTicketStatus(ticket.id, e.target.value)}
-                          className="text-sm px-2 py-1 border border-gray-300 rounded"
+                          className="text-sm px-2 py-1 border border-gray-300 dark:border-secondary-600 rounded"
                         >
                           <option value="open">Offen</option>
                           <option value="in_progress">In Bearbeitung</option>

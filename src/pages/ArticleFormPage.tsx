@@ -127,15 +127,15 @@ export function ArticleFormPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => window.location.href = '/articles'}
-            className="p-2 hover:bg-gray-100 rounded-lg"
+            className="p-2 hover:bg-gray-100 dark:bg-secondary-700 rounded-lg"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">
               {articleId ? 'Artikel bearbeiten' : 'Neuer Artikel'}
             </h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">
               Erfassen Sie alle relevanten Artikeldaten
             </p>
           </div>
@@ -148,29 +148,29 @@ export function ArticleFormPage() {
         )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Artikelinformationen</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Artikelinformationen</h2>
 
             <div>
               <label className="flex items-center">
                 <input
                   {...register('is_service')}
                   type="checkbox"
-                  className="w-4 h-4 text-indigo-600"
+                  className="w-4 h-4 text-primary-600"
                 />
-                <span className="ml-2 text-sm text-gray-700">Dies ist eine Dienstleistung (kein physisches Produkt)</span>
+                <span className="ml-2 text-sm text-gray-700 dark:text-secondary-200">Dies ist eine Dienstleistung (kein physisches Produkt)</span>
               </label>
             </div>
 
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Artikelbezeichnung *
               </label>
               <input
                 {...register('name')}
                 type="text"
                 id="name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="z.B. Beratungsstunde, Produkt XY"
               />
               {errors.name && (
@@ -179,27 +179,27 @@ export function ArticleFormPage() {
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Beschreibung
               </label>
               <textarea
                 {...register('description')}
                 id="description"
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Detaillierte Beschreibung des Artikels..."
               />
             </div>
 
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                 Kategorie *
               </label>
               <input
                 {...register('category')}
                 type="text"
                 id="category"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="z.B. Dienstleistungen, Produkte, Material"
               />
               {errors.category && (
@@ -208,18 +208,18 @@ export function ArticleFormPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 space-y-6">
-            <h2 className="text-lg font-medium text-gray-900">Preise & Einheiten</h2>
+          <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+            <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Preise & Einheiten</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="unit" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="unit" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Einheit
                 </label>
                 <select
                   {...register('unit')}
                   id="unit"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="pcs">Stück</option>
                   <option value="hours">Stunden</option>
@@ -234,13 +234,13 @@ export function ArticleFormPage() {
               </div>
 
               <div>
-                <label htmlFor="vat_rate" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="vat_rate" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   MwSt.-Satz (%)
                 </label>
                 <select
                   {...register('vat_rate')}
                   id="vat_rate"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="0">0% (steuerfrei)</option>
                   <option value="7">7% (ermäßigt)</option>
@@ -249,7 +249,7 @@ export function ArticleFormPage() {
               </div>
 
               <div>
-                <label htmlFor="unit_price" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="unit_price" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Verkaufspreis (netto) *
                 </label>
                 <div className="relative">
@@ -258,10 +258,10 @@ export function ArticleFormPage() {
                     type="number"
                     step="0.01"
                     id="unit_price"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="0.00"
                   />
-                  <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">€</span>
+                  <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-secondary-500">€</span>
                 </div>
                 {errors.unit_price && (
                   <p className="mt-1 text-sm text-red-600">{errors.unit_price.message}</p>
@@ -269,7 +269,7 @@ export function ArticleFormPage() {
               </div>
 
               <div>
-                <label htmlFor="cost_price" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="cost_price" className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Einkaufspreis (optional)
                 </label>
                 <div className="relative">
@@ -278,17 +278,17 @@ export function ArticleFormPage() {
                     type="number"
                     step="0.01"
                     id="cost_price"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="0.00"
                   />
-                  <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">€</span>
+                  <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-secondary-500">€</span>
                 </div>
               </div>
             </div>
           </div>
 
           {articleId && (
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6">
               <ArticlePriceManagement articleId={articleId} articleUnit={articleUnit} />
             </div>
           )}
@@ -297,14 +297,14 @@ export function ArticleFormPage() {
             <button
               type="button"
               onClick={() => window.location.href = '/articles'}
-              className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
             >
               Abbrechen
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="inline-flex items-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+              className="inline-flex items-center px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
             >
               <Save className="h-5 w-5 mr-2" />
               {isLoading ? 'Speichert...' : 'Artikel speichern'}

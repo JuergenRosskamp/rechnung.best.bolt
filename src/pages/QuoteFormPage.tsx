@@ -152,13 +152,13 @@ export function QuoteFormPage() {
         <div className="flex items-center gap-4 mb-6">
           <button
             onClick={() => window.history.back()}
-            className="p-2 hover:bg-gray-100 rounded-lg touch-target"
+            className="p-2 hover:bg-gray-100 dark:bg-secondary-700 rounded-lg touch-target"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Neues Angebot</h1>
-            <p className="text-sm text-gray-600 mt-1">Angebot erstellen</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-secondary-50">Neues Angebot</h1>
+            <p className="text-sm text-gray-600 dark:text-secondary-400 mt-1">Angebot erstellen</p>
           </div>
         </div>
 
@@ -170,15 +170,15 @@ export function QuoteFormPage() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="card p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Stammdaten</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-secondary-50 mb-4">Stammdaten</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Kunde *
                 </label>
                 <select
                   {...register('customer_id')}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">Bitte wählen...</option>
                   {customers.map(customer => (
@@ -193,13 +193,13 @@ export function QuoteFormPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Angebotsdatum *
                 </label>
                 <input
                   type="date"
                   {...register('quote_date')}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
                 {errors.quote_date && (
                   <p className="mt-1 text-sm text-red-600">{errors.quote_date.message}</p>
@@ -207,13 +207,13 @@ export function QuoteFormPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Gültig bis *
                 </label>
                 <input
                   type="date"
                   {...register('valid_until')}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
                 {errors.valid_until && (
                   <p className="mt-1 text-sm text-red-600">{errors.valid_until.message}</p>
@@ -224,7 +224,7 @@ export function QuoteFormPage() {
 
           <div className="card p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Positionen</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-secondary-50">Positionen</h2>
               <button
                 type="button"
                 onClick={() => append({ description: '', quantity: 1, unit: 'pcs', unit_price: 0, vat_rate: 19, discount_percentage: 0 })}
@@ -242,7 +242,7 @@ export function QuoteFormPage() {
                     <input
                       {...register(`items.${index}.description` as const)}
                       placeholder="Beschreibung"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg text-sm"
                     />
                   </div>
                   <div className="w-24">
@@ -251,7 +251,7 @@ export function QuoteFormPage() {
                       step="0.01"
                       {...register(`items.${index}.quantity` as const)}
                       placeholder="Menge"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg text-sm"
                     />
                   </div>
                   <div className="w-24">
@@ -260,7 +260,7 @@ export function QuoteFormPage() {
                       step="0.01"
                       {...register(`items.${index}.unit_price` as const)}
                       placeholder="Preis"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg text-sm"
                     />
                   </div>
                   <div className="w-20">
@@ -268,7 +268,7 @@ export function QuoteFormPage() {
                       type="number"
                       {...register(`items.${index}.vat_rate` as const)}
                       placeholder="USt%"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg text-sm"
                     />
                   </div>
                   {fields.length > 1 && (
@@ -288,11 +288,11 @@ export function QuoteFormPage() {
           <div className="card p-6">
             <div className="max-w-sm ml-auto space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Zwischensumme:</span>
+                <span className="text-gray-600 dark:text-secondary-400">Zwischensumme:</span>
                 <span className="font-medium">{totals.subtotal.toFixed(2)} EUR</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">MwSt:</span>
+                <span className="text-gray-600 dark:text-secondary-400">MwSt:</span>
                 <span className="font-medium">{totals.vatAmount.toFixed(2)} EUR</span>
               </div>
               <div className="flex justify-between text-lg font-bold pt-2 border-t">
@@ -303,13 +303,13 @@ export function QuoteFormPage() {
           </div>
 
           <div className="card p-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
               Anmerkungen
             </label>
             <textarea
               {...register('notes')}
               rows={4}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
               placeholder="Optional: Zusätzliche Hinweise..."
             />
           </div>
@@ -318,7 +318,7 @@ export function QuoteFormPage() {
             <button
               type="button"
               onClick={() => window.history.back()}
-              className="px-6 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50"
+              className="px-6 py-2.5 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
             >
               Abbrechen
             </button>

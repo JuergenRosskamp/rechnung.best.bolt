@@ -237,7 +237,7 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
       )}
 
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900">Preisverwaltung</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-secondary-50">Preisverwaltung</h3>
         <button
           onClick={() => setShowAddDialog(true)}
           className="flex items-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 text-sm"
@@ -249,14 +249,14 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
 
       <div className="space-y-4">
         <div>
-          <h4 className="font-medium text-gray-900 mb-2">Mengenstaffeln (allgemein)</h4>
-          <div className="bg-gray-50 rounded-lg p-4">
+          <h4 className="font-medium text-gray-900 dark:text-secondary-50 mb-2">Mengenstaffeln (allgemein)</h4>
+          <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-4">
             {quantityPrices.length === 0 ? (
-              <p className="text-sm text-gray-500">Keine Mengenstaffeln definiert</p>
+              <p className="text-sm text-gray-500 dark:text-secondary-500">Keine Mengenstaffeln definiert</p>
             ) : (
               <div className="space-y-2">
                 {quantityPrices.map(price => (
-                  <div key={price.id} className="flex justify-between items-center bg-white p-3 rounded border">
+                  <div key={price.id} className="flex justify-between items-center bg-white dark:bg-secondary-800 p-3 rounded border">
                     <div>
                       <span className="font-medium">Ab {price.min_quantity.toFixed(3)} {articleUnit}</span>
                       <span className="mx-2">→</span>
@@ -277,21 +277,21 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
         </div>
 
         <div>
-          <h4 className="font-medium text-gray-900 mb-2">Kundenspezifische Preise</h4>
-          <div className="bg-gray-50 rounded-lg p-4">
+          <h4 className="font-medium text-gray-900 dark:text-secondary-50 mb-2">Kundenspezifische Preise</h4>
+          <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-4">
             {customerPrices.length === 0 ? (
-              <p className="text-sm text-gray-500">Keine kundenspezifischen Preise definiert</p>
+              <p className="text-sm text-gray-500 dark:text-secondary-500">Keine kundenspezifischen Preise definiert</p>
             ) : (
               <div className="space-y-2">
                 {customerPrices.map(price => (
-                  <div key={price.id} className="flex justify-between items-center bg-white p-3 rounded border">
+                  <div key={price.id} className="flex justify-between items-center bg-white dark:bg-secondary-800 p-3 rounded border">
                     <div>
                       <div className="font-medium">{price.customer_name}</div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 dark:text-secondary-400">
                         Ab {price.min_quantity.toFixed(3)} {articleUnit} →
                         <span className="text-blue-600 font-semibold ml-1">{price.unit_price.toFixed(2)} €</span>
                       </div>
-                      {price.notes && <div className="text-xs text-gray-500 mt-1">{price.notes}</div>}
+                      {price.notes && <div className="text-xs text-gray-500 dark:text-secondary-500 mt-1">{price.notes}</div>}
                     </div>
                     <button
                       onClick={() => handleDelete('customer', price.id)}
@@ -307,21 +307,21 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
         </div>
 
         <div>
-          <h4 className="font-medium text-gray-900 mb-2">Lieferortspezifische Preise</h4>
-          <div className="bg-gray-50 rounded-lg p-4">
+          <h4 className="font-medium text-gray-900 dark:text-secondary-50 mb-2">Lieferortspezifische Preise</h4>
+          <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-4">
             {locationPrices.length === 0 ? (
-              <p className="text-sm text-gray-500">Keine lieferortspezifischen Preise definiert</p>
+              <p className="text-sm text-gray-500 dark:text-secondary-500">Keine lieferortspezifischen Preise definiert</p>
             ) : (
               <div className="space-y-2">
                 {locationPrices.map(price => (
-                  <div key={price.id} className="flex justify-between items-center bg-white p-3 rounded border">
+                  <div key={price.id} className="flex justify-between items-center bg-white dark:bg-secondary-800 p-3 rounded border">
                     <div>
                       <div className="font-medium">{price.location_name}</div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 dark:text-secondary-400">
                         Ab {price.min_quantity.toFixed(3)} {articleUnit} →
                         <span className="text-blue-600 font-semibold ml-1">{price.unit_price.toFixed(2)} €</span>
                       </div>
-                      {price.notes && <div className="text-xs text-gray-500 mt-1">{price.notes}</div>}
+                      {price.notes && <div className="text-xs text-gray-500 dark:text-secondary-500 mt-1">{price.notes}</div>}
                     </div>
                     <button
                       onClick={() => handleDelete('location', price.id)}
@@ -339,17 +339,17 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
 
       {showAddDialog && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
+          <div className="bg-white dark:bg-secondary-800 rounded-lg max-w-md w-full p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold text-gray-900">Preis hinzufügen</h3>
-              <button onClick={() => setShowAddDialog(false)} className="text-gray-400 hover:text-gray-600">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-secondary-50">Preis hinzufügen</h3>
+              <button onClick={() => setShowAddDialog(false)} className="text-gray-400 dark:text-secondary-600 hover:text-gray-600 dark:text-secondary-400">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Preistyp</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">Preistyp</label>
                 <div className="space-y-2">
                   <label className="flex items-center">
                     <input
@@ -386,12 +386,12 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
 
               {priceType === 'customer' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Kunde *</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">Kunde *</label>
                   <select
                     required
                     value={formData.customer_id}
                     onChange={(e) => setFormData({ ...formData, customer_id: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Kunde wählen...</option>
                     {customers.map(customer => (
@@ -405,12 +405,12 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
 
               {priceType === 'location' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Lieferort *</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">Lieferort *</label>
                   <select
                     required
                     value={formData.location_id}
                     onChange={(e) => setFormData({ ...formData, location_id: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Lieferort wählen...</option>
                     {locations.map(location => (
@@ -423,7 +423,7 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">
                   Ab Menge ({articleUnit})
                 </label>
                 <input
@@ -433,51 +433,51 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
                   value={formData.min_quantity}
                   onChange={(e) => setFormData({ ...formData, min_quantity: e.target.value })}
                   placeholder="0"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Preis (€) *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">Preis (€) *</label>
                 <input
                   type="number"
                   step="0.01"
                   required
                   value={formData.unit_price}
                   onChange={(e) => setFormData({ ...formData, unit_price: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               {priceType !== 'quantity' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Notizen</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">Notizen</label>
                   <textarea
                     rows={2}
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Gültig von</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">Gültig von</label>
                   <input
                     type="date"
                     value={formData.valid_from}
                     onChange={(e) => setFormData({ ...formData, valid_from: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Gültig bis</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-1">Gültig bis</label>
                   <input
                     type="date"
                     value={formData.valid_until}
                     onChange={(e) => setFormData({ ...formData, valid_until: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -486,7 +486,7 @@ export function ArticlePriceManagement({ articleId, articleUnit }: ArticlePriceM
             <div className="flex justify-end gap-3 mt-6">
               <button
                 onClick={() => setShowAddDialog(false)}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
               >
                 Abbrechen
               </button>

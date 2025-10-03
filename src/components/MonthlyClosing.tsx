@@ -137,7 +137,7 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
             <FileText className="h-6 w-6 text-blue-600 dark:text-blue-400 mr-3" />
             <h2 className="text-xl font-bold text-gray-900 dark:text-secondary-50">Monatsabschluss erstellen</h2>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+          <button onClick={onClose} className="text-gray-400 dark:text-secondary-600 hover:text-gray-600 dark:text-secondary-400">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -161,13 +161,13 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                     Jahr
                   </label>
                   <select
                     value={selectedYear}
                     onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   >
                     {[...Array(5)].map((_, i) => {
                       const year = new Date().getFullYear() - i;
@@ -176,13 +176,13 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                     Monat
                   </label>
                   <select
                     value={selectedMonth}
                     onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   >
                     {months.map((month, index) => (
                       <option key={index + 1} value={index + 1}>{month}</option>
@@ -194,7 +194,7 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
               <div className="flex justify-end gap-3">
                 <button
                   onClick={onClose}
-                  className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
                 >
                   Abbrechen
                 </button>
@@ -218,13 +218,13 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Bargeld-Stückelung
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {Object.keys(denominations).map((value) => (
-                    <div key={value} className="bg-gray-50 rounded-lg p-3">
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                    <div key={value} className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-3">
+                      <label className="block text-xs font-medium text-gray-600 dark:text-secondary-400 mb-1">
                         {denominationLabels[value]}
                       </label>
                       <input
@@ -235,31 +235,31 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
                           ...denominations,
                           [value]: parseInt(e.target.value) || 0
                         })}
-                        className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-2 py-1 border border-gray-300 dark:border-secondary-600 rounded text-sm focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-4">
+              <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-medium text-gray-700">Gezählter Kassenbestand:</span>
-                  <span className="text-2xl font-bold text-gray-900">
+                  <span className="text-lg font-medium text-gray-700 dark:text-secondary-200">Gezählter Kassenbestand:</span>
+                  <span className="text-2xl font-bold text-gray-900 dark:text-secondary-50">
                     {countedBalance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-secondary-200 mb-2">
                   Bemerkungen (optional)
                 </label>
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-blue-500"
                   placeholder="Besondere Vorkommnisse, Auffälligkeiten..."
                 />
               </div>
@@ -267,7 +267,7 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
               <div className="flex justify-end gap-3">
                 <button
                   onClick={() => setStep('select')}
-                  className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
                 >
                   Zurück
                 </button>
@@ -285,58 +285,58 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
           {/* Step 3: Review */}
           {step === 'review' && closingData && (
             <div className="space-y-6">
-              <div className="bg-gray-50 rounded-lg p-6 space-y-4">
-                <h3 className="text-lg font-bold text-gray-900">
+              <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-6 space-y-4">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-secondary-50">
                   Monatsabschluss {months[selectedMonth - 1]} {selectedYear}
                 </h3>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-white dark:bg-secondary-700/30 rounded-lg p-4">
-                    <p className="text-xs text-gray-500 mb-1">Anfangsbestand</p>
-                    <p className="text-xl font-bold text-gray-900">
+                    <p className="text-xs text-gray-500 dark:text-secondary-500 mb-1">Anfangsbestand</p>
+                    <p className="text-xl font-bold text-gray-900 dark:text-secondary-50">
                       {parseFloat(closingData.opening_balance).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                     </p>
                   </div>
 
                   <div className="bg-white dark:bg-secondary-700/30 rounded-lg p-4">
-                    <p className="text-xs text-gray-500 mb-1">Einnahmen</p>
+                    <p className="text-xs text-gray-500 dark:text-secondary-500 mb-1">Einnahmen</p>
                     <p className="text-xl font-bold text-green-600">
                       +{parseFloat(closingData.total_income).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                     </p>
                   </div>
 
                   <div className="bg-white dark:bg-secondary-700/30 rounded-lg p-4">
-                    <p className="text-xs text-gray-500 mb-1">Ausgaben</p>
+                    <p className="text-xs text-gray-500 dark:text-secondary-500 mb-1">Ausgaben</p>
                     <p className="text-xl font-bold text-red-600">
                       -{parseFloat(closingData.total_expense).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                     </p>
                   </div>
 
                   <div className="bg-white dark:bg-secondary-700/30 rounded-lg p-4">
-                    <p className="text-xs text-gray-500 mb-1">Buchungen</p>
-                    <p className="text-xl font-bold text-gray-900">
+                    <p className="text-xs text-gray-500 dark:text-secondary-500 mb-1">Buchungen</p>
+                    <p className="text-xl font-bold text-gray-900 dark:text-secondary-50">
                       {closingData.transaction_count}
                     </p>
                   </div>
                 </div>
 
-                <div className="border-t border-gray-300 pt-4">
+                <div className="border-t border-gray-300 dark:border-secondary-600 pt-4">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-medium text-gray-700">Berechneter Bestand (Soll):</span>
-                    <span className="text-lg font-bold text-gray-900">
+                    <span className="font-medium text-gray-700 dark:text-secondary-200">Berechneter Bestand (Soll):</span>
+                    <span className="text-lg font-bold text-gray-900 dark:text-secondary-50">
                       {parseFloat(closingData.calculated_balance).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                     </span>
                   </div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-medium text-gray-700">Gezählter Bestand (Ist):</span>
-                    <span className="text-lg font-bold text-gray-900">
+                    <span className="font-medium text-gray-700 dark:text-secondary-200">Gezählter Bestand (Ist):</span>
+                    <span className="text-lg font-bold text-gray-900 dark:text-secondary-50">
                       {parseFloat(closingData.counted_balance).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                     </span>
                   </div>
-                  <div className={`flex justify-between items-center pt-2 border-t border-gray-300 ${
+                  <div className={`flex justify-between items-center pt-2 border-t border-gray-300 dark:border-secondary-600 ${
                     Math.abs(parseFloat(closingData.difference)) > 0.01 ? 'bg-yellow-50 -mx-4 px-4 py-2 rounded' : ''
                   }`}>
-                    <span className="font-bold text-gray-900">Differenz:</span>
+                    <span className="font-bold text-gray-900 dark:text-secondary-50">Differenz:</span>
                     <span className={`text-xl font-bold ${
                       Math.abs(parseFloat(closingData.difference)) < 0.01 ? 'text-green-600' :
                       parseFloat(closingData.difference) > 0 ? 'text-blue-600' : 'text-red-600'
@@ -394,7 +394,7 @@ export function MonthlyClosing({ onClose, onSuccess }: MonthlyClosingProps) {
               <div className="flex justify-end gap-3">
                 <button
                   onClick={onClose}
-                  className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
                 >
                   Abbrechen
                 </button>

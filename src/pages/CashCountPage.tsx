@@ -178,13 +178,13 @@ export function CashCountPage() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => window.location.href = '/cashbook'}
-            className="p-2 hover:bg-gray-100 rounded-lg"
+            className="p-2 hover:bg-gray-100 dark:bg-secondary-700 rounded-lg"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Kassensturz</h1>
-            <p className="mt-1 text-sm text-gray-500">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-secondary-50">Kassensturz</h1>
+            <p className="mt-1 text-sm text-gray-500 dark:text-secondary-500">
               Physische Bargeldzählung und Abgleich mit dem Kassenbuch
             </p>
           </div>
@@ -199,14 +199,14 @@ export function CashCountPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="bg-white rounded-lg shadow p-6 space-y-6">
-                <h2 className="text-lg font-medium text-gray-900">Bargeld zählen</h2>
+              <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-6">
+                <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Bargeld zählen</h2>
 
                 <div className="space-y-4">
                   {denominations.map((denom) => (
                     <div key={denom.value} className="flex items-center gap-4">
                       <div className="flex-1">
-                        <label className="text-sm font-medium text-gray-700">
+                        <label className="text-sm font-medium text-gray-700 dark:text-secondary-200">
                           {denom.label}
                         </label>
                       </div>
@@ -216,12 +216,12 @@ export function CashCountPage() {
                           min="0"
                           value={counts[denom.value] || ''}
                           onChange={(e) => handleCountChange(denom.value, e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-right"
+                          className="w-full px-3 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right"
                           placeholder="0"
                         />
                       </div>
                       <div className="w-32 text-right">
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="text-sm font-medium text-gray-900 dark:text-secondary-50">
                           {((counts[denom.value] || 0) * denom.value).toLocaleString('de-DE', {
                             style: 'currency',
                             currency: 'EUR'
@@ -233,13 +233,13 @@ export function CashCountPage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg shadow p-6 space-y-4">
-                <h2 className="text-lg font-medium text-gray-900">Notizen</h2>
+              <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-4">
+                <h2 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Notizen</h2>
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Optional: Notizen zum Kassensturz..."
                 />
               </div>
@@ -262,14 +262,14 @@ export function CashCountPage() {
                 <button
                   type="button"
                   onClick={() => window.location.href = '/cashbook'}
-                  className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  className="px-6 py-2 border border-gray-300 dark:border-secondary-600 rounded-lg hover:bg-gray-50 dark:bg-secondary-800"
                 >
                   Abbrechen
                 </button>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="inline-flex items-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                  className="inline-flex items-center px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
                 >
                   <Save className="h-5 w-5 mr-2" />
                   {isLoading ? 'Speichert...' : 'Kassensturz speichern'}
@@ -279,26 +279,26 @@ export function CashCountPage() {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow p-6 space-y-4">
-              <h3 className="text-lg font-medium text-gray-900">Zusammenfassung</h3>
+            <div className="bg-white dark:bg-secondary-800 rounded-lg shadow p-6 space-y-4">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-secondary-50">Zusammenfassung</h3>
 
               <div className="space-y-3">
                 <div className="flex justify-between items-center pb-3 border-b">
-                  <span className="text-sm text-gray-600">Gezähltes Bargeld</span>
-                  <span className="text-lg font-bold text-gray-900">
+                  <span className="text-sm text-gray-600 dark:text-secondary-400">Gezähltes Bargeld</span>
+                  <span className="text-lg font-bold text-gray-900 dark:text-secondary-50">
                     {currentBalance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center pb-3 border-b">
-                  <span className="text-sm text-gray-600">Soll-Bestand (Kassenbuch)</span>
-                  <span className="text-lg font-medium text-gray-700">
+                  <span className="text-sm text-gray-600 dark:text-secondary-400">Soll-Bestand (Kassenbuch)</span>
+                  <span className="text-lg font-medium text-gray-700 dark:text-secondary-200">
                     {calculatedBalance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center pt-3">
-                  <span className="text-sm font-medium text-gray-900">Differenz</span>
+                  <span className="text-sm font-medium text-gray-900 dark:text-secondary-50">Differenz</span>
                   <span className={`text-xl font-bold ${
                     difference === 0 ? 'text-green-600' :
                     difference > 0 ? 'text-blue-600' :
@@ -336,19 +336,19 @@ export function CashCountPage() {
               )}
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-6 space-y-3">
-              <h4 className="text-sm font-medium text-gray-700">Stückelung</h4>
+            <div className="bg-gray-50 dark:bg-secondary-800 rounded-lg p-6 space-y-3">
+              <h4 className="text-sm font-medium text-gray-700 dark:text-secondary-200">Stückelung</h4>
               <div className="space-y-2">
                 {denominations
                   .filter(d => counts[d.value] > 0)
                   .map(d => (
                     <div key={d.value} className="flex justify-between text-sm">
-                      <span className="text-gray-600">{d.label}</span>
-                      <span className="font-medium text-gray-900">{counts[d.value]}x</span>
+                      <span className="text-gray-600 dark:text-secondary-400">{d.label}</span>
+                      <span className="font-medium text-gray-900 dark:text-secondary-50">{counts[d.value]}x</span>
                     </div>
                   ))}
                 {Object.keys(counts).length === 0 && (
-                  <p className="text-sm text-gray-500 italic">Keine Stückelung erfasst</p>
+                  <p className="text-sm text-gray-500 dark:text-secondary-500 italic">Keine Stückelung erfasst</p>
                 )}
               </div>
             </div>
