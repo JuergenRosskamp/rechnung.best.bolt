@@ -234,11 +234,22 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
 
       {uploadStatus === 'uploading' && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <div className="flex items-center">
-            <Loader2 className="h-5 w-5 text-blue-600 animate-spin mr-3" />
-            <div>
+          <div className="flex items-start">
+            <Loader2 className="h-5 w-5 text-blue-600 animate-spin mt-0.5 mr-3 flex-shrink-0" />
+            <div className="flex-1">
               <p className="text-sm font-medium text-blue-900">Beleg wird hochgeladen...</p>
               <p className="text-xs text-blue-700 mt-1">{uploadedFileName}</p>
+              {previewUrl && fileType === 'image' && (
+                <div className="mt-3">
+                  <img
+                    src={previewUrl}
+                    alt="Beleg Vorschau"
+                    className="max-h-32 rounded border border-blue-300 cursor-pointer hover:opacity-80 transition-opacity"
+                    onClick={() => setShowFullImage(true)}
+                  />
+                  <p className="text-xs text-blue-600 mt-1">Klicken zum Vergrößern</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -246,11 +257,22 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
 
       {uploadStatus === 'processing' && (
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <div className="flex items-center">
-            <Loader2 className="h-5 w-5 text-yellow-600 animate-spin mr-3" />
-            <div>
+          <div className="flex items-start">
+            <Loader2 className="h-5 w-5 text-yellow-600 animate-spin mt-0.5 mr-3 flex-shrink-0" />
+            <div className="flex-1">
               <p className="text-sm font-medium text-yellow-900">KI analysiert den Beleg...</p>
               <p className="text-xs text-yellow-700 mt-1">Dies kann einen Moment dauern</p>
+              {previewUrl && fileType === 'image' && (
+                <div className="mt-3">
+                  <img
+                    src={previewUrl}
+                    alt="Beleg Vorschau"
+                    className="max-h-32 rounded border border-yellow-300 cursor-pointer hover:opacity-80 transition-opacity"
+                    onClick={() => setShowFullImage(true)}
+                  />
+                  <p className="text-xs text-yellow-600 mt-1">Klicken zum Vergrößern</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -312,7 +334,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
 
       <div className="bg-gray-50 rounded-lg p-3">
         <p className="text-xs text-gray-600">
-          <strong>KI-Beleganerkennung:</strong> Claude analysiert automatisch Datum, Betrag, MwSt., Händler und Kategorie.
+          Die KI-Beleganerkennung analysiert automatisch Datum, Betrag, MwSt., Händler und Kategorie.
           Der Beleg wird GoBD-konform archiviert. Formate: JPG, PNG, PDF (max. 10 MB)
         </p>
       </div>
