@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, FileText, Package, CreditCard, Settings, LogOut, Menu, X, Truck, ClipboardList, MapPin, Building2, ChevronRight, Palette, ChevronDown, FileCheck, AlertTriangle, Repeat, Headphones as HeadphonesIcon } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Package, CreditCard, Settings, LogOut, Menu, X, Truck, ClipboardList, MapPin, Building2, ChevronRight, Palette, ChevronDown, FileCheck, AlertTriangle, Repeat, Headphones as HeadphonesIcon, Moon, Sun } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../lib/auth';
 import { supabase } from '../lib/supabase';
+import { useDarkMode } from '../hooks/useDarkMode';
+import { MobileBottomNav } from './MobileBottomNav';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -30,6 +32,7 @@ export function Layout({ children }: LayoutProps) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const { user, tenant } = useAuthStore();
+  const { isDark, toggle: toggleDarkMode } = useDarkMode();
 
   useEffect(() => {
     loadTenantLogo();
@@ -146,11 +149,18 @@ export function Layout({ children }: LayoutProps) {
             })}
           </nav>
 
-          {/* Logout */}
-          <div className="p-4 border-t border-secondary-200">
+          {/* Dark Mode Toggle & Logout */}
+          <div className="p-4 border-t border-secondary-200 dark:border-secondary-700 space-y-2">
+            <button
+              onClick={toggleDarkMode}
+              className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-secondary-700 dark:text-secondary-300 rounded-xl hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-all duration-200 touch-target"
+            >
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {isDark ? 'Hell' : 'Dunkel'}
+            </button>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-error-600 rounded-xl hover:bg-error-50 transition-all duration-200"
+              className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-error-600 dark:text-error-400 rounded-xl hover:bg-error-50 dark:hover:bg-error-950 transition-all duration-200 touch-target"
             >
               <LogOut className="w-5 h-5" />
               Abmelden
@@ -161,7 +171,7 @@ export function Layout({ children }: LayoutProps) {
 
       {/* Desktop sidebar */}
       <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-30 lg:flex lg:w-72 lg:flex-col">
-        <div className="flex flex-col h-full bg-white border-r border-secondary-200">
+        <div className="flex flex-col h-full bg-white dark:bg-secondary-900 border-r border-secondary-200 dark:border-secondary-700">
           {/* Desktop Header */}
           <div className="flex items-center gap-3 h-16 px-6 border-b border-secondary-200">
             <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -219,11 +229,18 @@ export function Layout({ children }: LayoutProps) {
             })}
           </nav>
 
-          {/* Logout */}
-          <div className="p-4 border-t border-secondary-200">
+          {/* Dark Mode Toggle & Logout */}
+          <div className="p-4 border-t border-secondary-200 dark:border-secondary-700 space-y-2">
+            <button
+              onClick={toggleDarkMode}
+              className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-secondary-700 dark:text-secondary-300 rounded-xl hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-all duration-200 touch-target"
+            >
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {isDark ? 'Hell' : 'Dunkel'}
+            </button>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-error-600 rounded-xl hover:bg-error-50 transition-all duration-200"
+              className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-error-600 dark:text-error-400 rounded-xl hover:bg-error-50 dark:hover:bg-error-950 transition-all duration-200 touch-target"
             >
               <LogOut className="w-5 h-5" />
               Abmelden
@@ -235,19 +252,25 @@ export function Layout({ children }: LayoutProps) {
       {/* Main content */}
       <div className="lg:pl-72">
         {/* Mobile header */}
-        <header className="sticky top-0 z-20 flex items-center gap-4 h-16 px-4 bg-white/80 backdrop-blur-md border-b border-secondary-200 lg:hidden">
+        <header className="sticky top-0 z-20 flex items-center justify-between gap-4 h-16 px-4 bg-white/95 dark:bg-secondary-900/95 backdrop-blur-md border-b border-secondary-200 dark:border-secondary-700 lg:hidden">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="p-2 rounded-xl hover:bg-secondary-100 transition-colors"
+            className="p-2 rounded-xl hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors touch-target"
           >
-            <Menu className="w-6 h-6 text-secondary-700" />
+            <Menu className="w-6 h-6 text-secondary-700 dark:text-secondary-300" />
           </button>
-          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity flex-1">
             <div className="w-8 h-8 rounded-xl bg-gradient-primary flex items-center justify-center">
               <Building2 className="w-5 h-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-secondary-900">rechnung.best</span>
+            <span className="text-lg font-bold text-secondary-900 dark:text-secondary-50">rechnung.best</span>
           </a>
+          <button
+            onClick={toggleDarkMode}
+            className="p-2 rounded-xl hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors touch-target"
+          >
+            {isDark ? <Sun className="w-5 h-5 text-secondary-700 dark:text-secondary-300" /> : <Moon className="w-5 h-5 text-secondary-700 dark:text-secondary-300" />}
+          </button>
         </header>
 
         {/* Page content */}
@@ -256,6 +279,9 @@ export function Layout({ children }: LayoutProps) {
             {children}
           </div>
         </main>
+
+        {/* Mobile Bottom Navigation */}
+        <MobileBottomNav />
       </div>
     </div>
   );

@@ -6,12 +6,16 @@
 
 @layer base {
   * {
-    @apply border-secondary-200;
+    @apply border-secondary-200 dark:border-secondary-700;
   }
 
   body {
     @apply bg-secondary-50 text-secondary-900 antialiased;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  body.dark {
+    @apply bg-secondary-900 text-secondary-50;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -51,7 +55,7 @@
   }
 
   .input {
-    @apply block w-full px-4 py-2.5 text-sm bg-white border border-secondary-300 rounded-xl shadow-sm placeholder:text-secondary-400 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-20 disabled:bg-secondary-50 disabled:text-secondary-500 disabled:cursor-not-allowed transition-all duration-200;
+    @apply block w-full px-4 py-2.5 text-sm bg-white dark:bg-secondary-800 border border-secondary-300 dark:border-secondary-600 rounded-xl shadow-sm placeholder:text-secondary-400 dark:placeholder:text-secondary-500 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-opacity-20 disabled:bg-secondary-50 dark:disabled:bg-secondary-900 disabled:text-secondary-500 disabled:cursor-not-allowed transition-all duration-200;
   }
 
   .input-error {
@@ -63,11 +67,11 @@
   }
 
   .card {
-    @apply bg-white rounded-2xl shadow-soft border border-secondary-200/50 overflow-hidden;
+    @apply bg-white dark:bg-secondary-800 rounded-2xl shadow-soft border border-secondary-200/50 dark:border-secondary-700/50 overflow-hidden;
   }
 
   .card-hover {
-    @apply card transition-all duration-200 hover:shadow-soft-lg hover:border-secondary-300/50;
+    @apply card transition-all duration-200 hover:shadow-soft-lg hover:border-secondary-300/50 dark:hover:border-secondary-600/50;
   }
 
   .badge {
@@ -135,11 +139,15 @@
     .table-responsive table {
       @apply min-w-full;
     }
+  }
 
-    /* Make touch targets larger on mobile */
-    .touch-target {
-      @apply min-h-[44px] min-w-[44px];
-    }
+  /* Touch targets for mobile (WCAG 2.1 Level AAA: 44x44px minimum) */
+  .touch-target {
+    @apply min-h-touch min-w-touch;
+  }
+
+  .mobile-action-bar {
+    @apply fixed bottom-0 left-0 right-0 bg-white dark:bg-secondary-800 border-t border-secondary-200 dark:border-secondary-700 px-4 py-3 safe-area-inset-bottom z-40;
   }
 
   .divider {
@@ -220,4 +228,21 @@
     radial-gradient(at 80% 50%, theme('colors.accent.50') 0px, transparent 50%),
     radial-gradient(at 0% 100%, theme('colors.primary.100') 0px, transparent 50%),
     radial-gradient(at 80% 100%, theme('colors.accent.100') 0px, transparent 50%);
+}
+
+/* Safe area insets for notched devices */
+.safe-area-inset-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Skeleton loading animation */
+.skeleton {
+  @apply bg-secondary-200 dark:bg-secondary-700 animate-pulse rounded;
+}
+
+/* Smooth transitions for theme switching */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
