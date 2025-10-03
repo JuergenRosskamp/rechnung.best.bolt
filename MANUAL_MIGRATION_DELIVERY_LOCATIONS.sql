@@ -1,38 +1,3 @@
--- ============================================================================
--- BEREINIGTE MIGRATION - OHNE STORAGE ALTER TABLE
--- ============================================================================
--- Diese Version enthält ALLE Migrationen, aber ohne problematische Storage-Operationen
--- ============================================================================
-
--- Drop all tables (in correct dependency order)
-DO $$ BEGIN
-  DROP TABLE IF EXISTS support_tickets CASCADE;
-  DROP TABLE IF EXISTS dunning_log CASCADE;
-  DROP TABLE IF EXISTS quote_items CASCADE;
-  DROP TABLE IF EXISTS quotes CASCADE;
-  DROP TABLE IF EXISTS monthly_closings CASCADE;
-  DROP TABLE IF EXISTS receipts CASCADE;
-  DROP TABLE IF EXISTS cashbook CASCADE;
-  DROP TABLE IF EXISTS invoice_payments CASCADE;
-  DROP TABLE IF EXISTS invoice_archive CASCADE;
-  DROP TABLE IF EXISTS invoice_layouts CASCADE;
-  DROP TABLE IF EXISTS delivery_items CASCADE;
-  DROP TABLE IF EXISTS deliveries CASCADE;
-  DROP TABLE IF EXISTS recurring_invoices CASCADE;
-  DROP TABLE IF EXISTS invoice_items CASCADE;
-  DROP TABLE IF EXISTS invoices CASCADE;
-  DROP TABLE IF EXISTS delivery_locations CASCADE;
-  DROP TABLE IF EXISTS customer_price_overrides CASCADE;
-  DROP TABLE IF EXISTS article_time_based_prices CASCADE;
-  DROP TABLE IF EXISTS article_volume_discounts CASCADE;
-  DROP TABLE IF EXISTS customer_contacts CASCADE;
-  DROP TABLE IF EXISTS articles CASCADE;
-  DROP TABLE IF EXISTS customers CASCADE;
-  DROP TABLE IF EXISTS vehicles CASCADE;
-  DROP TABLE IF EXISTS subscriptions CASCADE;
-  DROP TABLE IF EXISTS users CASCADE;
-  DROP TABLE IF EXISTS tenants CASCADE;
-EXCEPTION 
   WHEN undefined_table THEN NULL;
 END $$;
 
