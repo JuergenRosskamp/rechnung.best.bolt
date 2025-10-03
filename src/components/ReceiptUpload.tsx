@@ -3,7 +3,7 @@ import { Upload, Camera, Loader2, CheckCircle, AlertCircle, X } from 'lucide-rea
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { getErrorMessage } from '../lib/errors';
-import * as pdfjsLib from 'pdfjs-dist';
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 
 interface ReceiptUploadProps {
   onReceiptProcessed: (data: ReceiptData) => void;
@@ -35,7 +35,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   const { user } = useAuthStore();
 
   useEffect(() => {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/5.4.149/pdf.worker.min.mjs`;
   }, []);
 
   useEffect(() => {
