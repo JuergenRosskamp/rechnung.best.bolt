@@ -36,10 +36,10 @@ interface StatCardProps {
 
 function StatCard({ title, value, icon: Icon, color, href, sublabel, loading }: StatCardProps) {
   const colorClasses = {
-    blue: 'bg-primary-50 dark:bg-primary-950 text-primary-600 dark:text-primary-400',
-    green: 'bg-success-50 dark:bg-success-950 text-success-600 dark:text-success-400',
-    orange: 'bg-warning-50 dark:bg-warning-950 text-warning-600 dark:text-warning-400',
-    purple: 'bg-accent-50 dark:bg-accent-950 text-accent-600 dark:text-accent-400'
+    blue: 'bg-primary-50 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400',
+    green: 'bg-success-50 dark:bg-success-500/10 text-success-600 dark:text-success-400',
+    orange: 'bg-warning-50 dark:bg-warning-500/10 text-warning-600 dark:text-warning-400',
+    purple: 'bg-accent-50 dark:bg-accent-500/10 text-accent-600 dark:text-accent-400'
   };
 
   const Card = () => (
@@ -86,10 +86,10 @@ function QuickActionButton({ href, icon: Icon, label }: { href: string; icon: Re
   return (
     <a
       href={href}
-      className="flex flex-col items-center justify-center gap-3 p-5 bg-white dark:bg-secondary-800 rounded-2xl border-2 border-dashed border-secondary-300 dark:border-secondary-600 hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950/30 transition-all group touch-target"
+      className="flex flex-col items-center justify-center gap-3 p-5 bg-white dark:bg-secondary-800/50 rounded-2xl border-2 border-dashed border-secondary-300 dark:border-secondary-700/50 hover:border-primary-500 dark:hover:border-primary-500/50 hover:bg-primary-50 dark:hover:bg-primary-500/5 transition-all group touch-target"
     >
-      <div className="p-3 bg-secondary-100 dark:bg-secondary-700 rounded-xl group-hover:bg-primary-100 dark:group-hover:bg-primary-900 transition-colors">
-        <Icon className="w-6 h-6 text-secondary-600 dark:text-secondary-400 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
+      <div className="p-3 bg-secondary-100 dark:bg-secondary-700/50 rounded-xl group-hover:bg-primary-100 dark:group-hover:bg-primary-500/20 transition-colors">
+        <Icon className="w-6 h-6 text-secondary-600 dark:text-secondary-300 group-hover:text-primary-600 dark:group-hover:text-primary-400" />
       </div>
       <span className="text-sm font-medium text-secondary-700 dark:text-secondary-300 group-hover:text-primary-700 dark:group-hover:text-primary-400">
         {label}
@@ -187,14 +187,14 @@ export function DashboardPage() {
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
-      draft: 'bg-secondary-100 dark:bg-secondary-700 text-secondary-700 dark:text-secondary-300',
-      sent: 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300',
-      paid: 'bg-success-100 dark:bg-success-900 text-success-700 dark:text-success-300',
-      overdue: 'bg-error-100 dark:bg-error-900 text-error-700 dark:text-error-300',
-      partially_paid: 'bg-warning-100 dark:bg-warning-900 text-warning-700 dark:text-warning-300',
-      cancelled: 'bg-secondary-100 dark:bg-secondary-700 text-secondary-600 dark:text-secondary-400',
+      draft: 'bg-secondary-100 dark:bg-secondary-500/10 text-secondary-700 dark:text-secondary-300',
+      sent: 'bg-primary-100 dark:bg-primary-500/10 text-primary-700 dark:text-primary-300',
+      paid: 'bg-success-100 dark:bg-success-500/10 text-success-700 dark:text-success-300',
+      overdue: 'bg-error-100 dark:bg-error-500/10 text-error-700 dark:text-error-300',
+      partially_paid: 'bg-warning-100 dark:bg-warning-500/10 text-warning-700 dark:text-warning-300',
+      cancelled: 'bg-secondary-100 dark:bg-secondary-500/10 text-secondary-600 dark:text-secondary-400',
     };
-    return colors[status] || 'bg-secondary-100 dark:bg-secondary-700 text-secondary-700 dark:text-secondary-300';
+    return colors[status] || 'bg-secondary-100 dark:bg-secondary-500/10 text-secondary-700 dark:text-secondary-300';
   };
 
   const getStatusLabel = (status: string) => {
@@ -244,9 +244,9 @@ export function DashboardPage() {
         </div>
 
         {subscription?.status === 'trialing' && trialDaysLeft > 0 && (
-          <div className="card border-primary-200 dark:border-primary-800 bg-primary-50 dark:bg-primary-950/30 animate-slide-down">
+          <div className="card border-primary-200 dark:border-primary-500/20 bg-primary-50 dark:bg-primary-500/5 animate-slide-down">
             <div className="p-4 sm:p-5 flex items-start gap-4">
-              <div className="p-2 bg-primary-100 dark:bg-primary-900 rounded-lg flex-shrink-0">
+              <div className="p-2 bg-primary-100 dark:bg-primary-500/10 rounded-lg flex-shrink-0">
                 <AlertCircle className="h-5 w-5 text-primary-600 dark:text-primary-400" />
               </div>
               <div className="flex-1 min-w-0">
@@ -341,7 +341,7 @@ export function DashboardPage() {
                         <a
                           key={invoice.id}
                           href={`/invoices/${invoice.id}`}
-                          className="block p-4 hover:bg-secondary-50 dark:hover:bg-secondary-800/50 rounded-xl transition-all border border-secondary-200 dark:border-secondary-700 hover:border-secondary-300 dark:hover:border-secondary-600 group touch-target"
+                          className="block p-4 hover:bg-secondary-50 dark:hover:bg-secondary-700/30 rounded-xl transition-all border border-secondary-200 dark:border-secondary-700/50 hover:border-secondary-300 dark:hover:border-secondary-600/50 group touch-target"
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div className="flex-1 min-w-0">
@@ -399,11 +399,11 @@ export function DashboardPage() {
                       <a
                         key={customer.id}
                         href={`/customers/${customer.id}`}
-                        className="block p-4 hover:bg-secondary-50 dark:hover:bg-secondary-800/50 rounded-xl transition-all border border-secondary-200 dark:border-secondary-700 hover:border-secondary-300 dark:hover:border-secondary-600 group touch-target"
+                        className="block p-4 hover:bg-secondary-50 dark:hover:bg-secondary-700/30 rounded-xl transition-all border border-secondary-200 dark:border-secondary-700/50 hover:border-secondary-300 dark:hover:border-secondary-600/50 group touch-target"
                       >
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex items-center gap-3 flex-1 min-w-0">
-                            <div className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900 flex items-center justify-center flex-shrink-0">
+                            <div className="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-500/10 flex items-center justify-center flex-shrink-0">
                               <Users className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -446,7 +446,7 @@ export function DashboardPage() {
               </h2>
               <div className="space-y-5">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 flex items-center justify-center font-bold text-lg">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center font-bold text-lg">
                     1
                   </div>
                   <div className="flex-1 min-w-0 pt-1">
@@ -467,7 +467,7 @@ export function DashboardPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 flex items-center justify-center font-bold text-lg">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center font-bold text-lg">
                     2
                   </div>
                   <div className="flex-1 min-w-0 pt-1">
@@ -488,7 +488,7 @@ export function DashboardPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 flex items-center justify-center font-bold text-lg">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center font-bold text-lg">
                     3
                   </div>
                   <div className="flex-1 min-w-0 pt-1">
