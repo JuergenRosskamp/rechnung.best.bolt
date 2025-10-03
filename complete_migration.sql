@@ -5,19 +5,21 @@
 -- Copy and paste this entire file into your Supabase SQL Editor and run it.
 -- ============================================================================
 
--- Drop ALL triggers in public schema
-DO $$ 
-DECLARE
-    r RECORD;
-BEGIN
-    FOR r IN (
-        SELECT DISTINCT trigger_name, event_object_table 
-        FROM information_schema.triggers 
-        WHERE trigger_schema = 'public'
-    ) LOOP
-        EXECUTE 'DROP TRIGGER IF EXISTS ' || r.trigger_name || ' ON public.' || r.event_object_table || ' CASCADE';
-    END LOOP;
-END $$;
+-- Drop specific triggers that we know exist
+DROP TRIGGER IF EXISTS update_customer_contacts_updated_at ON customer_contacts CASCADE;
+DROP TRIGGER IF EXISTS update_invoice_totals_on_payment ON invoice_payments CASCADE;
+DROP TRIGGER IF EXISTS update_tenants_updated_at ON tenants CASCADE;
+DROP TRIGGER IF EXISTS update_users_updated_at ON users CASCADE;
+DROP TRIGGER IF EXISTS update_customers_updated_at ON customers CASCADE;
+DROP TRIGGER IF EXISTS update_articles_updated_at ON articles CASCADE;
+DROP TRIGGER IF EXISTS update_invoices_updated_at ON invoices CASCADE;
+DROP TRIGGER IF EXISTS update_quotes_updated_at ON quotes CASCADE;
+DROP TRIGGER IF EXISTS update_deliveries_updated_at ON deliveries CASCADE;
+DROP TRIGGER IF EXISTS update_vehicles_updated_at ON vehicles CASCADE;
+DROP TRIGGER IF EXISTS update_delivery_locations_updated_at ON delivery_locations CASCADE;
+DROP TRIGGER IF EXISTS update_invoice_layouts_updated_at ON invoice_layouts CASCADE;
+DROP TRIGGER IF EXISTS update_receipts_updated_at ON receipts CASCADE;
+DROP TRIGGER IF EXISTS update_cashbook_updated_at ON cashbook CASCADE;
 
 -- Drop all tables that might exist (in reverse dependency order)
 DROP TABLE IF EXISTS support_tickets CASCADE;
@@ -55,23 +57,9 @@ DROP FUNCTION IF EXISTS get_tenant_id CASCADE;
 DROP FUNCTION IF EXISTS update_updated_at_column CASCADE;
 DROP FUNCTION IF EXISTS update_invoice_totals CASCADE;
 
--- Drop storage buckets if they exist
-DO $$ 
-BEGIN
-  DELETE FROM storage.buckets WHERE id = 'receipts';
-EXCEPTION 
-  WHEN OTHERS THEN NULL;
-END $$;
-
--- Drop all policies in public schema
-DO $$ 
-DECLARE
-    r RECORD;
-BEGIN
-    FOR r IN (SELECT schemaname, tablename, policyname FROM pg_policies WHERE schemaname = 'public') LOOP
-        EXECUTE 'DROP POLICY IF EXISTS "' || r.policyname || '" ON ' || r.schemaname || '.' || r.tablename || ' CASCADE';
-    END LOOP;
-END $$;
+-- Drop storage bucket (only application bucket, not system buckets)
+DELETE FROM storage.objects WHERE bucket_id = 'receipts';
+DELETE FROM storage.buckets WHERE id = 'receipts';
 
 -- ============================================================================
 -- 20250930211137_create_initial_schema.sql
