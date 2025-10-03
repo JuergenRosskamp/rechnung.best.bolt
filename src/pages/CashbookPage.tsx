@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Plus, Search, TrendingUp, TrendingDown, DollarSign, Calculator, Upload, FileText, Download, Shield, XCircle } from 'lucide-react';
+import { Plus, Search, TrendingUp, TrendingDown, DollarSign, Calculator, Upload, FileText, Download, Shield, XCircle, Calendar } from 'lucide-react';
 import { Layout } from '../components/Layout';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { ReceiptUpload, ReceiptData } from '../components/ReceiptUpload';
 import { verifyHashChain } from '../lib/cashbookValidation';
 import { CashbookCancellation } from '../components/CashbookCancellation';
+import { MonthlyClosing } from '../components/MonthlyClosing';
 
 interface CashbookEntry {
   id: string;
@@ -32,6 +33,8 @@ export function CashbookPage() {
   const [hashVerification, setHashVerification] = useState<any>(null);
   const [showVerification, setShowVerification] = useState(false);
   const [showCancellation, setShowCancellation] = useState(false);
+  const [showMonthlyClosing, setShowMonthlyClosing] = useState(false);
+  const [monthlyClosings, setMonthlyClosings] = useState<any[]>([]);
   const { user } = useAuthStore();
 
   const loadCashbook = useCallback(async () => {
@@ -66,9 +69,29 @@ export function CashbookPage() {
     }
   }, [user, typeFilter]);
 
+  const loadMonthlyClosings = useCallback(async () => {
+    if (!user) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('cashbook_monthly_closings')
+        .select('*')
+        .eq('tenant_id', user.tenant_id)
+        .order('closing_year', { ascending: false })
+        .order('closing_month', { ascending: false })
+        .limit(6);
+
+      if (error) throw error;
+      setMonthlyClosings(data || []);
+    } catch (error) {
+      console.error('Error loading monthly closings:', error);
+    }
+  }, [user]);
+
   useEffect(() => {
     loadCashbook();
-  }, [loadCashbook]);
+    loadMonthlyClosings();
+  }, [loadCashbook, loadMonthlyClosings]);
 
   const getTypeLabel = (type: string) => {
     const types: Record<string, string> = {
@@ -164,7 +187,14 @@ export function CashbookPage() {
               Revisionssicheres, GoBD-konformes Kassenbuch
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setShowMonthlyClosing(true)}
+              className="inline-flex items-center px-4 py-2 border border-green-300 bg-green-50 text-green-700 rounded-lg hover:bg-green-100"
+            >
+              <Calendar className="h-5 w-5 mr-2" />
+              Monatsabschluss
+            </button>
             <button
               onClick={handleVerifyHashChain}
               className="inline-flex items-center px-4 py-2 border border-green-300 bg-green-50 text-green-700 rounded-lg hover:bg-green-100"
@@ -277,6 +307,64 @@ export function CashbookPage() {
               >
                 ✕
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Monthly Closings Overview */}
+        {monthlyClosings.length > 0 && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+              <Calendar className="h-5 w-5 mr-2 text-green-600" />
+              Letzte Monatsabschlüsse
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {monthlyClosings.map((closing) => (
+                <div
+                  key={closing.id}
+                  className={`border-2 rounded-lg p-4 ${
+                    closing.status === 'finalized'
+                      ? 'border-green-200 bg-green-50'
+                      : 'border-yellow-200 bg-yellow-50'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-bold text-gray-900">
+                      {closing.closing_month}/{closing.closing_year}
+                    </span>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      closing.status === 'finalized'
+                        ? 'bg-green-200 text-green-800'
+                        : 'bg-yellow-200 text-yellow-800'
+                    }`}>
+                      {closing.status === 'finalized' ? 'Finalisiert' : 'Entwurf'}
+                    </span>
+                  </div>
+                  <div className="space-y-1 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Bestand:</span>
+                      <span className="font-medium">
+                        {parseFloat(closing.counted_balance).toLocaleString('de-DE', {
+                          style: 'currency',
+                          currency: 'EUR',
+                          maximumFractionDigits: 0
+                        })}
+                      </span>
+                    </div>
+                    {Math.abs(parseFloat(closing.difference)) > 0.01 && (
+                      <div className="flex justify-between text-red-600">
+                        <span>Differenz:</span>
+                        <span className="font-medium">
+                          {parseFloat(closing.difference).toLocaleString('de-DE', {
+                            style: 'currency',
+                            currency: 'EUR'
+                          })}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -484,6 +572,18 @@ export function CashbookPage() {
             onSuccess={() => {
               setShowCancellation(false);
               setSelectedEntry(null);
+              loadCashbook();
+            }}
+          />
+        )}
+
+        {/* Monthly Closing Modal */}
+        {showMonthlyClosing && (
+          <MonthlyClosing
+            onClose={() => setShowMonthlyClosing(false)}
+            onSuccess={() => {
+              setShowMonthlyClosing(false);
+              loadMonthlyClosings();
               loadCashbook();
             }}
           />
