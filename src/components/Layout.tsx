@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { LayoutDashboard, Users, FileText, Package, CreditCard, Settings, LogOut, Menu, X, Truck, ClipboardList, MapPin, Building2, ChevronRight, Palette, ChevronDown, FileCheck, AlertTriangle, Repeat, Headphones as HeadphonesIcon, Moon, Sun } from 'lucide-react';
+import { LayoutDashboard, Users, FileText, Package, CreditCard, Settings, LogOut, Menu, X, Truck, ClipboardList, MapPin, Building2, ChevronRight, Palette, FileCheck, AlertTriangle, Repeat, Headphones as HeadphonesIcon, Moon, Sun } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../lib/auth';
 import { supabase } from '../lib/supabase';
@@ -29,7 +29,6 @@ const navigation = [
 
 export function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const { user, tenant } = useAuthStore();
   const { isDark, toggle: toggleDarkMode } = useDarkMode();
@@ -61,7 +60,7 @@ export function Layout({ children }: LayoutProps) {
         setLogoUrl(layoutData.logo_url);
       }
     } catch (err) {
-      console.error('Error loading logo:', err);
+
     }
   };
 

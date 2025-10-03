@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { getErrorMessage } from '../lib/errors';
-import { Plus, Trash2, CreditCard as Edit2, X } from 'lucide-react';
+import { Plus, Trash2, X } from 'lucide-react';
 
 interface ArticlePriceManagementProps {
   articleId: string;

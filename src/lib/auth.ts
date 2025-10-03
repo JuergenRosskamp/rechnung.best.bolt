@@ -35,8 +35,6 @@ export const authService = {
       .single();
 
     if (tenantError) {
-      // Cleanup auth user if tenant creation fails
-      await supabase.auth.admin.deleteUser(authData.user.id);
       throw tenantError;
     }
 

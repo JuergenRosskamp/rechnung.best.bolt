@@ -1,24 +1,5 @@
 import { create } from 'zustand';
-
-export interface User {
-  id: string;
-  email: string;
-  tenant_id: string;
-  role?: string;
-}
-
-export interface Tenant {
-  id: string;
-  name: string;
-  settings?: any;
-}
-
-export interface Subscription {
-  id: string;
-  status: string;
-  plan?: string;
-  current_period_end?: string;
-}
+import type { User, Tenant, Subscription } from '../types';
 
 interface AuthState {
   user: User | null;

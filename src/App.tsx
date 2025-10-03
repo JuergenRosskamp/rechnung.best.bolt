@@ -115,7 +115,6 @@ function App() {
           }
         }
       } catch (error) {
-        console.error('Auth initialization error:', error);
         setLoading(false);
         setCurrentPage('login');
       }
