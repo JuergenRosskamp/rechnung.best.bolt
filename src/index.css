@@ -103,7 +103,13 @@
   }
 
   .table-modern thead th {
-    @apply px-6 py-4 font-semibold;
+    @apply px-4 py-3 font-semibold;
+  }
+
+  @media (min-width: 768px) {
+    .table-modern thead th {
+      @apply px-6 py-4;
+    }
   }
 
   .table-modern tbody tr {
@@ -111,7 +117,29 @@
   }
 
   .table-modern tbody td {
-    @apply px-6 py-4;
+    @apply px-4 py-3 text-sm;
+  }
+
+  @media (min-width: 768px) {
+    .table-modern tbody td {
+      @apply px-6 py-4;
+    }
+  }
+
+  /* Mobile table optimization */
+  @media (max-width: 767px) {
+    .table-responsive {
+      @apply block overflow-x-auto -mx-4 px-4 scrollbar-thin;
+    }
+
+    .table-responsive table {
+      @apply min-w-full;
+    }
+
+    /* Make touch targets larger on mobile */
+    .touch-target {
+      @apply min-h-[44px] min-w-[44px];
+    }
   }
 
   .divider {
