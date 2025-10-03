@@ -46,7 +46,7 @@ Deno.serve(async (req: Request) => {
       throw new Error(`Failed to download file: ${downloadError.message}`);
     }
 
-    const mimeType = filePath.toLowerCase().endsWith('.pdf') ? 'application/pdf' : 'image/jpeg';
+    const isPdf = filePath.toLowerCase().endsWith('.pdf');
     const arrayBuffer = await fileData.arrayBuffer();
     const base64Data = btoa(
       new Uint8Array(arrayBuffer).reduce(
@@ -86,7 +86,65 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    const mediaType = mimeType === 'application/pdf' ? 'application/pdf' : 'image/jpeg';
+    let messageContent;
+    if (isPdf) {
+      messageContent = [
+        {
+          type: "document",
+          source: {
+            type: "base64",
+            media_type: "application/pdf",
+            data: base64Data,
+          }
+        },
+        {
+          type: "text",
+          text: `Analysiere diesen Beleg für ein deutsches Kassenbuch und extrahiere folgende Informationen:
+
+- date: Datum im Format YYYY-MM-DD
+- amount: Bruttobetrag als Zahl (nur die Zahl, keine Währung)
+- vatRate: MwSt-Satz in Deutschland (0, 7 oder 19)
+- description: Kurze Beschreibung des Kaufs/der Dienstleistung
+- merchantName: Name des Händlers/Lieferanten
+- documentType: "income" für Einnahmen oder "expense" für Ausgaben (meistens "expense")
+- category: Passende Kategorie aus: "Büromaterial", "Reisekosten", "Porto", "Bewirtung", "Wareneinkauf", "Sonstiges"
+
+Antworte NUR mit einem validen JSON-Objekt, ohne zusätzlichen Text. Beispiel:
+{"date":"2025-10-03","amount":49.99,"vatRate":19,"description":"Büromaterial","merchantName":"Staples","documentType":"expense","category":"Büromaterial"}`
+        }
+      ];
+    } else {
+      const mimeType = filePath.toLowerCase().match(/\.(jpg|jpeg)$/i) ? 'image/jpeg' :
+                       filePath.toLowerCase().endsWith('.png') ? 'image/png' :
+                       filePath.toLowerCase().endsWith('.gif') ? 'image/gif' :
+                       filePath.toLowerCase().endsWith('.webp') ? 'image/webp' : 'image/jpeg';
+
+      messageContent = [
+        {
+          type: "image",
+          source: {
+            type: "base64",
+            media_type: mimeType,
+            data: base64Data,
+          }
+        },
+        {
+          type: "text",
+          text: `Analysiere diesen Beleg für ein deutsches Kassenbuch und extrahiere folgende Informationen:
+
+- date: Datum im Format YYYY-MM-DD
+- amount: Bruttobetrag als Zahl (nur die Zahl, keine Währung)
+- vatRate: MwSt-Satz in Deutschland (0, 7 oder 19)
+- description: Kurze Beschreibung des Kaufs/der Dienstleistung
+- merchantName: Name des Händlers/Lieferanten
+- documentType: "income" für Einnahmen oder "expense" für Ausgaben (meistens "expense")
+- category: Passende Kategorie aus: "Büromaterial", "Reisekosten", "Porto", "Bewirtung", "Wareneinkauf", "Sonstiges"
+
+Antworte NUR mit einem validen JSON-Objekt, ohne zusätzlichen Text. Beispiel:
+{"date":"2025-10-03","amount":49.99,"vatRate":19,"description":"Büromaterial","merchantName":"Staples","documentType":"expense","category":"Büromaterial"}`
+        }
+      ];
+    }
 
     const anthropicResponse = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -101,31 +159,7 @@ Deno.serve(async (req: Request) => {
         messages: [
           {
             role: "user",
-            content: [
-              {
-                type: "image",
-                source: {
-                  type: "base64",
-                  media_type: mediaType,
-                  data: base64Data,
-                }
-              },
-              {
-                type: "text",
-                text: `Analysiere diesen Beleg für ein deutsches Kassenbuch und extrahiere folgende Informationen:
-
-- date: Datum im Format YYYY-MM-DD
-- amount: Bruttobetrag als Zahl (nur die Zahl, keine Währung)
-- vatRate: MwSt-Satz in Deutschland (0, 7 oder 19)
-- description: Kurze Beschreibung des Kaufs/der Dienstleistung
-- merchantName: Name des Händlers/Lieferanten
-- documentType: "income" für Einnahmen oder "expense" für Ausgaben (meistens "expense")
-- category: Passende Kategorie aus: "Büromaterial", "Reisekosten", "Porto", "Bewirtung", "Wareneinkauf", "Sonstiges"
-
-Antworte NUR mit einem validen JSON-Objekt, ohne zusätzlichen Text. Beispiel:
-{"date":"2025-10-03","amount":49.99,"vatRate":19,"description":"Büromaterial","merchantName":"Staples","documentType":"expense","category":"Büromaterial"}`
-              }
-            ]
+            content: messageContent
           }
         ],
       }),
