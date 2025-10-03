@@ -5,13 +5,17 @@
 -- Copy and paste this entire file into your Supabase SQL Editor and run it.
 -- ============================================================================
 
--- Drop all existing triggers first
+-- Drop ALL triggers in public schema
 DO $$ 
 DECLARE
     r RECORD;
 BEGIN
-    FOR r IN (SELECT tablename, schemaname FROM pg_tables WHERE schemaname = 'public') LOOP
-        EXECUTE 'DROP TRIGGER IF EXISTS update_' || r.tablename || '_updated_at ON ' || r.schemaname || '.' || r.tablename || ' CASCADE';
+    FOR r IN (
+        SELECT DISTINCT trigger_name, event_object_table 
+        FROM information_schema.triggers 
+        WHERE trigger_schema = 'public'
+    ) LOOP
+        EXECUTE 'DROP TRIGGER IF EXISTS ' || r.trigger_name || ' ON public.' || r.event_object_table || ' CASCADE';
     END LOOP;
 END $$;
 
@@ -23,6 +27,7 @@ DROP TABLE IF EXISTS quote_items CASCADE;
 DROP TABLE IF EXISTS monthly_closings CASCADE;
 DROP TABLE IF EXISTS receipts CASCADE;
 DROP TABLE IF EXISTS cashbook CASCADE;
+DROP TABLE IF EXISTS invoice_payments CASCADE;
 DROP TABLE IF EXISTS invoice_archive CASCADE;
 DROP TABLE IF EXISTS invoice_layouts CASCADE;
 DROP TABLE IF EXISTS delivery_items CASCADE;
@@ -48,6 +53,7 @@ DROP FUNCTION IF EXISTS validate_cashbook_entry CASCADE;
 DROP FUNCTION IF EXISTS close_cashbook_month CASCADE;
 DROP FUNCTION IF EXISTS get_tenant_id CASCADE;
 DROP FUNCTION IF EXISTS update_updated_at_column CASCADE;
+DROP FUNCTION IF EXISTS update_invoice_totals CASCADE;
 
 -- Drop storage buckets if they exist
 DO $$ 
@@ -57,7 +63,7 @@ EXCEPTION
   WHEN OTHERS THEN NULL;
 END $$;
 
--- Drop all policies
+-- Drop all policies in public schema
 DO $$ 
 DECLARE
     r RECORD;
