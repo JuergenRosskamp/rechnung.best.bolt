@@ -76,7 +76,8 @@ CREATE INDEX IF NOT EXISTS idx_monthly_closings_status
 -- RLS aktivieren
 ALTER TABLE cashbook_monthly_closings ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies
+-- RLS Policies (mit DROP IF EXISTS für Idempotenz)
+DROP POLICY IF EXISTS "Users can view own tenant monthly closings" ON cashbook_monthly_closings;
 CREATE POLICY "Users can view own tenant monthly closings"
   ON cashbook_monthly_closings FOR SELECT
   TO authenticated
@@ -86,6 +87,7 @@ CREATE POLICY "Users can view own tenant monthly closings"
     )
   );
 
+DROP POLICY IF EXISTS "Users can insert own tenant monthly closings" ON cashbook_monthly_closings;
 CREATE POLICY "Users can insert own tenant monthly closings"
   ON cashbook_monthly_closings FOR INSERT
   TO authenticated
