@@ -25,6 +25,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
   const [error, setError] = useState<string>('');
   const [uploadedFileName, setUploadedFileName] = useState<string>('');
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [fileType, setFileType] = useState<'image' | 'pdf' | ''>('');
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -43,6 +44,9 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
       setUploadStatus('uploading');
       setError('');
       setUploadedFileName(file.name);
+
+      const isPdf = file.type === 'application/pdf';
+      setFileType(isPdf ? 'pdf' : 'image');
 
       const preview = URL.createObjectURL(file);
       setPreviewUrl(preview);
@@ -152,6 +156,7 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
     setError('');
     setUploadedFileName('');
     setPreviewUrl('');
+    setFileType('');
     if (onReceiptIdChange) {
       onReceiptIdChange(null);
     }
@@ -260,11 +265,20 @@ export function ReceiptUpload({ onReceiptProcessed, onReceiptIdChange }: Receipt
               </p>
               {previewUrl && (
                 <div className="mt-3">
-                  <img
-                    src={previewUrl}
-                    alt="Beleg Vorschau"
-                    className="max-h-32 rounded border border-green-300"
-                  />
+                  {fileType === 'image' ? (
+                    <img
+                      src={previewUrl}
+                      alt="Beleg Vorschau"
+                      className="max-h-32 rounded border border-green-300"
+                    />
+                  ) : (
+                    <div className="flex items-center space-x-2 text-sm text-green-700">
+                      <svg className="h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" />
+                      </svg>
+                      <span className="font-medium">{uploadedFileName}</span>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
