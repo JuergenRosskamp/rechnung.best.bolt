@@ -5,61 +5,61 @@
 -- Copy and paste this entire file into your Supabase SQL Editor and run it.
 -- ============================================================================
 
--- Drop specific triggers that we know exist
-DROP TRIGGER IF EXISTS update_customer_contacts_updated_at ON customer_contacts CASCADE;
-DROP TRIGGER IF EXISTS update_invoice_totals_on_payment ON invoice_payments CASCADE;
-DROP TRIGGER IF EXISTS update_tenants_updated_at ON tenants CASCADE;
-DROP TRIGGER IF EXISTS update_users_updated_at ON users CASCADE;
-DROP TRIGGER IF EXISTS update_customers_updated_at ON customers CASCADE;
-DROP TRIGGER IF EXISTS update_articles_updated_at ON articles CASCADE;
-DROP TRIGGER IF EXISTS update_invoices_updated_at ON invoices CASCADE;
-DROP TRIGGER IF EXISTS update_quotes_updated_at ON quotes CASCADE;
-DROP TRIGGER IF EXISTS update_deliveries_updated_at ON deliveries CASCADE;
-DROP TRIGGER IF EXISTS update_vehicles_updated_at ON vehicles CASCADE;
-DROP TRIGGER IF EXISTS update_delivery_locations_updated_at ON delivery_locations CASCADE;
-DROP TRIGGER IF EXISTS update_invoice_layouts_updated_at ON invoice_layouts CASCADE;
-DROP TRIGGER IF EXISTS update_receipts_updated_at ON receipts CASCADE;
-DROP TRIGGER IF EXISTS update_cashbook_updated_at ON cashbook CASCADE;
+-- Drop all application triggers (ignore errors if they don't exist)
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_customer_contacts_updated_at ON customer_contacts CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_invoice_totals_on_payment ON invoice_payments CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_tenants_updated_at ON tenants CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_users_updated_at ON users CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_customers_updated_at ON customers CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_articles_updated_at ON articles CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_invoices_updated_at ON invoices CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_quotes_updated_at ON quotes CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_deliveries_updated_at ON deliveries CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_vehicles_updated_at ON vehicles CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_delivery_locations_updated_at ON delivery_locations CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_invoice_layouts_updated_at ON invoice_layouts CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_receipts_updated_at ON receipts CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TRIGGER IF EXISTS update_cashbook_updated_at ON cashbook CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
 
--- Drop all tables that might exist (in reverse dependency order)
-DROP TABLE IF EXISTS support_tickets CASCADE;
-DROP TABLE IF EXISTS dunning_log CASCADE;
-DROP TABLE IF EXISTS quotes CASCADE;
-DROP TABLE IF EXISTS quote_items CASCADE;
-DROP TABLE IF EXISTS monthly_closings CASCADE;
-DROP TABLE IF EXISTS receipts CASCADE;
-DROP TABLE IF EXISTS cashbook CASCADE;
-DROP TABLE IF EXISTS invoice_payments CASCADE;
-DROP TABLE IF EXISTS invoice_archive CASCADE;
-DROP TABLE IF EXISTS invoice_layouts CASCADE;
-DROP TABLE IF EXISTS delivery_items CASCADE;
-DROP TABLE IF EXISTS deliveries CASCADE;
-DROP TABLE IF EXISTS recurring_invoices CASCADE;
-DROP TABLE IF EXISTS invoice_items CASCADE;
-DROP TABLE IF EXISTS invoices CASCADE;
-DROP TABLE IF EXISTS delivery_locations CASCADE;
-DROP TABLE IF EXISTS customer_price_overrides CASCADE;
-DROP TABLE IF EXISTS article_time_based_prices CASCADE;
-DROP TABLE IF EXISTS article_volume_discounts CASCADE;
-DROP TABLE IF EXISTS customer_contacts CASCADE;
-DROP TABLE IF EXISTS articles CASCADE;
-DROP TABLE IF EXISTS customers CASCADE;
-DROP TABLE IF EXISTS vehicles CASCADE;
-DROP TABLE IF EXISTS subscriptions CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS tenants CASCADE;
+-- Drop all tables (ignore errors if they don't exist)
+DO $$ BEGIN DROP TABLE IF EXISTS support_tickets CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS dunning_log CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS quotes CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS quote_items CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS monthly_closings CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS receipts CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS cashbook CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS invoice_payments CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS invoice_archive CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS invoice_layouts CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS delivery_items CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS deliveries CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS recurring_invoices CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS invoice_items CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS invoices CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS delivery_locations CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS customer_price_overrides CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS article_time_based_prices CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS article_volume_discounts CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS customer_contacts CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS articles CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS customers CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS vehicles CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS subscriptions CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS users CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP TABLE IF EXISTS tenants CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
 
--- Drop functions if they exist
-DROP FUNCTION IF EXISTS generate_invoice_number CASCADE;
-DROP FUNCTION IF EXISTS validate_cashbook_entry CASCADE;
-DROP FUNCTION IF EXISTS close_cashbook_month CASCADE;
-DROP FUNCTION IF EXISTS get_tenant_id CASCADE;
-DROP FUNCTION IF EXISTS update_updated_at_column CASCADE;
-DROP FUNCTION IF EXISTS update_invoice_totals CASCADE;
+-- Drop functions (ignore errors if they don't exist)
+DO $$ BEGIN DROP FUNCTION IF EXISTS generate_invoice_number CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP FUNCTION IF EXISTS validate_cashbook_entry CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP FUNCTION IF EXISTS close_cashbook_month CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP FUNCTION IF EXISTS get_tenant_id CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP FUNCTION IF EXISTS update_updated_at_column CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DROP FUNCTION IF EXISTS update_invoice_totals CASCADE; EXCEPTION WHEN OTHERS THEN NULL; END $$;
 
--- Drop storage bucket (only application bucket, not system buckets)
-DELETE FROM storage.objects WHERE bucket_id = 'receipts';
-DELETE FROM storage.buckets WHERE id = 'receipts';
+-- Drop storage bucket (ignore errors if it doesn't exist)
+DO $$ BEGIN DELETE FROM storage.objects WHERE bucket_id = 'receipts'; EXCEPTION WHEN OTHERS THEN NULL; END $$;
+DO $$ BEGIN DELETE FROM storage.buckets WHERE id = 'receipts'; EXCEPTION WHEN OTHERS THEN NULL; END $$;
 
 -- ============================================================================
 -- 20250930211137_create_initial_schema.sql
