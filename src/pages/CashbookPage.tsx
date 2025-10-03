@@ -8,6 +8,7 @@ import { verifyHashChain } from '../lib/cashbookValidation';
 import { CashbookCancellation } from '../components/CashbookCancellation';
 import { MonthlyClosing } from '../components/MonthlyClosing';
 import { CashbookReports } from '../components/CashbookReports';
+import { ReceiptThumbnail } from '../components/ReceiptThumbnail';
 
 interface CashbookEntry {
   id: string;
@@ -479,24 +480,24 @@ export function CashbookPage() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredEntries.map((entry) => (
-                    <tr key={entry.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {new Date(entry.entry_date).toLocaleDateString('de-DE')}
+                    <tr key={entry.id} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">
+                        {new Date(entry.entry_date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
-                          {entry.document_number}
+                      <td className="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {entry.document_number}
+                      </td>
+                      <td className="px-4 py-2">
+                        <div className="text-sm text-gray-900 truncate max-w-xs" title={entry.description}>
+                          {entry.description}
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">{entry.description}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getTypeColor(entry.document_type)}`}>
+                      <td className="px-4 py-2 whitespace-nowrap">
+                        <span className={`inline-flex px-2 py-0.5 text-xs font-semibold rounded-full ${getTypeColor(entry.document_type)}`}>
                           {getTypeLabel(entry.document_type)}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <td className="px-4 py-2 whitespace-nowrap text-right">
                         <div className={`text-sm font-medium ${
                           entry.document_type === 'income' ? 'text-green-600' :
                           entry.document_type === 'expense' ? 'text-red-600' :
@@ -506,28 +507,36 @@ export function CashbookPage() {
                           {Math.abs(entry.amount).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900">
+                      <td className="px-4 py-2 whitespace-nowrap text-right text-sm font-medium text-gray-900">
                         {entry.cash_balance.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-center">
-                        <button
-                          onClick={() => {
-                            setSelectedEntryId(entry.id);
-                            setShowReceiptUpload(true);
-                          }}
-                          className="inline-flex items-center px-3 py-1 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200"
-                        >
-                          <Upload className="h-3 w-3 mr-1" />
-                          Anhängen
-                        </button>
+                      <td className="px-4 py-2 whitespace-nowrap text-center">
+                        {entry.receipt_id ? (
+                          <ReceiptThumbnail
+                            receiptId={entry.receipt_id}
+                            entryId={entry.id}
+                            onDeleted={() => loadCashbook()}
+                          />
+                        ) : (
+                          <button
+                            onClick={() => {
+                              setSelectedEntryId(entry.id);
+                              setShowReceiptUpload(true);
+                            }}
+                            className="inline-flex items-center px-3 py-1 text-xs font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200"
+                          >
+                            <Upload className="h-3 w-3 mr-1" />
+                            Anhängen
+                          </button>
+                        )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-center">
+                      <td className="px-4 py-2 whitespace-nowrap text-center">
                         <button
                           onClick={() => {
                             setSelectedEntry(entry);
                             setShowCancellation(true);
                           }}
-                          className="inline-flex items-center px-3 py-1 text-xs font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded-md border border-red-200"
+                          className="inline-flex items-center px-2 py-1 text-xs font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded-md border border-red-200"
                         >
                           <XCircle className="h-3 w-3 mr-1" />
                           Stornieren
