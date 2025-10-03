@@ -15,7 +15,9 @@ import {
   Building2,
   ChevronRight,
   Palette,
-  ChevronDown
+  ChevronDown,
+  FileCheck,
+  AlertTriangle
 } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../lib/auth';
@@ -28,7 +30,9 @@ interface LayoutProps {
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Kunden', href: '/customers', icon: Users },
+  { name: 'Angebote', href: '/quotes', icon: FileCheck },
   { name: 'Rechnungen', href: '/invoices', icon: FileText },
+  { name: 'Mahnungen', href: '/dunning', icon: AlertTriangle },
   { name: 'Artikel', href: '/articles', icon: Package },
   { name: 'Fuhrpark', href: '/vehicles', icon: Truck },
   { name: 'Lieferungen', href: '/deliveries', icon: ClipboardList },
