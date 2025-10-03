@@ -3,7 +3,7 @@ import { Upload, Camera, Loader2, CheckCircle, AlertCircle, X } from 'lucide-rea
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { getErrorMessage } from '../lib/errors';
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
+import * as pdfjsLib from 'pdfjs-dist';
 
 interface ReceiptUploadProps {
   onReceiptProcessed: (data: ReceiptData) => void;
