@@ -643,14 +643,28 @@ ALTER TABLE quote_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE dunning_log ENABLE ROW LEVEL SECURITY;
 ALTER TABLE support_tickets ENABLE ROW LEVEL SECURITY;
 
--- RLS Policies for tenants
-CREATE POLICY "Users can view their own tenant"
-  ON tenants FOR SELECT TO authenticated
-  USING (id IN (SELECT tenant_id FROM users WHERE id = auth.uid()));
+-- Helper function to get user's tenant_id (bypasses RLS)
+CREATE OR REPLACE FUNCTION auth.user_tenant_id()
+RETURNS uuid
+LANGUAGE sql
+SECURITY DEFINER
+STABLE
+AS $$
+  SELECT tenant_id FROM public.users WHERE id = auth.uid();
+$$;
 
-CREATE POLICY "Users can update their own tenant"
-  ON tenants FOR UPDATE TO authenticated
-  USING (id IN (SELECT tenant_id FROM users WHERE users.id = auth.uid() AND users.role IN ('admin', 'office')));
+-- Helper function to check if user is admin (bypasses RLS)
+CREATE OR REPLACE FUNCTION auth.user_is_admin()
+RETURNS boolean
+LANGUAGE sql
+SECURITY DEFINER
+STABLE
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.users
+    WHERE id = auth.uid() AND role = 'admin'
+  );
+$$;
 
 -- RLS Policies for users
 CREATE POLICY "Users can view their own profile"
@@ -661,6 +675,25 @@ CREATE POLICY "Users can update their own profile"
   ON users FOR UPDATE TO authenticated
   USING (id = auth.uid())
   WITH CHECK (id = auth.uid());
+
+-- RLS Policies for tenants
+CREATE POLICY "Users can view their own tenant"
+  ON tenants FOR SELECT TO authenticated
+  USING (id = auth.user_tenant_id());
+
+CREATE POLICY "Admins can update their own tenant"
+  ON tenants FOR UPDATE TO authenticated
+  USING (id = auth.user_tenant_id() AND auth.user_is_admin());
+
+-- RLS Policies for subscriptions
+CREATE POLICY "Users can view their tenant subscription"
+  ON subscriptions FOR SELECT TO authenticated
+  USING (tenant_id = auth.user_tenant_id());
+
+CREATE POLICY "Admins can update their tenant subscription"
+  ON subscriptions FOR UPDATE TO authenticated
+  USING (tenant_id = auth.user_tenant_id() AND auth.user_is_admin())
+  WITH CHECK (tenant_id = auth.user_tenant_id() AND auth.user_is_admin());
 
 -- RLS Policies for all tenant-scoped tables (template)
 DO $$
@@ -676,25 +709,25 @@ BEGIN
       EXECUTE format('
         CREATE POLICY "Users can view their tenant data"
           ON %I FOR SELECT TO authenticated
-          USING (tenant_id IN (SELECT tenant_id FROM users WHERE id = auth.uid()));
+          USING (tenant_id = auth.user_tenant_id());
       ', table_name);
 
       EXECUTE format('
         CREATE POLICY "Users can insert their tenant data"
           ON %I FOR INSERT TO authenticated
-          WITH CHECK (tenant_id IN (SELECT tenant_id FROM users WHERE id = auth.uid()));
+          WITH CHECK (tenant_id = auth.user_tenant_id());
       ', table_name);
 
       EXECUTE format('
         CREATE POLICY "Users can update their tenant data"
           ON %I FOR UPDATE TO authenticated
-          USING (tenant_id IN (SELECT tenant_id FROM users WHERE id = auth.uid()));
+          USING (tenant_id = auth.user_tenant_id());
       ', table_name);
 
       EXECUTE format('
         CREATE POLICY "Admins can delete their tenant data"
           ON %I FOR DELETE TO authenticated
-          USING (tenant_id IN (SELECT tenant_id FROM users WHERE users.id = auth.uid() AND users.role = ''admin''));
+          USING (tenant_id = auth.user_tenant_id() AND auth.user_is_admin());
       ', table_name);
     EXCEPTION
       WHEN duplicate_object THEN NULL;
