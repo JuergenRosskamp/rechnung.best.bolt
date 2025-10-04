@@ -126,7 +126,7 @@ BEGIN
       GENERATED ALWAYS AS (
         COALESCE(
           company_name,
-          TRIM(CONCAT(first_name, ' ', last_name))
+          TRIM(COALESCE(first_name, '') || ' ' || COALESCE(last_name, ''))
         )
       ) STORED;
   END IF;
