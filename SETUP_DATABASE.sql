@@ -348,6 +348,21 @@ CREATE TABLE delivery_items (
 -- CASHBOOK (GoBD Compliant)
 -- ============================================================================
 
+-- Create receipts table BEFORE cashbook (cashbook references receipts)
+CREATE TABLE receipts (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  tenant_id uuid NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+  receipt_number text NOT NULL,
+  file_path text NOT NULL,
+  file_name text NOT NULL,
+  file_size integer NOT NULL,
+  mime_type text NOT NULL,
+  ocr_data jsonb,
+  upload_date timestamptz DEFAULT now(),
+  uploaded_by uuid NOT NULL REFERENCES users(id),
+  UNIQUE(tenant_id, receipt_number)
+);
+
 CREATE TABLE cashbook (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   tenant_id uuid NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
@@ -370,20 +385,6 @@ CREATE TABLE cashbook (
   created_at timestamptz DEFAULT now(),
   created_by uuid NOT NULL REFERENCES users(id),
   CONSTRAINT valid_entry_type CHECK (entry_type IN ('income', 'expense', 'opening_balance'))
-);
-
-CREATE TABLE receipts (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  tenant_id uuid NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
-  receipt_number text NOT NULL,
-  file_path text NOT NULL,
-  file_name text NOT NULL,
-  file_size integer NOT NULL,
-  mime_type text NOT NULL,
-  ocr_data jsonb,
-  upload_date timestamptz DEFAULT now(),
-  uploaded_by uuid NOT NULL REFERENCES users(id),
-  UNIQUE(tenant_id, receipt_number)
 );
 
 CREATE TABLE monthly_closings (
