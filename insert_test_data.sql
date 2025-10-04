@@ -312,23 +312,29 @@ BEGIN
 
       INSERT INTO invoice_items (
         invoice_id,
+        tenant_id,
+        position_number,
         article_id,
         description,
         quantity,
         unit_price,
         vat_rate,
-        line_total,
-        vat_amount
+        vat_amount,
+        net_amount,
+        total_amount
       )
       SELECT
         v_invoice_id,
+        v_tenant_id,
+        j,
         v_article_id,
         a.name || ' - Position ' || j,
         (1 + (j % 10))::numeric,
         a.unit_price,
         a.vat_rate,
+        ROUND((1 + (j % 10)) * a.unit_price * a.vat_rate / 100, 2),
         ROUND((1 + (j % 10)) * a.unit_price, 2),
-        ROUND((1 + (j % 10)) * a.unit_price * a.vat_rate / 100, 2)
+        ROUND((1 + (j % 10)) * a.unit_price * (1 + a.vat_rate / 100), 2)
       FROM articles a
       WHERE a.id = v_article_id;
     END LOOP;
@@ -337,7 +343,7 @@ BEGIN
     UPDATE invoices
     SET
       subtotal = (
-        SELECT COALESCE(SUM(line_total), 0)
+        SELECT COALESCE(SUM(net_amount), 0)
         FROM invoice_items
         WHERE invoice_id = v_invoice_id
       ),
@@ -345,11 +351,12 @@ BEGIN
         SELECT COALESCE(SUM(vat_amount), 0)
         FROM invoice_items
         WHERE invoice_id = v_invoice_id
+      ),
+      total = (
+        SELECT COALESCE(SUM(total_amount), 0)
+        FROM invoice_items
+        WHERE invoice_id = v_invoice_id
       )
-    WHERE id = v_invoice_id;
-
-    UPDATE invoices
-    SET total = subtotal + total_vat
     WHERE id = v_invoice_id;
   END LOOP;
 
@@ -473,13 +480,13 @@ BEGIN
       tenant_id,
       delivery_note_number,
       customer_id,
-      vehicle_id,
+      assigned_vehicle_id,
       delivery_date,
       delivery_address_line1,
       delivery_zip_code,
       delivery_city,
       status,
-      notes
+      delivery_notes
     )
     VALUES (
       v_tenant_id,
