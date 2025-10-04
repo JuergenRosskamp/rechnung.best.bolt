@@ -108,7 +108,6 @@ export function CustomerFormPage() {
         ...data,
         tenant_id: user.tenant_id,
         customer_number: customerNumber || undefined,
-        created_by: user.id,
       };
 
       if (customerId) {
