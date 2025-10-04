@@ -44,68 +44,33 @@ BEGIN
   RAISE NOTICE '';
 
   -- ============================================================================
-  -- SCHRITT 1: ALTE DATEN LÖSCHEN
+  -- SCHRITT 1: ALTE DATEN LÖSCHEN (MIT FEHLERBEHANDLUNG)
   -- ============================================================================
   RAISE NOTICE '🗑️  Lösche alte Testdaten...';
   RAISE NOTICE '';
 
-  -- Lösche in der richtigen Reihenfolge (Abhängigkeiten beachten)
-  DELETE FROM invoice_payments;
-  RAISE NOTICE '   ✓ Gelöscht: invoice_payments';
-
-  DELETE FROM invoice_items;
-  RAISE NOTICE '   ✓ Gelöscht: invoice_items';
-
-  DELETE FROM invoices;
-  RAISE NOTICE '   ✓ Gelöscht: invoices';
-
-  DELETE FROM quotes;
-  RAISE NOTICE '   ✓ Gelöscht: quotes';
-
-  DELETE FROM delivery_photos;
-  RAISE NOTICE '   ✓ Gelöscht: delivery_photos';
-
-  DELETE FROM delivery_notes;
-  RAISE NOTICE '   ✓ Gelöscht: delivery_notes';
-
-  DELETE FROM cashbook_entries;
-  RAISE NOTICE '   ✓ Gelöscht: cashbook_entries';
-
-  DELETE FROM receipt_uploads;
-  RAISE NOTICE '   ✓ Gelöscht: receipt_uploads';
-
-  DELETE FROM monthly_closings;
-  RAISE NOTICE '   ✓ Gelöscht: monthly_closings';
-
-  DELETE FROM article_location_prices;
-  RAISE NOTICE '   ✓ Gelöscht: article_location_prices';
-
-  DELETE FROM article_customer_prices;
-  RAISE NOTICE '   ✓ Gelöscht: article_customer_prices';
-
-  DELETE FROM article_quantity_prices;
-  RAISE NOTICE '   ✓ Gelöscht: article_quantity_prices';
-
-  DELETE FROM delivery_locations;
-  RAISE NOTICE '   ✓ Gelöscht: delivery_locations';
-
-  DELETE FROM articles;
-  RAISE NOTICE '   ✓ Gelöscht: articles';
-
-  DELETE FROM customers;
-  RAISE NOTICE '   ✓ Gelöscht: customers';
-
-  DELETE FROM vehicles;
-  RAISE NOTICE '   ✓ Gelöscht: vehicles';
-
-  DELETE FROM support_tickets;
-  RAISE NOTICE '   ✓ Gelöscht: support_tickets';
-
-  DELETE FROM users;
-  RAISE NOTICE '   ✓ Gelöscht: users';
-
-  DELETE FROM tenants;
-  RAISE NOTICE '   ✓ Gelöscht: tenants';
+  -- Lösche nur existierende Tabellen (in richtiger Reihenfolge)
+  BEGIN DELETE FROM dunning_notices; RAISE NOTICE '   ✓ Gelöscht: dunning_notices'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: dunning_notices (nicht vorhanden)'; END;
+  BEGIN DELETE FROM order_confirmations; RAISE NOTICE '   ✓ Gelöscht: order_confirmations'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: order_confirmations (nicht vorhanden)'; END;
+  BEGIN DELETE FROM invoice_payments; RAISE NOTICE '   ✓ Gelöscht: invoice_payments'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: invoice_payments (nicht vorhanden)'; END;
+  BEGIN DELETE FROM invoice_items; RAISE NOTICE '   ✓ Gelöscht: invoice_items'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: invoice_items (nicht vorhanden)'; END;
+  BEGIN DELETE FROM invoices; RAISE NOTICE '   ✓ Gelöscht: invoices'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: invoices (nicht vorhanden)'; END;
+  BEGIN DELETE FROM quotes; RAISE NOTICE '   ✓ Gelöscht: quotes'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: quotes (nicht vorhanden)'; END;
+  BEGIN DELETE FROM delivery_photos; RAISE NOTICE '   ✓ Gelöscht: delivery_photos'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: delivery_photos (nicht vorhanden)'; END;
+  BEGIN DELETE FROM delivery_notes; RAISE NOTICE '   ✓ Gelöscht: delivery_notes'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: delivery_notes (nicht vorhanden)'; END;
+  BEGIN DELETE FROM cashbook_entries; RAISE NOTICE '   ✓ Gelöscht: cashbook_entries'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: cashbook_entries (nicht vorhanden)'; END;
+  BEGIN DELETE FROM receipt_uploads; RAISE NOTICE '   ✓ Gelöscht: receipt_uploads'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: receipt_uploads (nicht vorhanden)'; END;
+  BEGIN DELETE FROM cashbook_monthly_closings; RAISE NOTICE '   ✓ Gelöscht: cashbook_monthly_closings'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: cashbook_monthly_closings (nicht vorhanden)'; END;
+  BEGIN DELETE FROM article_location_prices; RAISE NOTICE '   ✓ Gelöscht: article_location_prices'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: article_location_prices (nicht vorhanden)'; END;
+  BEGIN DELETE FROM article_customer_prices; RAISE NOTICE '   ✓ Gelöscht: article_customer_prices'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: article_customer_prices (nicht vorhanden)'; END;
+  BEGIN DELETE FROM article_quantity_prices; RAISE NOTICE '   ✓ Gelöscht: article_quantity_prices'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: article_quantity_prices (nicht vorhanden)'; END;
+  BEGIN DELETE FROM delivery_locations; RAISE NOTICE '   ✓ Gelöscht: delivery_locations'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: delivery_locations (nicht vorhanden)'; END;
+  BEGIN DELETE FROM articles; RAISE NOTICE '   ✓ Gelöscht: articles'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: articles (nicht vorhanden)'; END;
+  BEGIN DELETE FROM customers; RAISE NOTICE '   ✓ Gelöscht: customers'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: customers (nicht vorhanden)'; END;
+  BEGIN DELETE FROM vehicles; RAISE NOTICE '   ✓ Gelöscht: vehicles'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: vehicles (nicht vorhanden)'; END;
+  BEGIN DELETE FROM support_tickets; RAISE NOTICE '   ✓ Gelöscht: support_tickets'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: support_tickets (nicht vorhanden)'; END;
+  BEGIN DELETE FROM users; RAISE NOTICE '   ✓ Gelöscht: users'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: users (nicht vorhanden)'; END;
+  BEGIN DELETE FROM tenants; RAISE NOTICE '   ✓ Gelöscht: tenants'; EXCEPTION WHEN undefined_table THEN RAISE NOTICE '   ⊘ Übersprungen: tenants (nicht vorhanden)'; END;
 
   RAISE NOTICE '';
   RAISE NOTICE '✅ Alle alten Daten gelöscht!';
