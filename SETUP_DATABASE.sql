@@ -15,56 +15,40 @@ BEGIN
 END $$;
 
 -- Drop existing tables if they exist (in correct order)
-DO $$
-BEGIN
-  DROP TABLE IF EXISTS support_tickets CASCADE;
-  DROP TABLE IF EXISTS dunning_log CASCADE;
-  DROP TABLE IF EXISTS quote_items CASCADE;
-  DROP TABLE IF EXISTS quotes CASCADE;
-  DROP TABLE IF EXISTS monthly_closings CASCADE;
-  DROP TABLE IF EXISTS receipts CASCADE;
-  DROP TABLE IF EXISTS cashbook CASCADE;
-  DROP TABLE IF EXISTS invoice_payments CASCADE;
-  DROP TABLE IF EXISTS invoice_archive CASCADE;
-  DROP TABLE IF EXISTS invoice_layouts CASCADE;
-  DROP TABLE IF EXISTS delivery_items CASCADE;
-  DROP TABLE IF EXISTS deliveries CASCADE;
-  DROP TABLE IF EXISTS recurring_invoices CASCADE;
-  DROP TABLE IF EXISTS invoice_items CASCADE;
-  DROP TABLE IF EXISTS invoices CASCADE;
-  DROP TABLE IF EXISTS delivery_locations CASCADE;
-  DROP TABLE IF EXISTS customer_price_overrides CASCADE;
-  DROP TABLE IF EXISTS article_time_based_prices CASCADE;
-  DROP TABLE IF EXISTS article_volume_discounts CASCADE;
-  DROP TABLE IF EXISTS customer_contacts CASCADE;
-  DROP TABLE IF EXISTS articles CASCADE;
-  DROP TABLE IF EXISTS customers CASCADE;
-  DROP TABLE IF EXISTS vehicles CASCADE;
-  DROP TABLE IF EXISTS subscriptions CASCADE;
-  DROP TABLE IF EXISTS users CASCADE;
-  DROP TABLE IF EXISTS tenants CASCADE;
-
-  RAISE NOTICE 'Dropped existing tables';
-EXCEPTION
-  WHEN OTHERS THEN
-    RAISE NOTICE 'Error dropping tables (may not exist): %', SQLERRM;
-END $$;
+DROP TABLE IF EXISTS support_tickets CASCADE;
+DROP TABLE IF EXISTS dunning_log CASCADE;
+DROP TABLE IF EXISTS quote_items CASCADE;
+DROP TABLE IF EXISTS quotes CASCADE;
+DROP TABLE IF EXISTS monthly_closings CASCADE;
+DROP TABLE IF EXISTS receipts CASCADE;
+DROP TABLE IF EXISTS cashbook CASCADE;
+DROP TABLE IF EXISTS invoice_payments CASCADE;
+DROP TABLE IF EXISTS invoice_archive CASCADE;
+DROP TABLE IF EXISTS invoice_layouts CASCADE;
+DROP TABLE IF EXISTS delivery_items CASCADE;
+DROP TABLE IF EXISTS deliveries CASCADE;
+DROP TABLE IF EXISTS recurring_invoices CASCADE;
+DROP TABLE IF EXISTS invoice_items CASCADE;
+DROP TABLE IF EXISTS invoices CASCADE;
+DROP TABLE IF EXISTS delivery_locations CASCADE;
+DROP TABLE IF EXISTS customer_price_overrides CASCADE;
+DROP TABLE IF EXISTS article_time_based_prices CASCADE;
+DROP TABLE IF EXISTS article_volume_discounts CASCADE;
+DROP TABLE IF EXISTS customer_contacts CASCADE;
+DROP TABLE IF EXISTS articles CASCADE;
+DROP TABLE IF EXISTS customers CASCADE;
+DROP TABLE IF EXISTS vehicles CASCADE;
+DROP TABLE IF EXISTS subscriptions CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS tenants CASCADE;
 
 -- Drop existing functions
-DO $$
-BEGIN
-  DROP FUNCTION IF EXISTS generate_invoice_number(uuid, text) CASCADE;
-  DROP FUNCTION IF EXISTS validate_cashbook_entry() CASCADE;
-  DROP FUNCTION IF EXISTS close_cashbook_month(uuid, integer, integer) CASCADE;
-  DROP FUNCTION IF EXISTS get_tenant_id() CASCADE;
-  DROP FUNCTION IF EXISTS update_updated_at_column() CASCADE;
-  DROP FUNCTION IF EXISTS update_invoice_totals() CASCADE;
-
-  RAISE NOTICE 'Dropped existing functions';
-EXCEPTION
-  WHEN OTHERS THEN
-    RAISE NOTICE 'Error dropping functions: %', SQLERRM;
-END $$;
+DROP FUNCTION IF EXISTS generate_invoice_number(uuid, text) CASCADE;
+DROP FUNCTION IF EXISTS validate_cashbook_entry() CASCADE;
+DROP FUNCTION IF EXISTS close_cashbook_month(uuid, integer, integer) CASCADE;
+DROP FUNCTION IF EXISTS get_tenant_id() CASCADE;
+DROP FUNCTION IF EXISTS update_updated_at_column() CASCADE;
+DROP FUNCTION IF EXISTS update_invoice_totals() CASCADE;
 
 -- ============================================================================
 -- CORE SCHEMA: Tenants, Users, Subscriptions
