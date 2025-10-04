@@ -43,12 +43,14 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tenants CASCADE;
 
 -- Drop existing functions
-DROP FUNCTION IF EXISTS generate_invoice_number(uuid, text) CASCADE;
-DROP FUNCTION IF EXISTS validate_cashbook_entry() CASCADE;
-DROP FUNCTION IF EXISTS close_cashbook_month(uuid, integer, integer) CASCADE;
-DROP FUNCTION IF EXISTS get_tenant_id() CASCADE;
-DROP FUNCTION IF EXISTS update_updated_at_column() CASCADE;
-DROP FUNCTION IF EXISTS update_invoice_totals() CASCADE;
+DROP FUNCTION IF EXISTS public.generate_invoice_number(uuid, text) CASCADE;
+DROP FUNCTION IF EXISTS public.validate_cashbook_entry() CASCADE;
+DROP FUNCTION IF EXISTS public.close_cashbook_month(uuid, integer, integer) CASCADE;
+DROP FUNCTION IF EXISTS public.get_tenant_id() CASCADE;
+DROP FUNCTION IF EXISTS public.update_updated_at_column() CASCADE;
+DROP FUNCTION IF EXISTS public.update_invoice_totals() CASCADE;
+DROP FUNCTION IF EXISTS public.get_user_tenant_id() CASCADE;
+DROP FUNCTION IF EXISTS public.user_is_admin() CASCADE;
 
 -- ============================================================================
 -- CORE SCHEMA: Tenants, Users, Subscriptions
@@ -74,14 +76,15 @@ CREATE TABLE tenants (
 );
 
 CREATE TABLE users (
-  id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  id uuid PRIMARY KEY, -- Linked to auth.users.id (same UUID, no FK)
   tenant_id uuid NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
   email text UNIQUE NOT NULL,
   role text NOT NULL DEFAULT 'office',
   first_name text,
   last_name text,
   created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now()
+  updated_at timestamptz DEFAULT now(),
+  CONSTRAINT valid_role CHECK (role IN ('admin', 'office', 'driver'))
 );
 
 CREATE TABLE subscriptions (
@@ -643,8 +646,14 @@ ALTER TABLE quote_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE dunning_log ENABLE ROW LEVEL SECURITY;
 ALTER TABLE support_tickets ENABLE ROW LEVEL SECURITY;
 
+-- ============================================================================
+-- SECURITY DEFINER HELPER FUNCTIONS (in public schema, not auth)
+-- ============================================================================
+-- These functions bypass RLS to prevent infinite recursion in policies
+-- They are marked SECURITY DEFINER so they run with elevated privileges
+
 -- Helper function to get user's tenant_id (bypasses RLS)
-CREATE OR REPLACE FUNCTION auth.user_tenant_id()
+CREATE OR REPLACE FUNCTION public.get_user_tenant_id()
 RETURNS uuid
 LANGUAGE sql
 SECURITY DEFINER
@@ -654,7 +663,7 @@ AS $$
 $$;
 
 -- Helper function to check if user is admin (bypasses RLS)
-CREATE OR REPLACE FUNCTION auth.user_is_admin()
+CREATE OR REPLACE FUNCTION public.user_is_admin()
 RETURNS boolean
 LANGUAGE sql
 SECURITY DEFINER
@@ -665,6 +674,13 @@ AS $$
     WHERE id = auth.uid() AND role = 'admin'
   );
 $$;
+
+-- Security note: Revoke execute from public/anon for safety
+REVOKE EXECUTE ON FUNCTION public.get_user_tenant_id() FROM anon, public;
+GRANT EXECUTE ON FUNCTION public.get_user_tenant_id() TO authenticated;
+
+REVOKE EXECUTE ON FUNCTION public.user_is_admin() FROM anon, public;
+GRANT EXECUTE ON FUNCTION public.user_is_admin() TO authenticated;
 
 -- RLS Policies for users
 CREATE POLICY "Users can view their own profile"
@@ -679,21 +695,21 @@ CREATE POLICY "Users can update their own profile"
 -- RLS Policies for tenants
 CREATE POLICY "Users can view their own tenant"
   ON tenants FOR SELECT TO authenticated
-  USING (id = auth.user_tenant_id());
+  USING (id = public.get_user_tenant_id());
 
 CREATE POLICY "Admins can update their own tenant"
   ON tenants FOR UPDATE TO authenticated
-  USING (id = auth.user_tenant_id() AND auth.user_is_admin());
+  USING (id = public.get_user_tenant_id() AND public.user_is_admin());
 
 -- RLS Policies for subscriptions
 CREATE POLICY "Users can view their tenant subscription"
   ON subscriptions FOR SELECT TO authenticated
-  USING (tenant_id = auth.user_tenant_id());
+  USING (tenant_id = public.get_user_tenant_id());
 
 CREATE POLICY "Admins can update their tenant subscription"
   ON subscriptions FOR UPDATE TO authenticated
-  USING (tenant_id = auth.user_tenant_id() AND auth.user_is_admin())
-  WITH CHECK (tenant_id = auth.user_tenant_id() AND auth.user_is_admin());
+  USING (tenant_id = public.get_user_tenant_id() AND public.user_is_admin())
+  WITH CHECK (tenant_id = public.get_user_tenant_id() AND public.user_is_admin());
 
 -- RLS Policies for all tenant-scoped tables (template)
 DO $$
@@ -709,25 +725,25 @@ BEGIN
       EXECUTE format('
         CREATE POLICY "Users can view their tenant data"
           ON %I FOR SELECT TO authenticated
-          USING (tenant_id = auth.user_tenant_id());
+          USING (tenant_id = public.get_user_tenant_id());
       ', table_name);
 
       EXECUTE format('
         CREATE POLICY "Users can insert their tenant data"
           ON %I FOR INSERT TO authenticated
-          WITH CHECK (tenant_id = auth.user_tenant_id());
+          WITH CHECK (tenant_id = public.get_user_tenant_id());
       ', table_name);
 
       EXECUTE format('
         CREATE POLICY "Users can update their tenant data"
           ON %I FOR UPDATE TO authenticated
-          USING (tenant_id = auth.user_tenant_id());
+          USING (tenant_id = public.get_user_tenant_id());
       ', table_name);
 
       EXECUTE format('
         CREATE POLICY "Admins can delete their tenant data"
           ON %I FOR DELETE TO authenticated
-          USING (tenant_id = auth.user_tenant_id() AND auth.user_is_admin());
+          USING (tenant_id = public.get_user_tenant_id() AND public.user_is_admin());
       ', table_name);
     EXCEPTION
       WHEN duplicate_object THEN NULL;
@@ -740,11 +756,11 @@ END $$;
 -- Special RLS for related tables
 CREATE POLICY "Users can view customer contacts"
   ON customer_contacts FOR SELECT TO authenticated
-  USING (customer_id IN (SELECT id FROM customers WHERE tenant_id IN (SELECT tenant_id FROM users WHERE id = auth.uid())));
+  USING (customer_id IN (SELECT id FROM customers WHERE tenant_id = public.get_user_tenant_id()));
 
 CREATE POLICY "Users can manage customer contacts"
   ON customer_contacts FOR ALL TO authenticated
-  USING (customer_id IN (SELECT id FROM customers WHERE tenant_id IN (SELECT tenant_id FROM users WHERE id = auth.uid())));
+  USING (customer_id IN (SELECT id FROM customers WHERE tenant_id = public.get_user_tenant_id()));
 
 -- ============================================================================
 -- STORAGE BUCKET FOR RECEIPTS
