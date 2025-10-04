@@ -148,7 +148,9 @@ BEGIN
     zip_code,
     city,
     country,
-    payment_terms,
+    payment_terms_days,
+    early_payment_discount_percent,
+    early_payment_discount_days,
     is_active
   ) VALUES (
     v_tenant_id,
@@ -163,6 +165,8 @@ BEGIN
     'Berlin',
     'DE',
     14,
+    2.0,
+    7,
     true
   ) RETURNING id INTO v_customer_1;
 
@@ -179,7 +183,9 @@ BEGIN
     zip_code,
     city,
     country,
-    payment_terms,
+    payment_terms_days,
+    early_payment_discount_percent,
+    early_payment_discount_days,
     is_active
   ) VALUES (
     v_tenant_id,
@@ -194,6 +200,8 @@ BEGIN
     'Berlin',
     'DE',
     30,
+    3.0,
+    10,
     true
   ) RETURNING id INTO v_customer_2;
 
@@ -210,7 +218,9 @@ BEGIN
     zip_code,
     city,
     country,
-    payment_terms,
+    payment_terms_days,
+    early_payment_discount_percent,
+    early_payment_discount_days,
     is_active
   ) VALUES (
     v_tenant_id,
@@ -225,6 +235,8 @@ BEGIN
     'Berlin',
     'DE',
     14,
+    0,
+    0,
     true
   ) RETURNING id INTO v_customer_3;
 
@@ -241,7 +253,9 @@ BEGIN
     zip_code,
     city,
     country,
-    payment_terms,
+    payment_terms_days,
+    early_payment_discount_percent,
+    early_payment_discount_days,
     is_active
   ) VALUES (
     v_tenant_id,
@@ -256,6 +270,8 @@ BEGIN
     'Berlin',
     'DE',
     21,
+    2.0,
+    7,
     true
   ) RETURNING id INTO v_customer_4;
 
@@ -272,7 +288,9 @@ BEGIN
     zip_code,
     city,
     country,
-    payment_terms,
+    payment_terms_days,
+    early_payment_discount_percent,
+    early_payment_discount_days,
     is_active
   ) VALUES (
     v_tenant_id,
@@ -286,6 +304,8 @@ BEGIN
     '10407',
     'Berlin',
     'DE',
+    30,
+    3.0,
     14,
     true
   ) RETURNING id INTO v_customer_5;
@@ -355,7 +375,7 @@ BEGIN
     name,
     description,
     unit,
-    base_price,
+    unit_price,
     tax_rate,
     category,
     is_active
@@ -378,7 +398,7 @@ BEGIN
     name,
     description,
     unit,
-    base_price,
+    unit_price,
     tax_rate,
     category,
     is_active
@@ -401,7 +421,7 @@ BEGIN
     name,
     description,
     unit,
-    base_price,
+    unit_price,
     tax_rate,
     category,
     is_active
@@ -424,7 +444,7 @@ BEGIN
     name,
     description,
     unit,
-    base_price,
+    unit_price,
     tax_rate,
     category,
     is_active
@@ -447,7 +467,7 @@ BEGIN
     name,
     description,
     unit,
-    base_price,
+    unit_price,
     tax_rate,
     category,
     is_active
@@ -491,9 +511,9 @@ BEGIN
     tenant_id,
     license_plate,
     vehicle_type,
-    brand,
+    make,
     model,
-    capacity_kg,
+    capacity,
     is_active,
     notes
   ) VALUES (
@@ -512,9 +532,9 @@ BEGIN
     tenant_id,
     license_plate,
     vehicle_type,
-    brand,
+    make,
     model,
-    capacity_kg,
+    capacity,
     is_active,
     notes
   ) VALUES (
@@ -543,7 +563,7 @@ BEGIN
     invoice_date,
     due_date,
     status,
-    subtotal,
+    net_amount,
     tax_amount,
     total_amount,
     notes
@@ -583,7 +603,7 @@ BEGIN
     invoice_date,
     due_date,
     status,
-    subtotal,
+    net_amount,
     tax_amount,
     total_amount,
     early_payment_discount_percentage,
@@ -633,7 +653,7 @@ BEGIN
     invoice_date,
     due_date,
     status,
-    subtotal,
+    net_amount,
     tax_amount,
     total_amount,
     notes
@@ -852,7 +872,7 @@ BEGIN
     quote_date,
     valid_until,
     status,
-    subtotal,
+    net_amount,
     tax_amount,
     total_amount,
     notes
