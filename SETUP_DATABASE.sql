@@ -653,21 +653,14 @@ CREATE POLICY "Users can update their own tenant"
   USING (id IN (SELECT tenant_id FROM users WHERE users.id = auth.uid() AND users.role IN ('admin', 'office')));
 
 -- RLS Policies for users
-CREATE POLICY "Users can view users in their tenant"
+CREATE POLICY "Users can view their own profile"
   ON users FOR SELECT TO authenticated
-  USING (tenant_id IN (SELECT tenant_id FROM users WHERE id = auth.uid()));
+  USING (id = auth.uid());
 
-CREATE POLICY "Admins can insert users in their tenant"
-  ON users FOR INSERT TO authenticated
-  WITH CHECK (tenant_id IN (SELECT tenant_id FROM users WHERE users.id = auth.uid() AND users.role = 'admin'));
-
-CREATE POLICY "Admins can update users in their tenant"
+CREATE POLICY "Users can update their own profile"
   ON users FOR UPDATE TO authenticated
-  USING (tenant_id IN (SELECT tenant_id FROM users WHERE users.id = auth.uid() AND users.role = 'admin'));
-
-CREATE POLICY "Admins can delete users in their tenant"
-  ON users FOR DELETE TO authenticated
-  USING (tenant_id IN (SELECT tenant_id FROM users WHERE users.id = auth.uid() AND users.role = 'admin'));
+  USING (id = auth.uid())
+  WITH CHECK (id = auth.uid());
 
 -- RLS Policies for all tenant-scoped tables (template)
 DO $$
