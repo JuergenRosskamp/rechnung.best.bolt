@@ -237,13 +237,14 @@ CREATE TABLE invoices (
   invoice_date date NOT NULL DEFAULT CURRENT_DATE,
   due_date date NOT NULL,
   status text NOT NULL DEFAULT 'draft',
-  net_amount numeric(10, 2) NOT NULL DEFAULT 0,
-  tax_amount numeric(10, 2) NOT NULL DEFAULT 0,
-  total_amount numeric(10, 2) NOT NULL DEFAULT 0,
-  paid_amount numeric(10, 2) DEFAULT 0,
+  subtotal numeric(12, 2) NOT NULL DEFAULT 0,
+  net_amount numeric(12, 2) NOT NULL DEFAULT 0,
+  tax_amount numeric(12, 2) NOT NULL DEFAULT 0,
+  total_amount numeric(12, 2) NOT NULL DEFAULT 0,
+  paid_amount numeric(12, 2) DEFAULT 0,
   early_payment_discount_percentage numeric(5, 2) DEFAULT 0,
   early_payment_discount_days integer DEFAULT 0,
-  early_payment_discount_amount numeric(10, 2) DEFAULT 0,
+  early_payment_discount_amount numeric(12, 2) DEFAULT 0,
   customer_snapshot jsonb,
   notes text,
   internal_notes text,
@@ -428,9 +429,10 @@ CREATE TABLE quotes (
   quote_date date NOT NULL DEFAULT CURRENT_DATE,
   valid_until date NOT NULL,
   status text NOT NULL DEFAULT 'draft',
-  net_amount numeric(10, 2) NOT NULL DEFAULT 0,
-  tax_amount numeric(10, 2) NOT NULL DEFAULT 0,
-  total_amount numeric(10, 2) NOT NULL DEFAULT 0,
+  subtotal numeric(12, 2) NOT NULL DEFAULT 0,
+  net_amount numeric(12, 2) NOT NULL DEFAULT 0,
+  tax_amount numeric(12, 2) NOT NULL DEFAULT 0,
+  total_amount numeric(12, 2) NOT NULL DEFAULT 0,
   notes text,
   internal_notes text,
   deleted_at timestamptz,
@@ -558,32 +560,55 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Invoice totals calculator
-CREATE OR REPLACE FUNCTION update_invoice_totals()
-RETURNS TRIGGER AS $$
+-- Automatically recalculates invoice totals when invoice_items change
+CREATE OR REPLACE FUNCTION public.update_invoice_totals()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
 DECLARE
-  v_subtotal numeric(10, 2);
-  v_tax_amount numeric(10, 2);
-  v_total numeric(10, 2);
+  v_net numeric(12,2);
+  v_tax numeric(12,2);
+  v_total numeric(12,2);
+  v_subtotal numeric(12,2);
+  v_invoice_id uuid;
 BEGIN
-  SELECT
-    COALESCE(SUM(line_total), 0),
-    COALESCE(SUM(line_total * tax_rate / 100), 0)
-  INTO v_subtotal, v_tax_amount
+  -- Get invoice_id from NEW (INSERT/UPDATE) or OLD (DELETE)
+  v_invoice_id := COALESCE(NEW.invoice_id, OLD.invoice_id);
+
+  -- Recalculate subtotal as sum of line_total (net amounts)
+  SELECT COALESCE(SUM(line_total), 0)::numeric(12,2)
+    INTO v_subtotal
   FROM invoice_items
-  WHERE invoice_id = COALESCE(NEW.invoice_id, OLD.invoice_id);
+  WHERE invoice_id = v_invoice_id;
 
-  v_total := v_subtotal + v_tax_amount;
+  -- Recalculate tax amount using per-line tax_rate
+  -- Formula: line_total * (tax_rate / 100.0)
+  SELECT COALESCE(SUM(line_total * (tax_rate / 100.0)), 0)::numeric(12,2)
+    INTO v_tax
+  FROM invoice_items
+  WHERE invoice_id = v_invoice_id;
 
+  -- Net amount equals subtotal (both are pre-tax)
+  v_net := v_subtotal;
+
+  -- Total amount = net + tax
+  v_total := (v_net + v_tax)::numeric(12,2);
+
+  -- Update invoice with recalculated values
   UPDATE invoices
   SET
-    subtotal = v_subtotal,
-    tax_amount = v_tax_amount,
-    total_amount = v_total
-  WHERE id = COALESCE(NEW.invoice_id, OLD.invoice_id);
+    subtotal     = v_subtotal,
+    net_amount   = v_net,
+    tax_amount   = v_tax,
+    total_amount = v_total,
+    updated_at   = now()
+  WHERE id = v_invoice_id;
 
-  RETURN COALESCE(NEW, OLD);
+  RETURN NULL;
 END;
-$$ LANGUAGE plpgsql;
+$$;
 
 -- ============================================================================
 -- TRIGGERS
@@ -608,23 +633,16 @@ CREATE TRIGGER update_invoices_updated_at BEFORE UPDATE ON invoices
 CREATE TRIGGER update_deliveries_updated_at BEFORE UPDATE ON deliveries
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+-- Invoice items auto-calculation trigger
+CREATE TRIGGER invoice_items_recalc_totals
+  AFTER INSERT OR UPDATE OR DELETE ON invoice_items
+  FOR EACH ROW
+  EXECUTE FUNCTION public.update_invoice_totals();
+
 -- Cashbook validation trigger
 CREATE TRIGGER validate_cashbook_before_change
   BEFORE INSERT OR UPDATE OR DELETE ON cashbook
   FOR EACH ROW EXECUTE FUNCTION validate_cashbook_entry();
-
--- Invoice totals triggers
-CREATE TRIGGER update_invoice_totals_on_item_insert
-  AFTER INSERT ON invoice_items
-  FOR EACH ROW EXECUTE FUNCTION update_invoice_totals();
-
-CREATE TRIGGER update_invoice_totals_on_item_update
-  AFTER UPDATE ON invoice_items
-  FOR EACH ROW EXECUTE FUNCTION update_invoice_totals();
-
-CREATE TRIGGER update_invoice_totals_on_item_delete
-  AFTER DELETE ON invoice_items
-  FOR EACH ROW EXECUTE FUNCTION update_invoice_totals();
 
 -- ============================================================================
 -- ROW LEVEL SECURITY (RLS)
