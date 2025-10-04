@@ -269,20 +269,22 @@ BEGIN
     INSERT INTO invoices (
       tenant_id,
       customer_id,
+      customer_snapshot,
       invoice_number,
       invoice_date,
       due_date,
       status,
       subtotal,
-      vat_amount,
+      total_vat,
       total,
-      notes,
+      customer_notes,
       payment_terms,
       created_by
     )
     VALUES (
       v_tenant_id,
       v_customer_id,
+      '{"name": "Testkunde"}', -- Minimal customer snapshot
       'RE-2024-' || LPAD(i::TEXT, 4, '0'),
       CURRENT_DATE - (i * 3),
       CURRENT_DATE - (i * 3) + INTERVAL '14 days',
@@ -339,7 +341,7 @@ BEGIN
         FROM invoice_items
         WHERE invoice_id = v_invoice_id
       ),
-      vat_amount = (
+      total_vat = (
         SELECT COALESCE(SUM(vat_amount), 0)
         FROM invoice_items
         WHERE invoice_id = v_invoice_id
@@ -347,7 +349,7 @@ BEGIN
     WHERE id = v_invoice_id;
 
     UPDATE invoices
-    SET total = subtotal + vat_amount
+    SET total = subtotal + total_vat
     WHERE id = v_invoice_id;
   END LOOP;
 
@@ -371,7 +373,7 @@ BEGIN
       status,
       subtotal,
       vat_amount,
-      total,
+      total_amount,
       notes,
       created_by
     )
