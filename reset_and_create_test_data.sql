@@ -71,8 +71,8 @@ BEGIN
   DELETE FROM cashbook_entries;
   RAISE NOTICE '   ✓ Gelöscht: cashbook_entries';
 
-  DELETE FROM receipts;
-  RAISE NOTICE '   ✓ Gelöscht: receipts';
+  DELETE FROM receipt_uploads;
+  RAISE NOTICE '   ✓ Gelöscht: receipt_uploads';
 
   DELETE FROM monthly_closings;
   RAISE NOTICE '   ✓ Gelöscht: monthly_closings';
@@ -781,30 +781,31 @@ BEGIN
   v_receipt_ids := ARRAY[]::uuid[];
 
   FOR i IN 1..10 LOOP
-    INSERT INTO receipts (
+    INSERT INTO receipt_uploads (
       tenant_id,
-      receipt_number,
-      receipt_date,
-      vendor_name,
-      category,
-      amount,
-      vat_rate,
-      vat_amount,
-      description,
-      file_url,
+      file_name,
+      file_path,
+      file_size,
+      mime_type,
+      ocr_status,
+      ocr_data,
       created_by
     )
     VALUES (
       v_tenant_id,
-      'BEL-' || LPAD(i::TEXT, 6, '0'),
-      CURRENT_DATE - (i * 7),
-      'Lieferant ' || i,
-      CASE i % 5 WHEN 0 THEN 'fuel' WHEN 1 THEN 'office_supplies' WHEN 2 THEN 'meals' ELSE 'materials' END,
-      ROUND((25 + i * 37.5)::numeric, 2),
-      CASE WHEN i % 3 = 0 THEN 7.00 ELSE 19.00 END,
-      ROUND((25 + i * 37.5) * CASE WHEN i % 3 = 0 THEN 0.07 ELSE 0.19 END, 2),
-      'Beleg ' || i,
-      '/receipts/beleg_' || i || '.pdf',
+      'beleg_' || i || '_scan.pdf',
+      '/receipts/beleg_' || i || '_scan.pdf',
+      (125000 + i * 50000)::bigint,
+      'application/pdf',
+      CASE i % 3 WHEN 0 THEN 'completed' WHEN 1 THEN 'processing' ELSE 'completed' END,
+      CASE WHEN i % 3 != 1 THEN
+        jsonb_build_object(
+          'vendor', 'Lieferant ' || i,
+          'amount', (25 + i * 37.5)::numeric,
+          'date', (CURRENT_DATE - (i * 7))::text,
+          'category', CASE i % 5 WHEN 0 THEN 'fuel' WHEN 1 THEN 'office_supplies' WHEN 2 THEN 'meals' ELSE 'materials' END
+        )
+      ELSE NULL END,
       v_user_id
     )
     RETURNING id INTO v_receipt_id;
