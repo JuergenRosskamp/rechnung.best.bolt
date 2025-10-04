@@ -276,12 +276,44 @@ CREATE TABLE IF NOT EXISTS delivery_positions (
   updated_at timestamptz DEFAULT now()
 );
 
+-- Add missing columns to delivery_positions if table already exists
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'delivery_positions') THEN
+    -- Add billed column if missing
+    IF NOT EXISTS (
+      SELECT 1 FROM information_schema.columns
+      WHERE table_name = 'delivery_positions' AND column_name = 'billed'
+    ) THEN
+      ALTER TABLE delivery_positions ADD COLUMN billed boolean DEFAULT false;
+    END IF;
+
+    -- Add invoice_id column if missing
+    IF NOT EXISTS (
+      SELECT 1 FROM information_schema.columns
+      WHERE table_name = 'delivery_positions' AND column_name = 'invoice_id'
+    ) THEN
+      ALTER TABLE delivery_positions ADD COLUMN invoice_id uuid REFERENCES invoices(id) ON DELETE SET NULL;
+    END IF;
+  END IF;
+END $$;
+
 -- Add indexes for delivery_positions
-CREATE INDEX IF NOT EXISTS idx_delivery_positions_tenant_id ON delivery_positions(tenant_id);
-CREATE INDEX IF NOT EXISTS idx_delivery_positions_customer_id ON delivery_positions(customer_id);
-CREATE INDEX IF NOT EXISTS idx_delivery_positions_article_id ON delivery_positions(article_id);
-CREATE INDEX IF NOT EXISTS idx_delivery_positions_billed ON delivery_positions(tenant_id, billed);
-CREATE INDEX IF NOT EXISTS idx_delivery_positions_timestamp ON delivery_positions(delivery_timestamp);
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'delivery_positions') THEN
+    CREATE INDEX IF NOT EXISTS idx_delivery_positions_tenant_id ON delivery_positions(tenant_id);
+    CREATE INDEX IF NOT EXISTS idx_delivery_positions_customer_id ON delivery_positions(customer_id);
+    CREATE INDEX IF NOT EXISTS idx_delivery_positions_article_id ON delivery_positions(article_id);
+
+    -- Only create billed index if column exists
+    IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'delivery_positions' AND column_name = 'billed') THEN
+      CREATE INDEX IF NOT EXISTS idx_delivery_positions_billed ON delivery_positions(tenant_id, billed);
+    END IF;
+
+    CREATE INDEX IF NOT EXISTS idx_delivery_positions_timestamp ON delivery_positions(delivery_timestamp);
+  END IF;
+END $$;
 
 -- Enable RLS for delivery_positions
 ALTER TABLE delivery_positions ENABLE ROW LEVEL SECURITY;
