@@ -20,7 +20,7 @@
 DO $$
 DECLARE
   v_tenant_id uuid;
-  v_user_id uuid := 'YOUR_AUTH_USER_ID'; -- REPLACE THIS WITH ACTUAL AUTH.USERS.ID
+  v_user_id uuid := '6a053515-108d-4826-946d-577f1767e36f'; -- juergen.rosskamp@gmail.com
   v_subscription_id uuid;
 
   -- Customer IDs
