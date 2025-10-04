@@ -83,6 +83,13 @@ BEGIN
   VALUES ('Musterbau GmbH', 'DE123456789', 'DE999999999', 'Hauptstraße 1', '10115', 'Berlin', 'DE', '+49 30 12345678', 'info@musterbau.de', 'www.musterbau.de', 'Sparkasse Berlin', 'DE89370400440532013000', 'DEUTDEDBBER')
   RETURNING id INTO v_tenant_id;
 
+  -- User (verwende EXISTIERENDEN Auth-User)
+  SELECT id INTO v_user_id FROM auth.users LIMIT 1;
+
+  IF v_user_id IS NULL THEN
+    RAISE EXCEPTION 'FEHLER: Kein User in auth.users gefunden! Bitte zuerst einloggen.';
+  END IF;
+
   INSERT INTO users (id, tenant_id, email, first_name, last_name, role)
   VALUES (gen_random_uuid(), v_tenant_id, 'admin@musterbau.de', 'Max', 'Mustermann', 'admin')
   RETURNING id INTO v_user_id;

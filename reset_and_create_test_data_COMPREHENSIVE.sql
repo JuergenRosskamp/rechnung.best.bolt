@@ -101,12 +101,21 @@ BEGIN
   VALUES ('Musterbau GmbH', 'DE123456789', 'DE999999999', 'Hauptstraße 1', '10115', 'Berlin', 'DE', '+49 30 12345678', 'info@musterbau.de', 'www.musterbau.de', 'Sparkasse Berlin', 'DE89370400440532013000', 'DEUTDEDBBER')
   RETURNING id INTO v_tenant_id;
 
-  -- User
-  INSERT INTO users (id, tenant_id, email, first_name, last_name, role)
-  VALUES (gen_random_uuid(), v_tenant_id, 'admin@musterbau.de', 'Max', 'Mustermann', 'admin')
-  RETURNING id INTO v_user_id;
 
-  RAISE NOTICE '   ✓ Tenant & User erstellt';
+  -- User (verwende EXISTIERENDEN Auth-User - muss eingeloggt sein!)
+  SELECT id INTO v_user_id FROM auth.users LIMIT 1;
+
+  IF v_user_id IS NULL THEN
+    RAISE EXCEPTION 'Kein User gefunden! Bitte zuerst über die App einloggen.';
+  END IF;
+
+  INSERT INTO users (id, tenant_id, email, first_name, last_name, role)
+  SELECT v_user_id, v_tenant_id, au.email, 'Max', 'Mustermann', 'admin'
+  FROM auth.users au WHERE au.id = v_user_id
+  ON CONFLICT (id) DO UPDATE SET tenant_id = EXCLUDED.tenant_id;
+
+  RAISE NOTICE '   ✓ Tenant erstellt & User verknüpft';
+
 
   -- ============================================================================
   -- PHASE 3: KUNDEN (20)
