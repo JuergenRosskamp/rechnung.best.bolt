@@ -428,7 +428,8 @@ BEGIN
       reference,
       cash_balance,
       hash,
-      previous_hash
+      previous_hash,
+      created_by
     )
     VALUES (
       v_tenant_id,
@@ -460,7 +461,8 @@ BEGIN
       'REF-KB-' || LPAD(i::TEXT, 4, '0'),
       1000 + (i * 50), -- Vereinfachter Kassenstand
       MD5('entry_' || i::TEXT), -- Vereinfachter Hash
-      CASE WHEN i = 1 THEN '0' ELSE MD5('entry_' || (i-1)::TEXT) END
+      CASE WHEN i = 1 THEN '0' ELSE MD5('entry_' || (i-1)::TEXT) END,
+      v_user_id
     );
   END LOOP;
 
