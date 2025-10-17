@@ -253,7 +253,63 @@ BEGIN
 END $$;
 
 -- ============================================================================
--- 5. CREATE DELIVERY_POSITIONS TABLE
+-- 5. CREATE DELIVERY_LOCATIONS TABLE
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS delivery_locations (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  tenant_id uuid NOT NULL REFERENCES tenants(id) ON DELETE CASCADE,
+  customer_id uuid NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+  location_name text NOT NULL,
+  street text,
+  city text,
+  postal_code text,
+  country text DEFAULT 'Deutschland',
+  contact_person text,
+  contact_phone text,
+  contact_email text,
+  notes text,
+  is_default boolean DEFAULT false,
+  deleted_at timestamptz,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+
+-- Add indexes for delivery_locations
+CREATE INDEX IF NOT EXISTS idx_delivery_locations_tenant_id ON delivery_locations(tenant_id);
+CREATE INDEX IF NOT EXISTS idx_delivery_locations_customer_id ON delivery_locations(customer_id);
+
+-- Enable RLS for delivery_locations
+ALTER TABLE delivery_locations ENABLE ROW LEVEL SECURITY;
+
+-- RLS policies for delivery_locations
+DO $$
+BEGIN
+  DROP POLICY IF EXISTS "Users can view their tenant delivery locations" ON delivery_locations;
+  CREATE POLICY "Users can view their tenant delivery locations"
+    ON delivery_locations FOR SELECT TO authenticated
+    USING (tenant_id = public.get_user_tenant_id());
+
+  DROP POLICY IF EXISTS "Users can insert their tenant delivery locations" ON delivery_locations;
+  CREATE POLICY "Users can insert their tenant delivery locations"
+    ON delivery_locations FOR INSERT TO authenticated
+    WITH CHECK (tenant_id = public.get_user_tenant_id());
+
+  DROP POLICY IF EXISTS "Users can update their tenant delivery locations" ON delivery_locations;
+  CREATE POLICY "Users can update their tenant delivery locations"
+    ON delivery_locations FOR UPDATE TO authenticated
+    USING (tenant_id = public.get_user_tenant_id());
+
+  DROP POLICY IF EXISTS "Users can delete their tenant delivery locations" ON delivery_locations;
+  CREATE POLICY "Users can delete their tenant delivery locations"
+    ON delivery_locations FOR DELETE TO authenticated
+    USING (tenant_id = public.get_user_tenant_id());
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END $$;
+
+-- ============================================================================
+-- 6. CREATE DELIVERY_POSITIONS TABLE
 -- ============================================================================
 
 CREATE TABLE IF NOT EXISTS delivery_positions (
@@ -345,7 +401,7 @@ EXCEPTION
 END $$;
 
 -- ============================================================================
--- 6. TRIGGERS FOR AUTO-UPDATING STATISTICS
+-- 7. TRIGGERS FOR AUTO-UPDATING STATISTICS
 -- ============================================================================
 
 -- Function to update customer statistics
